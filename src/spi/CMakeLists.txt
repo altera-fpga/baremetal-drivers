@@ -1,0 +1,1 @@
+target_sources(alterametal PRIVATE spi.c spi_internal.c)

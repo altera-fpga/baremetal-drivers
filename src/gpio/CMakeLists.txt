@@ -1,0 +1,1 @@
+target_sources(alterametal PRIVATE gpio.c gpio_internal.c)

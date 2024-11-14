@@ -1,0 +1,5 @@
+add_subdirectory(sanity)
+add_subdirectory(sysmgr)
+add_subdirectory(smmu)
+add_subdirectory(rstmgr)
+add_subdirectory(clkmgr)

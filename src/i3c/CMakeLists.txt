@@ -1,0 +1,1 @@
+target_sources(alterametal PRIVATE i3c.c i3c_internal.c)

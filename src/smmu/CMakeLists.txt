@@ -1,0 +1,1 @@
+target_sources(alterametal PRIVATE smmu.c smmu_internal.c)

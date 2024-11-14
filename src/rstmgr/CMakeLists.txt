@@ -1,0 +1,1 @@
+target_sources(alterametal PRIVATE rstmgr.c rstmgr_internal.c)

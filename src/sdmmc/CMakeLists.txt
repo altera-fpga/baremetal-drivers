@@ -1,0 +1,1 @@
+target_sources(alterametal PRIVATE sdmmc.c sdmmc_internal.c)

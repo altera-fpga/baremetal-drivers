@@ -1,0 +1,126 @@
+
+# atf_base_dir build artifact
+atf_env.simics
+
+# .img files produced by generate_atf_sdimage
+*.img
+
+# VS Code
+.vscode/
+
+# Ninja and cmake intermediates/dependencies
+*.ninja
+*.ninja_log
+*.ninja_deps
+*.cmake
+CMakeCache.txt
+CMakeFiles/
+_deps/
+
+# Makefiles
+Makefile
+!not_shipped/regtest/**/Makefile
+
+# Python venv
+venv/
+
+# build outputs
+build/*/out/
+
+# Standard 'C' and 'C++'.gitignore
+# From: https://github.com/github/gitignore/tree/main @ git commit 4488915
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.slo
+*.lo
+*.obj
+*.elf
+
+# Binaries
+*.bin
+*.hex
+*.ihex
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Fortran modules files
+*.mod
+*.smod
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+# Simics artifacts
+/compiler.mk
+/config.mk
+/targets/
+/.project-properties/
+/bin/
+/documentation
+/GNUmakefile
+/sd.img
+/simics*
+*.~*~
+
+# Coverage artifacts
+coverage.lcov
+
+# Quartus artifacts
+*.sof
+*.jic
+*.rpd
+
+# ATF cloned during test builds
+atf/
+
+# GoogleTest artifacts
+/modules/

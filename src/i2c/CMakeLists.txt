@@ -1,0 +1,1 @@
+target_sources(alterametal PRIVATE i2c.c i2c_internal.c)

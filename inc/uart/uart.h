@@ -1,0 +1,64 @@
+#ifndef UART_H
+#define UART_H
+
+#include <stddef.h>
+#include <stdint.h>
+
+typedef enum {
+    IOCTL_UART_READ_REGS,
+    IOCTL_UART_WRITE_REGS,
+    IOCTL_UART_BAUD_RATE_DIVISOR_GET,
+    IOCTL_UART_BAUD_RATE_DIVISOR_SET,
+    IOCTL_UART_INTERRUPT_ENABLE_GET,
+    IOCTL_UART_INTERRUPT_ENABLE_SET,
+    IOCTL_UART_INTERRUPT_STATUS_GET,
+    IOCTL_UART_LINE_CONTROL_GET,
+    IOCTL_UART_LINE_CONTROL_SET,
+    IOCTL_UART_MODEM_CONTROL_GET,
+    IOCTL_UART_MODEM_CONTROL_SET,
+    IOCTL_UART_LINE_STATUS_GET,
+    IOCTL_UART_MODEM_STATUS_GET,
+    IOCTL_UART_SCRATCH_GET,
+    IOCTL_UART_SCRATCH_SET,
+    IOCTL_UART_SHADOW_RECEIVE_BUFFER_GET,
+    IOCTL_UART_FIFO_ACCESS_GET,
+    IOCTL_UART_FIFO_ACCESS_SET,
+    IOCTL_UART_XMIT_FIFO_READ,
+    IOCTL_UART_RECV_FIFO_WRITE,
+    IOCTL_UART_STATUS_GET,
+    IOCTL_UART_XMIT_FIFO_LEVEL_GET,
+    IOCTL_UART_RECV_FIFO_LEVEL_GET,
+    IOCTL_UART_SW_RESET_SET,
+    IOCTL_UART_SHADOW_RTS_GET,
+    IOCTL_UART_SHADOW_RTS_SET,
+    IOCTL_UART_SHADOW_BREAK_CTRL_GET,
+    IOCTL_UART_SHADOW_BREAK_CTRL_SET,
+    IOCTL_UART_SHADOW_DMA_MODE_GET,
+    IOCTL_UART_SHADOW_DMA_MODE_SET,
+    IOCTL_UART_SHADOW_FIFO_ENABLE_GET,
+    IOCTL_UART_SHADOW_FIFO_ENABLE_SET,
+    IOCTL_UART_SHADOW_RECV_TRIGGER_GET,
+    IOCTL_UART_SHADOW_RECV_TRIGGER_SET,
+    IOCTL_UART_SHADOW_TX_EMPTY_TRIGGER_GET,
+    IOCTL_UART_SHADOW_TX_EMPTY_TRIGGER_SET,
+    IOCTL_UART_HALT_TX_GET,
+    IOCTL_UART_HALT_TX_SET,
+    IOCTL_UART_DMA_SW_ACK_SET,
+    IOCTL_UART_COMPONENT_PARAMETER_GET,
+    IOCTL_UART_COMPONENT_VERSION_GET,
+    IOCTL_UART_COMPONENT_TYPE_GET,
+
+    // adding new elements before this line
+    IOCTL_UART_END
+} uart_ioctl_op_t;
+
+int32_t uart_open(const char *path, int32_t flags);
+int32_t uart_close(int32_t fd);
+size_t uart_read(int32_t fd, uintptr_t buf, size_t count);
+size_t uart_recv(int32_t fd, uintptr_t buf, size_t count, int32_t flags);
+size_t uart_write(int32_t fd, const uintptr_t buf, size_t count);
+size_t uart_send(int32_t fd, const uintptr_t buf, size_t count, int32_t flags);
+int32_t uart_ioctl(int32_t fd, int32_t request, uintptr_t arg, size_t length);
+int32_t uart_error(int32_t fd);
+
+#endif // UART_H

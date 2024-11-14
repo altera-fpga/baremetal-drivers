@@ -1,0 +1,42 @@
+add-directory "%script%"
+
+$hps_reset_vector = 0x0
+$fsbl_elf_filename = "build/aarch64/out/smmu_test_ocram.elf"
+$fsbl_image_filename = "build/aarch64/out/smmu_test_ocram.bin"
+
+output-radix base = 16
+
+
+run-command-file (sim->workspace + "/targets/sm-hps/agilex5e-universal.simics")
+
+enable-debugger
+add-symbol-file $fsbl_elf_filename
+
+$bp_ID = (bp.memory.break -x (dbg0.sym-address "exit"))
+
+echo "setting up coverage"
+
+$coverage_object = (collect-coverage context-query="/system/'board.fpga.soc_inst.hps_subsys.agilex_hps.core[0]'" name=mycov)
+
+echo "starting test"
+
+script-branch {
+    echo "Waiting for the test to complete"
+    run
+    bp.wait-for-breakpoint $bp_ID
+    echo "Reached exit"
+    stop
+
+    $test_result_value = ($system.board.fpga.soc_inst.hps_subsys.agilex_hps.core[0].read-reg X0)
+    if(sim->batch_mode == TRUE) {
+        mycov.add-functions
+        mycov.disassemble
+        mycov.add-source-info
+        mycov.lcov-output output="%script%/coverage.lcov"
+        run 1 s
+        exit $test_result_value
+    } else {
+        echo -n "Test return value: "
+        echo $test_result_value
+    }
+}

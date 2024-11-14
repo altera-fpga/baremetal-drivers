@@ -1,0 +1,69 @@
+#ifndef I2C_H
+#define I2C_H
+
+#include <stddef.h>
+#include <stdint.h>
+
+typedef enum {
+    IOCTL_I2C_REGS_READ,
+    IOCTL_I2C_REGS_WRITE,
+    IOCTL_I2C_SET_MASTER_MODE,
+    IOCTL_I2C_GET_MASTER_MODE,
+    IOCTL_I2C_SET_TARGET_ADDR,
+    IOCTL_I2C_GET_INTSTAT,
+    IOCTL_I2C_GET_INTSTAT_RAW,
+    IOCTL_I2C_GET_INTMASK,
+    IOCTL_I2C_SET_INTMASK,
+    IOCTL_I2C_INTCLR,
+    IOCTL_I2C_SET_ENABLE,
+    IOCTL_I2C_GET_ENABLE,
+    IOCTL_I2C_GET_STATUS,
+    IOCTL_I2C_SET_TX_FIFO_THRESH,
+    IOCTL_I2C_GET_TX_FIFO_THRESH,
+    IOCTL_I2C_GET_TX_FIFO_LVL,
+    IOCTL_I2C_SET_RX_FIFO_TRESH,
+    IOCTL_I2C_GET_RX_FIFO_THRESH,
+    IOCTL_I2C_GET_RX_FIFO_LVL,
+    IOCTL_I2C_SET_TENBIT_ADDR_MODE,
+    IOCTL_I2C_SET_DMA_MODE,
+    IOCTL_I2C_SET_DMA_TX_FIFO_TRIGGER_LEVEL,
+    IOCTL_I2C_GET_DMA_TX_FIFO_TRIGGER_LEVEL,
+    IOCTL_I2C_SET_DMA_RX_FIFO_TRIGGER_LEVEL,
+    IOCTL_I2C_GET_DMA_RX_FIFO_TRIGGER_LEVEL,
+    IOCTL_I2C_SET_STD_SCL_HIGHTIME,
+    IOCTL_I2C_SET_STD_SCL_LOWTIME,
+    IOCTL_I2C_SET_FAST_SCL_HIGHTIME,
+    IOCTL_I2C_SET_FAST_SCL_LOWTIME,
+    IOCTL_I2C_SET_TX_SDA_HOLD,
+    IOCLT_I2C_GET_TX_SDA_HOLD,
+    IOCTL_I2C_SET_RX_SDA_HOLD,
+    IOCTL_I2C_GET_RX_SDA_HOLD,
+    IOCTL_I2C_SET_SDA_SETUP,
+    IOCTL_I2C_GET_SDA_SETUP,
+    IOCTL_I2C_SET_GENERAL_CALL_ENABLE,
+    IOCTL_I2C_SET_GENERAL_CALL_ACK,
+    IOCTL_I2C_SET_SLAVE_NACK,
+    IOCTL_I2C_CLR_ABORT,
+    IOCTL_I2C_GET_ABORTS,
+    IOCTL_I2C_SET_SPIKE_SUPPRESSION,
+    IOCTL_I2C_GET_SPIKE_SUPPRESSION,
+    IOCTL_I2C_CLR_RESTART_DETECT,
+    IOCTL_I2C_GET_ENABLE_STATUS,
+    IOCTL_I2C_GET_PARAM,
+    IOCTL_I2C_GET_VERSION,
+    IOCTL_I2C_GET_TYPE,
+
+    // adding new elements before this line
+    IOCTL_I2C_END
+} i2c_ioctl_op_t;
+
+int32_t i2c_open(const char *name, int32_t flags);
+int32_t i2c_close(int32_t fd);
+size_t i2c_recv(int32_t fd, uintptr_t buf, size_t size, int32_t flags);
+size_t i2c_read(int32_t fd, uintptr_t buf, size_t size);
+size_t i2c_send(int32_t fd, const uintptr_t buf, size_t size, int32_t flags);
+size_t i2c_write(int32_t fd, const uintptr_t buf, size_t size);
+int32_t i2c_ioctl(int32_t fd, int32_t request, uintptr_t arg, size_t length);
+int32_t i2c_error(int32_t fd);
+
+#endif // I2C_H

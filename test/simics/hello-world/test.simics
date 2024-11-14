@@ -1,0 +1,48 @@
+add-directory "%script%"
+
+$hps_reset_vector = 0x0
+$fsbl_elf_filename = "build/aarch64/out/printf_hello_world_ocram.elf"
+$fsbl_image_filename = "build/aarch64/out/printf_hello_world_ocram.bin"
+
+output-radix base = 16
+
+
+run-command-file (sim->workspace + "/targets/sm-hps/agilex5e-universal.simics")
+
+enable-debugger
+add-symbol-file $fsbl_elf_filename
+
+$coverage_object = (collect-coverage context-query="/system/'board.fpga.soc_inst.hps_subsys.agilex_hps.core[0]'" name=mycov)
+
+$con = $system.board.fpga.soc_inst.hps_subsys.agilex_hps.console0.con
+
+$bp_ID = (bp.console_string.break $con -regexp "__(PASS|FAIL)__")
+
+bp.exception.break -all
+
+script-branch {
+    echo "Waiting for the test to complete"
+    $con.record-start
+    run
+    bp.wait-for-breakpoint $bp_ID
+    stop
+    echo "Test Complete -- Reached exit"
+
+    $test_result_value = ($system.board.fpga.soc_inst.hps_subsys.agilex_hps.core[0].read-reg X0)
+    $test_output = ($con.record-stop)
+    if(sim->batch_mode == TRUE) {
+        mycov.add-functions
+        mycov.disassemble
+        mycov.add-source-info
+        mycov.lcov-output output="%script%/coverage.lcov"
+        run 1 s
+        if (match-string "__PASS__\\s*$" $test_output) {
+            exit 0
+        } else {
+            exit $test_result_value
+        }
+    } else {
+        echo -n "Test return value: "
+        echo $test_result_value
+    }
+}

@@ -70,14 +70,13 @@ SECTIONS
 	__edata = .;
 	_edata = .;
 
-	.bss : ALIGN(4096) {
-		PROVIDE(__bss_start__ = .);
-		*(.bss)
-		*(.bss*)
-		*(COMMON)
-		. = ALIGN(4096);
-		PROVIDE(__bss_end__ = .);
-	} > data
+	. = ALIGN(4096);
+
+	__bss_start__ = .;
+	.bss : { *(.bss) } > data
+	__bss_end__ = .;
+
+	. = ALIGN(4096);
 
 	end = .;
 	_end = .;

@@ -1,0 +1,34 @@
+$fsbl_image_filename = build/hello_world.bin
+
+run-command-file targets/sm-hps/agilex5e-universal.simics
+
+enable-debugger
+
+add-symbol-file build/hello_world.elf
+
+$con = $system.board.fpga.soc_inst.hps_subsys.agilex_hps.console0.con
+bp.exception.break -all
+
+script-branch {
+    echo "Waiting for the test to complete"
+    $con.record-start
+    run
+    bp.memory.wait-for (dbg0.sym-address "_exit")
+    stop
+
+    $test_result_value = ($system.board.fpga.soc_inst.hps_subsys.agilex_hps.core[0].read-reg X0)
+    $test_output = ($con.record-stop)
+    echo $test_output
+
+    echo "Test Complete -- Exiting..."
+    if(sim->batch_mode == TRUE) {
+        if (match-string "Hello, World" $test_output) {
+            exit 0
+        } else {
+            exit $test_result_value
+        }
+    } else {
+        echo -n "Test return value: "
+        echo $test_result_value
+    }
+}

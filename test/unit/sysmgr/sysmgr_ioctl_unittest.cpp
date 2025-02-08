@@ -2,6 +2,8 @@
 #include "sysmgr_regs.h"
 #include "gtest/gtest.h"
 
+#include "sysmgr_ioctl_expectations.h"
+
 class SysmgrTest : public ::testing::TestWithParam<int> {
   protected:
     void SetUp() override {
@@ -25,8 +27,6 @@ TEST_F(SysmgrTest, IoctlAllRegsRead) {
     result = sysmgr_ioctl(fd, ioctlCode, (uintptr_t)(&value), sizeof(uint32_t));
     EXPECT_NE(result, 0); // Fails as provided data length is too small
 
-    // Add assertions to check the side effects of each IOCTL
-
     sysmgr_close(fd);
 }
 
@@ -42,12 +42,10 @@ TEST_F(SysmgrTest, IoctlAllRegsWrite) {
     result = sysmgr_ioctl(fd, ioctlCode, (uintptr_t)(&value), sizeof(uint32_t));
     EXPECT_NE(result, 0); // Fails as provided data length is too small
 
-    // Add assertions to check the side effects of each IOCTL
-
     sysmgr_close(fd);
 }
 
-TEST_P(SysmgrTest, IoctlNotAllRegs) {
+TEST_P(SysmgrTest, IoctlEachIoctlSeparately) {
     int32_t fd = sysmgr_open("/dev/sysmgr", 0);
     ASSERT_GE(fd, 0);
 
@@ -56,10 +54,16 @@ TEST_P(SysmgrTest, IoctlNotAllRegs) {
     int32_t result = sysmgr_ioctl(fd, ioctlCode, (uintptr_t)(&value), sizeof(uint32_t));
     EXPECT_EQ(result, 0);
 
+    ASSERT_NO_THROW({
+        std::optional<int32_t> expectedValue = sysmgr_ioctl_expectations.at(static_cast<sysmgr_ioctl_op_t>(ioctlCode));
+        if (expectedValue.has_value()) {
+            EXPECT_EQ(value, expectedValue.value());
+        }
+    }) << "No expectation set for ioctl code "
+       << ioctlCode;
+
     result = sysmgr_ioctl(fd, ioctlCode, (uintptr_t)(&value), 0);
     EXPECT_NE(result, 0); // Fails as provided data length is too small
-
-    // Add assertions to check the side effects of each IOCTL
 
     sysmgr_close(fd);
 }

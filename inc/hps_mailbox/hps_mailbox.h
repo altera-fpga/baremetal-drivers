@@ -1,6 +1,10 @@
 #ifndef HPS_MAILBOX_H__
 #define HPS_MAILBOX_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stddef.h>
 #include <stdint.h>
 
@@ -31,6 +35,7 @@ enum {
     IOCTL_MBOX_CMD_SET_UAE_FLAG,
     IOCTL_MBOX_CMD_SET_DBELL_TOSDM,
     IOCTL_MBOX_CMD_SET_DBELL_TOHPS,
+    IOCTL_MBOX_CMD_SET_URG,
 
     // RESET HPS MAILBOX
     IOCTL_MBOX_CMD_RESET_HPS_MBOX,
@@ -103,5 +108,7 @@ int32_t hps_mbox_close(int32_t base_add);
  *                length "expected length of the register to be read or written to
  */
 int32_t hps_mbox_ioctl(int32_t base_add, int32_t operation, uintptr_t user_data, size_t length);
-
+#ifdef __cplusplus
+}
+#endif
 #endif // HPS_MAILBOX_H__

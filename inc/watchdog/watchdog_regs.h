@@ -18,21 +18,22 @@
 #pragma message "Assuming the native endianness is little endian"
 #endif
 
-#include "system.h"
+#include "hps_address_map.h"
 
 /*
  * structure yielding access to both watchdog timer parameters worda
  */
 typedef struct __attribute__((packed)) __attribute__((aligned(4))) {
-    volatile uint32_t wdt_cr;           // Offset 0x00
-    volatile uint32_t wdt_torr;         // Offset 0x04
-    volatile uint32_t wdt_ccvr;         // Offset 0x08
-    volatile uint32_t wdt_crr;          // Offset 0x0C
-    volatile uint32_t wdt_stat;         // Offset 0x10
-    volatile uint32_t wdt_eoi;          // Offset 0x14
-    volatile uint32_t wdt_comp_param_1; // Offset 0xf4
-    volatile uint32_t wdt_comp_version; // Offset 0xf8
-    volatile uint32_t wdt_comp_type;    // Offset 0xfc
+    volatile uint32_t wdt_cr;               // Offset 0x00
+    volatile uint32_t wdt_torr;             // Offset 0x04
+    volatile uint32_t wdt_ccvr;             // Offset 0x08
+    volatile uint32_t wdt_crr;              // Offset 0x0C
+    volatile uint32_t wdt_stat;             // Offset 0x10
+    volatile uint32_t wdt_eoi;              // Offset 0x14
+    volatile uint32_t __pad__0x18_0xf0[55]; // Offset 0x18-0xf0
+    volatile uint32_t wdt_comp_param_1;     // Offset 0xf4
+    volatile uint32_t wdt_comp_version;     // Offset 0xf8
+    volatile uint32_t wdt_comp_type;        // Offset 0xfc
 } watchdog_regs_words_t;
 
 /*

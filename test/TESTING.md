@@ -6,7 +6,7 @@ Tests execute in a model of Agilex5e that is provided by the Intel® Simics® Si
 
 ## Hardware Tests
 
-Tests also are executed on hardware platforms to verify silicon behavior. Current testing coverage is limited to uart, watchdog, and timers.
+Tests also are executed on hardware platforms to verify silicon behavior
 
 ## Test Coverage
 

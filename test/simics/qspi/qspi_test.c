@@ -74,7 +74,7 @@ int main(void) {
             return_value = 0;
             printf("qspi Verified initial read all 0\n");
         } else {
-            printf("qspi Failed initial read\n");
+            printf("qspi Failed initial read, observerd: 0x%lx\n", (qspi_receive_buffer >> 32));
         }
 
         // Erase the A5 sector
@@ -105,10 +105,11 @@ int main(void) {
         } else {
             return_value = -1;
             printf("qspi test miscompare\n");
-            printf("Expected: 0xFFFFFFFF\n");
-            char s[1024];
-            sprintf(s, "Observed: %#lX", qspi_receive_buffer);
-            puts(s);
+            // printf("Expected: 0xFFFFFFFF\n");
+            printf("Expected: 0xFFFFFFFF, observed: 0x%lx\n", (qspi_receive_buffer >> 32));
+            // char s[1024];
+            // sprintf(s, "Observed: 0x%lx", (qspi_receive_buffer>> 32));
+            // puts(s);
         }
     }
     return return_value;

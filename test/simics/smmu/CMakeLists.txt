@@ -26,6 +26,7 @@ else()
 endif()
 
 generate_bin_file(smmu_test_ocram.elf)
+generate_bin_file(smmu_test.elf)
 
 target_include_directories(smmu_test.elf PRIVATE
     ${PROJECT_SOURCE_DIR}/inc/uart

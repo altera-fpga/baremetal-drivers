@@ -118,6 +118,7 @@ coverage.lcov
 *.sof
 *.jic
 *.rpd
+*.rbf
 
 # ATF cloned during test builds
 atf/

@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#include "system.h"
+#include "hps_address_map.h"
 
 // I3C Command & Reesponse Data structure
 #define I3C_RESP_DATA_LENGTH_MASK (uint32_t)(0x0000FFFFU)

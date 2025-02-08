@@ -4,7 +4,7 @@
 #include "device.h"
 #include <stdint.h>
 
-#include "system.h"
+#include "hps_address_map.h"
 
 typedef struct {
     volatile uint32_t gpio_swporta_dr;    /* GPIO_GPIO_SWPORTA_DR */

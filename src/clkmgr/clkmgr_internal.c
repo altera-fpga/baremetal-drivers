@@ -14,7 +14,7 @@ int32_t clkmgr_regs_read(uintptr_t arg) {
 int32_t clkmgr_regs_write(uintptr_t arg) {
     uint32_t *regs = (uint32_t *)arg;
     uint32_t *base = (uint32_t *)HPS_CLKMGR_REGS_BASE;
-    for (uint32_t i = 0; i < (sizeof(hps_clkmgr_mainpll_regs_t) / sizeof(uint32_t)); i++) {
+    for (uint32_t i = 0; i < (sizeof(hps_clkmgr_regs_t) / sizeof(uint32_t)); i++) {
         base[i] = regs[i];
     }
     return 0;
@@ -47,7 +47,7 @@ int32_t clkmgr_mainpll_regs_write(uintptr_t arg) {
 int32_t clkmgr_perpll_regs_read(uintptr_t arg) {
     uint32_t *regs = (uint32_t *)arg;
     uint32_t *base = (uint32_t *)HPS_CLKMGR_PERPLL_REGS_BASE;
-    for (uint32_t i = 0; i < (sizeof(hps_clkmgr_regs_t) / sizeof(uint32_t)); i++) {
+    for (uint32_t i = 0; i < (sizeof(hps_clkmgr_perpll_regs_t) / sizeof(uint32_t)); i++) {
         regs[i] = base[i];
     }
     return 0;
@@ -56,7 +56,7 @@ int32_t clkmgr_perpll_regs_read(uintptr_t arg) {
 int32_t clkmgr_perpll_regs_write(uintptr_t arg) {
     uint32_t *regs = (uint32_t *)arg;
     uint32_t *base = (uint32_t *)HPS_CLKMGR_PERPLL_REGS_BASE;
-    for (uint32_t i = 0; i < (sizeof(hps_clkmgr_mainpll_regs_t) / sizeof(uint32_t)); i++) {
+    for (uint32_t i = 0; i < (sizeof(hps_clkmgr_perpll_regs_t) / sizeof(uint32_t)); i++) {
         base[i] = regs[i];
     }
     return 0;

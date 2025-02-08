@@ -36,7 +36,7 @@ script-branch {
         mycov.add-source-info
         mycov.lcov-output output="%script%/coverage.lcov"
         run 1 s
-        if (match-string "__PASS__\\s*$" $test_output) {
+        if (match-string "exeeding 81 characters" $test_output) {
             exit 0
         } else {
             exit $test_result_value

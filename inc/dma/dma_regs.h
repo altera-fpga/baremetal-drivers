@@ -1,7 +1,7 @@
 #ifndef DMA_REGS_H__
 #define DMA_REGS_H__
 
-#include "system.h"
+#include "hps_address_map.h"
 
 #define DMA_CFG_ENABLE_OFST (uint64_t)(0)
 #define DMA_CFG_ENABLE_MASK (uint64_t)((uint64_t)(0x1) << DMA_CFG_ENABLE_OFST)
@@ -39,6 +39,8 @@
 #define DMA_CHx_INTSTS_DMA_TFR_DONE 0x2
 #define DMA_CHx_INTSTS_SRC_TRANSCOMP 0x8
 #define DMA_CHx_INTSTS_DST_TRANSCOMP 0x10
+
+#define DMA_CHx_STATUS_CMPLTD_BLK_MASK (uint64_t)(0x1FFFF)
 
 typedef struct __attribute__((packed)) __attribute__((aligned(8))) {
     volatile uint64_t SAR;                  // Offset 0x00

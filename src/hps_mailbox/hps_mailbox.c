@@ -109,6 +109,7 @@ int32_t hps_mbox_ioctl(int32_t base_add, int32_t operation, uintptr_t user_data,
             break;
 
         // Get value from response buffer
+        // This should only be used if acting as the SDM
         case IOCTL_MBOX_CMD_GET_RBUF_VAL:
             ret_val = read_word_rsp_buf(base_add, cmd_data);
             break;
@@ -209,24 +210,47 @@ int32_t hps_mbox_ioctl(int32_t base_add, int32_t operation, uintptr_t user_data,
             ret_val = hps_set_dbell_tosdm(base_add, *cmd_data);
             break;
 
-        // increment the CIN address
+            /* increment the CIN address
+             * Note:
+             *    This method is designed to be called after writing to the command buffer.
+             *    Executing this out of sequence WILL CAUSE issues
+             */
         case IOCTL_MBOX_CMD_INC_CIN_ADDR:
             ret_val = hps_autoinc_cin(base_add);
             break;
 
-        // increment the COUT address
+            /* increment the COUT address
+             * Note:
+             *    This method is designed to be called after reading from the command buffer.
+             *    Executing this out of sequence WILL CAUSE issues
+             *    This should only be used if acting as the SDM
+             */
         case IOCTL_MBOX_CMD_INC_COUT_ADDR:
             ret_val = hps_autoinc_cout(base_add);
             break;
 
-        // increment the RIN address
+            /* increment the RIN address
+             * Note:
+             *    This method is designed to be called after writing to the response buffer.
+             *    Executing this out of sequence WILL CAUSE issues
+             *    This should only be used if acting as the SDM
+             */
         case IOCTL_MBOX_CMD_INC_RIN_ADDR:
             ret_val = hps_autoinc_rin(base_add);
             break;
 
-        // increment the ROUT address
+            /* increment the ROUT address
+             * Note:
+             *    This method is designed to be called after reading from the response buffer.
+             *    Executing this out of sequence WILL CAUSE issues
+             */
         case IOCTL_MBOX_CMD_INC_ROUT_ADDR:
             ret_val = hps_autoinc_rout(base_add);
+            break;
+
+        // Set urgent command
+        case IOCTL_MBOX_CMD_SET_URG:
+            ret_val = set_hps_urg(base_add, *cmd_data);
             break;
 
         // Set the doorbell to HPS

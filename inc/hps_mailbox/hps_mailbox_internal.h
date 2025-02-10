@@ -1,6 +1,10 @@
 #ifndef HPS_MAILBOX_INTERNAL_H
 #define HPS_MAILBOX_INTERNAL_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stddef.h>
 #include <stdint.h>
 
@@ -111,6 +115,11 @@ int32_t hps_set_uae_flag(int32_t base_address, uint32_t wparam);
 int32_t hps_set_rie_flag(int32_t base_address, uint32_t wparam);
 
 /*
+ * set RIE flag  "RIN update interrupt enable"
+ */
+int32_t set_hps_urg(int32_t base_address, uint32_t wparam);
+
+/*
  * set COE flag "Clearing this flag is the only thing the HPS should be doing
  */
 int32_t hps_set_coe_flag(int32_t base_address, uint32_t wparam);
@@ -172,4 +181,7 @@ uintptr_t get_nxtr_write_ofst(int32_t base_address);
  */
 uintptr_t get_nxtr_read_ofst(int32_t base_address);
 
+#ifdef __cplusplus
+}
+#endif
 #endif // HPS_MAILBOX_INTERNAL_H

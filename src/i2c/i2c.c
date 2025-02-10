@@ -75,6 +75,9 @@ int32_t i2c_ioctl(int32_t fd, int32_t request, uintptr_t arg, size_t length) {
         case (IOCTL_I2C_REGS_WRITE):
             return_value = i2c_regs_write(base, arg, length);
             break;
+        case (IOCTL_I2C_SET_CON):
+            return_value = i2c_set_con(base, arg, length);
+            break;
         case (IOCTL_I2C_SET_MASTER_MODE):
             return_value = i2c_set_master_mode(base, arg, length);
             break;

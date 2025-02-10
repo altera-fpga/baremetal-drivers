@@ -22,6 +22,10 @@ int32_t stdout_uart_fd = 0;
 
 int _fstat(int fildes, struct stat *st);
 
+// NOTE: This function is called BEFORE the BSS is zero-initialized.
+// That means it, and its callees, cannot use non-explicitly-initialized
+// static/global variables. If you must use a static/global variable in this
+// function, initialize it explicitly.
 void _cpu_init_hook() {
     uint64_t current_el = (uint64_t)0;
     asm volatile("mrs %0, CurrentEL" : "=r"(current_el));
@@ -144,41 +148,26 @@ int _open(char *file, int flags, int mode) {
     return -1;
 }
 
-int puts(const char *s) {
-    errno = ENOSYS;
-    if (stdout_uart_fd > 0) {
-        size_t length = (size_t)(strlen(s));
-        int count = uart_write((int32_t)(stdout_uart_fd), (uintptr_t)(s), length);
-
-        // CRLF is required for UART purposes
-        length = (size_t)(strlen("\r\n"));
-        count += uart_write((int32_t)(stdout_uart_fd), (uintptr_t) "\r\n", length);
-        return count;
-    } else {
-        return 0;
-    }
-}
-
-int putchar(int c) {
-    errno = ENOSYS;
-    if (stdout_uart_fd > 0) {
-        unsigned char s[1] = {(unsigned char)c};
-        int count = uart_write((int32_t)(stdout_uart_fd), (uintptr_t)(s), 1);
-        if (count > 0) {
-            return (int)(s[0]);
-        } else {
-            return EOF;
-        }
-    } else {
-        return EOF;
-    }
-}
-
 int _write(int file, char *ptr, int len) {
     // debug(__FUNCTION__);
     errno = ENOSYS;
     if (stdout_uart_fd > 0) {
-        return uart_write((int32_t)(stdout_uart_fd), (uintptr_t)(ptr), (size_t)(len));
+        // UART requires CRLF instead of LF
+        // count LFs
+        int newline_count = 0, i, j;
+        for (i = 0; i < len; ++i) {
+            newline_count += (ptr[i] == '\n');
+        }
+        // allocate space for as many extra CRs
+        char unix2dos[len + newline_count];
+        for (i = 0, j = 0; i < len; ++i) {
+            // insert CR before LF where not already present
+            if (ptr[i] == '\n' && (i <= 0 || ptr[i - 1] != '\r')) {
+                unix2dos[j++] = '\r';
+            }
+            unix2dos[j++] = ptr[i];
+        }
+        return uart_write((int32_t)(stdout_uart_fd), (uintptr_t)(unix2dos), (size_t)(j));
     } else {
         return 0;
     }

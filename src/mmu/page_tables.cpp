@@ -52,6 +52,7 @@ typedef uint64_t page_table_entry_t;
 
 // Define identity page table entries. Below we define MAIR to be 0xFF for entry 0 and 0x04 for entry 1
 // Herein, we use two levels of page tables so we can flag the OCRAM as normal memory.
+// Explicitly zero-initialized to avoid being overwritten in the BSS after setup_level2_page0()
 page_table_entry_t level2_page0[512] __attribute__((aligned(4096))) = {0};
 
 page_table_entry_t level1_pages[] __attribute__((aligned(4096))) = {

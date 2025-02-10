@@ -11,8 +11,9 @@ int main(void) {
     const char i2c_initiator[] = "/dev/i2c0";
 
     const uint8_t i2c_mem_addr = 0x57;
-    const char i2c_test_stream[] = {'1', '2', '3', '4', '5', '\0'};
-    char i2c_receive_buffer[sizeof(i2c_test_stream)];
+    const uint8_t buffer_size = 5;
+    const uint8_t i2c_test_stream[] = {'1', '2', '3', '4', '5'};
+    uint8_t i2c_receive_buffer[buffer_size];
 
     int32_t rstmgr_handle = rstmgr_open(reset_manager, 0);
     if (rstmgr_handle < 0) {
@@ -31,40 +32,45 @@ int main(void) {
         return_value = i2c_handle;
         printf("I2C0 failed open\n");
     } else {
-        i2c_ioctl(i2c_handle, (int32_t)IOCTL_I2C_SET_MASTER_MODE, 1, 0);
+        uint32_t param = 0x0;
+        i2c_ioctl(i2c_handle, (int32_t)IOCTL_I2C_SET_ENABLE, (uintptr_t)&param, sizeof(uint32_t));
+        param = 0x43;
+        i2c_ioctl(i2c_handle, (int32_t)IOCTL_I2C_SET_CON, (uintptr_t)&param, sizeof(uint32_t));
         printf("I2C0 set to master mode\n");
-        i2c_ioctl(i2c_handle, (int32_t)IOCTL_I2C_SET_TARGET_ADDR, 0x54, 0);
+        param = 0x54;
+        i2c_ioctl(i2c_handle, (int32_t)IOCTL_I2C_SET_TARGET_ADDR, (uintptr_t)&param, sizeof(uint32_t));
         printf("I2C0 set target address\n");
-        i2c_ioctl(i2c_handle, (int32_t)IOCTL_I2C_SET_ENABLE, 1, 0);
+        param = 0x1;
+        i2c_ioctl(i2c_handle, (int32_t)IOCTL_I2C_SET_ENABLE, (uintptr_t)&param, sizeof(uint32_t));
         printf("I2C0 enabled\n");
 
-        for (uint32_t i = 0; i < sizeof(i2c_test_stream); i++) {
-            uint32_t temp_buffer = (((uint32_t)i2c_test_stream[i]) << (uint32_t)8) | (i2c_mem_addr + i);
-            i2c_write(i2c_handle, (const uintptr_t)(&temp_buffer), 2);
+        for (uint32_t i = 0; i < buffer_size; i++) {
+            uint8_t temp_buffer[2] = {i2c_mem_addr + i, i2c_test_stream[i]};
+            i2c_write(i2c_handle, (uintptr_t)(&temp_buffer), 1);
         }
 
         printf("I2C0 wrote test stream\n");
 
-        for (uint32_t i = 0; i < sizeof(i2c_test_stream); i++) {
-            uint32_t temp_buffer = (i2c_mem_addr + i);
-            i2c_read(i2c_handle, (const uintptr_t)(&temp_buffer), 2);
-            i2c_receive_buffer[i] = (uint8_t)(temp_buffer & (uint32_t)0xFF);
+        for (uint32_t i = 0; i < buffer_size; i++) {
+            uint8_t temp_buffer = (i2c_mem_addr + i);
+            i2c_read(i2c_handle, (uintptr_t)(&temp_buffer), 1);
+            i2c_receive_buffer[i] = temp_buffer;
         }
         printf("I2C0 read test stream\n");
 
-        if (strcmp(i2c_test_stream, i2c_receive_buffer) == 0) {
+        if (memcmp(i2c_test_stream, i2c_receive_buffer, buffer_size) == 0) {
             return_value = 0;
             printf("I2C test passed\n");
         } else {
             return_value = -1;
             printf("I2C test miscompare\n");
             printf("Expected: ");
-            for (uint32_t i = 0; i < sizeof(i2c_test_stream); i++) {
+            for (uint32_t i = 0; i < buffer_size; i++) {
                 putchar((int)(i2c_test_stream[i]));
             }
             printf("\n");
             printf("Observed: ");
-            for (uint32_t i = 0; i < sizeof(i2c_receive_buffer); i++) {
+            for (uint32_t i = 0; i < buffer_size; i++) {
                 putchar((int)(i2c_receive_buffer[i]));
             }
             printf("\n");

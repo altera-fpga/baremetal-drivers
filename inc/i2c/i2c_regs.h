@@ -4,12 +4,13 @@
 #include "device.h"
 #include <stdint.h>
 
-#include "system.h"
+#include "hps_address_map.h"
 
 #define I2C_CMD_DATA_RESTART ((uint32_t)(1) << (uint32_t)(10))
 #define I2C_CMD_DATA_STOP ((uint32_t)(1) << (uint32_t)(9))
 #define I2C_CMD_DATA_CMD_READ ((uint32_t)(1) << (uint32_t)(8))
 #define I2C_CMD_DATA_CMD_WRITE ((uint32_t)(0) << (uint32_t)(8))
+#define I2C_CMD_STATUS_TFE ((uint32_t)(1) << (uint32_t)(2))
 
 typedef struct __attribute__((packed)) __attribute__((aligned(4))) {
     volatile uint32_t I2C_CON;                /* 0x00: I2C_CON */

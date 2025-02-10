@@ -4,7 +4,7 @@
 #include "device.h"
 #include <stdint.h>
 
-#include "system.h"
+#include "hps_address_map.h"
 
 // arm_gicd_regs_t -- GIC Distributor Registers
 // also used for accessing GICDA registers

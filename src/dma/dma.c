@@ -177,7 +177,7 @@ int32_t dma_ioctl(int32_t fd, int32_t operation, uintptr_t args, size_t length, 
         case IOCTL_DMA_CFG_GET:
             return_value = dma_get_cfg_reg(fd, args);
             break;
-        case IOCTL_DMA_CHENREG_EN_SET:
+        case IOCTL_DMA_CHENREG_SET:
             return_value = dma_set_chen_enable_reg(fd, args);
             break;
         case IOCTL_DMA_CHENREG_GET:

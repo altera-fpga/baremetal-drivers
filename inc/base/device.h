@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "system.h"
+#include "hps_address_map.h"
 
 typedef struct {
     const char *name;

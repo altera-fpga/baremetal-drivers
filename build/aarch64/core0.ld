@@ -70,12 +70,14 @@ SECTIONS
 	__edata = .;
 	_edata = .;
 
-	. = ALIGN(4096);
-
-	__bss_start__ = .;
-	.bss : { *(.bss) } > data
-	. = ALIGN(4096);
-	__bss_end__ = .;
+	.bss : ALIGN(4096) {
+		PROVIDE(__bss_start__ = .);
+		*(.bss)
+		*(.bss*)
+		*(COMMON)
+		. = ALIGN(4096);
+		PROVIDE(__bss_end__ = .);
+	} > data
 
 	. = ALIGN(4096);
 
@@ -88,5 +90,5 @@ SECTIONS
 	__stack = .;
 	. = ALIGN(4096);
 
-	__heap_start = 0xC0000000;
+	__heap_start = 0x80500000;
 }

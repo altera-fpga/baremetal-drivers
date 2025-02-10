@@ -1,7 +1,7 @@
 #ifndef QSPI_REGS_H__
 #define QSPI_REGS_H__
 
-#include "system.h"
+#include "hps_address_map.h"
 
 #define QSPI_CFG_BAUD_RATE_DIV_OFST (uint32_t)(19)
 #define QSPI_CFG_BAUD_RATE_DIV_MASK (uint32_t)((uint32_t)(0xF) << QSPI_CFG_BAUD_RATE_DIV_OFST)

@@ -7,8 +7,10 @@
 #include "hps_mailbox_regs.h"
 
 /*
-This code controls a cadence SDM MAILBOX controller for an Altera Agilex5e HPS
-*/
+ * This code controls a cadence SDM MAILBOX controller for an Altera Agilex5e HPS
+ * NOTES:
+ *       base_address is expected to already have been verified thus within this file it's "trusted"
+ */
 
 /* Initialization Methods */
 
@@ -88,7 +90,7 @@ int32_t get_hps_cin(int32_t base_address, uint32_t *rparam) {
     // Get value only if base address is valid
     if (ptr_mbox_reg != NULL) {
 
-        // return command input address
+        // return command input offset
         *rparam = (uint32_t)ptr_mbox_reg->hps_mbox_cin;
 
         // Set return value to succes
@@ -463,7 +465,7 @@ int32_t set_cur_rout_addr(int32_t base_address, uint32_t wparam) {
 
     if (ptr_mbox_reg != NULL) {
         // return command input address
-        ptr_mbox_reg->hps_mbox_cout = wparam;
+        ptr_mbox_reg->hps_mbox_rout = wparam;
 
         // set return value to success
         ret_val = 0;
@@ -574,6 +576,25 @@ int32_t hps_set_rie_flag(int32_t base_address, uint32_t wparam) {
 }
 
 /*
+ * Set mailbox URG "urgent command" value
+ */
+int32_t set_hps_urg(int32_t base_address, uint32_t wparam) {
+
+    int32_t ret_val = -1;
+    // Get pointer to HPS mailbox elements
+    hps_mailbox_regs_words_t *ptr_mbox_reg = (hps_mailbox_regs_words_t *)base_address;
+
+    // Get value only if base address is valid
+    if (ptr_mbox_reg != NULL) {
+        ptr_mbox_reg->hps_mbox_urg = wparam;
+
+        // set return value to success
+        ret_val = 0;
+    }
+    return ret_val;
+}
+
+/*
  * set UAE flag  "Urgent ACK interrupt enable"
  */
 int32_t hps_set_uae_flag(int32_t base_address, uint32_t wparam) {
@@ -636,6 +657,9 @@ int32_t hps_set_dbell_tohps(int32_t base_address, uint32_t wparam) {
 
 /*
  * Increment the CIN Address
+ * Note:
+ *    This method is designed to be called after writing to the command buffer.
+ *    Executing this out of sequence WILL CAUSE issues
  */
 int32_t hps_autoinc_cin(int32_t base_address) {
 
@@ -680,13 +704,13 @@ int32_t hps_autoinc_cin(int32_t base_address) {
 int32_t hps_autoinc_cout(int32_t base_address) {
 
     int32_t ret_val = -1;
-
+    uint32_t buf_sz_max_ofst = (HPS_COMMAND_BUF_SIZE - (uint32_t)1);
     // Get pointer to HPS mailbox elements
     hps_mailbox_regs_words_t *ptr_mbox_reg = (hps_mailbox_regs_words_t *)base_address;
 
     if (ptr_mbox_reg != NULL) {
         // Increment COUT register to the next word
-        if (ptr_mbox_reg->hps_mbox_cout <= (HPS_COMMAND_BUF_SIZE - (uint32_t)1)) {
+        if (ptr_mbox_reg->hps_mbox_cout < buf_sz_max_ofst) {
             if (ptr_mbox_reg->hps_mbox_cout == (uint32_t)ptr_mbox_reg->hps_mbox_cin) {
                 // Set return value to special error "there is no space"
                 ret_val = -2;
@@ -760,15 +784,20 @@ int32_t hps_autoinc_rin(int32_t base_address) {
 
 /*
  * Increment the ROUT Address
+ * Note:
+ *    This method is designed to be called after reading from the response buffer.
+ *    Executing this out of sequence WILL CAUSE issues
  */
 int32_t hps_autoinc_rout(int32_t base_address) {
 
     int32_t ret_val = -1;
+    uint32_t buf_sz_max_ofst = (HPS_RESPONSE_BUF_SIZE - (uint32_t)1);
+
     // Get pointer to HPS mailbox elements
     hps_mailbox_regs_words_t *ptr_mbox_reg = (hps_mailbox_regs_words_t *)base_address;
     if (ptr_mbox_reg != NULL) {
         // Increment ROUT register to the next word
-        if (ptr_mbox_reg->hps_mbox_rout < ((HPS_RESPONSE_BUF_SIZE - (uint32_t)1))) {
+        if (ptr_mbox_reg->hps_mbox_rout < buf_sz_max_ofst) {
             if (ptr_mbox_reg->hps_mbox_rout == (uint32_t)ptr_mbox_reg->hps_mbox_rin) {
                 // This is a special error there is no space on the device
                 ret_val = -2;
@@ -782,7 +811,7 @@ int32_t hps_autoinc_rout(int32_t base_address) {
         } else {
             // ROUT is set to the last offset so lets examine if there is any space at the beginning of the buffer to
             // write relative to RIN
-            if (ptr_mbox_reg->hps_mbox_rin == (uint32_t)0) {
+            if (ptr_mbox_reg->hps_mbox_rin == (uint32_t)buf_sz_max_ofst) {
 
                 // set return value to special error "there is no space to write"
                 ret_val = -2;

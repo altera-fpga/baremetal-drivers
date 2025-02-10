@@ -8,7 +8,7 @@ extern "C" {
 #include "device.h"
 #include <stdint.h>
 
-#include "system.h"
+#include "hps_address_map.h"
 
 typedef struct __attribute__((packed)) __attribute__((aligned(4))) {
     volatile uint32_t stat;                 /* RSTMGR_STAT */

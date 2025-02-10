@@ -11,6 +11,7 @@ uint32_t i2c_clear_error_state(uintptr_t base);
 
 int32_t i2c_regs_read(uintptr_t base, uintptr_t arg, size_t length);
 int32_t i2c_regs_write(uintptr_t base, uintptr_t arg, size_t length);
+int32_t i2c_set_con(uintptr_t base, uintptr_t arg, size_t length);
 int32_t i2c_set_master_mode(uintptr_t base, uintptr_t arg, size_t length);
 int32_t i2c_get_master_mode(uintptr_t base, uintptr_t arg, size_t length);
 int32_t i2c_set_target_addr(uintptr_t base, uintptr_t arg, size_t length);

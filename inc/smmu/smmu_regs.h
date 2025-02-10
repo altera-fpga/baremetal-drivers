@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#include "system.h"
+#include "hps_address_map.h"
 
 #define TCU_NODE_CTRL_OFFSET (uint32_t)(0x9000)
 #define TCU_NODE_STATUS_OFFSET (uint32_t)(0x9400)

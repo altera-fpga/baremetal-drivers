@@ -61,10 +61,14 @@ SECTIONS
 	_edata = .;
 
 
-	__bss_start__ = .;
-	.bss : { *(.bss) }
-	. = ALIGN(4096);
-	__bss_end__ = .;
+	.bss : ALIGN(4096) {
+		PROVIDE(__bss_start__ = .);
+		*(.bss)
+		*(.bss*)
+		*(COMMON)
+		. = ALIGN(4096);
+		PROVIDE(__bss_end__ = .);
+	} > data
 
 	end = .;
 	_end = .;

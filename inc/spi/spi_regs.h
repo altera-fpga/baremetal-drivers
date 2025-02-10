@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#include "system.h"
+#include "hps_address_map.h"
 
 #define spi_CTRLR0_FRF_BIT_OFST ((uint32_t)(21))
 #define spi_CTRLR0_FRF_MASK ((uint32_t)(((uint32_t)0x3) << spi_CTRLR0_FRF_BIT_OFST))

@@ -10,6 +10,8 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 # Googletest requires gnu++23 rather than c++23, so specify as compile option
 add_compile_options(
     $<$<COMPILE_LANGUAGE:CXX>:-std=gnu++23>
+    $<$<COMPILE_LANGUAGE:CXX>:-fno-use-cxa-atexit>
+    $<$<COMPILE_LANGUAGE:CXX>:-fno-zero-initialized-in-bss>
     )
 
 # Default to Debug build type
@@ -60,6 +62,7 @@ add_compile_options(
     -DGTEST_HAS_RTTI=0
     -DGTEST_HAS_STREAM_REDIRECTION=0
     -DGTEST_HAS_STDWSTRING=0
+    -DGTEST_HAS_FILE_SYSTEM=0
     )
 
 # Fetch the googletest code

@@ -1,5 +1,6 @@
 set(spi_TEST_SRC_FILES
     spi_test.c
+    ${PROJECT_SOURCE_DIR}/helpers/fsbl_boot_help.c
     ${PROJECT_SOURCE_DIR}/helpers/mylibc.cpp
     ${PROJECT_SOURCE_DIR}/src/mmu/page_tables.cpp
     ${PROJECT_SOURCE_DIR}/src/base/device.c
@@ -12,17 +13,16 @@ set(spi_TEST_SRC_FILES
     )
 
 add_executable(spi_test.elf EXCLUDE_FROM_ALL ${spi_TEST_SRC_FILES})
-
 add_executable(spi_test_ocram.elf EXCLUDE_FROM_ALL ${spi_TEST_SRC_FILES})
 
 add_dependencies(test spi_test.elf spi_test_ocram.elf)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_options(spi_test.elf PRIVATE ${DEFAULT_C_FLAGS_DEBUG})
-    target_compile_options(spi_test_ocram.elf PRIVATE ${DEFAULT_C_FLAGS_DEBUG})
+    target_compile_options(spi_test_ocram.elf PRIVATE -DFSBL_EXECUTION ${DEFAULT_C_FLAGS_DEBUG})
 else()
     target_compile_options(spi_test.elf PRIVATE ${DEFAULT_C_FLAGS_RELEASE})
-    target_compile_options(spi_test_ocram.elf PRIVATE ${DEFAULT_C_FLAGS_RELEASE})
+    target_compile_options(spi_test_ocram.elf PRIVATE -DFSBL_EXECUTION ${DEFAULT_C_FLAGS_RELEASE})
 endif()
 
 generate_bin_file(spi_test_ocram.elf)
@@ -34,6 +34,7 @@ target_include_directories(spi_test.elf PRIVATE
     ${PROJECT_SOURCE_DIR}/inc/spi
     ${PROJECT_SOURCE_DIR}/inc/base
     ${PROJECT_SOURCE_DIR}/inc/mmu
+    ${PROJECT_SOURCE_DIR}/helpers/inc
     ${PROJECT_SOURCE_DIR}/inc
     )
 
@@ -43,6 +44,7 @@ target_include_directories(spi_test_ocram.elf PRIVATE
     ${PROJECT_SOURCE_DIR}/inc/spi
     ${PROJECT_SOURCE_DIR}/inc/base
     ${PROJECT_SOURCE_DIR}/inc/mmu
+    ${PROJECT_SOURCE_DIR}/helpers/inc
     ${PROJECT_SOURCE_DIR}/inc
     )
 
@@ -54,7 +56,7 @@ if(BUILD_ARM)
 
     target_link_options( spi_test_ocram.elf PRIVATE
         -T ${PROJECT_SOURCE_DIR}/build/aarch64/core0_ocram.ld
-        --specs=nosys.specs -mstrict-align
+        --specs=nosys.specs -mstrict-align -Wl,-Map=${PROJECT_SOURCE_DIR}/test/simics/spi/spi_test_ocram.map 
     )
 else()
         target_link_options( spi_test.elf PRIVATE
@@ -66,6 +68,6 @@ else()
     target_link_options( spi_test_ocram.elf PRIVATE
         -T ${PROJECT_SOURCE_DIR}/build/rv32/core0_ocram.ld
         -march=rv32imac_zicsr_zba_zbb_zifencei -mabi=ilp32
-        --specs=nosys.specs
+        --specs=nosys.specs -Wl,-Map=${PROJECT_SOURCE_DIR}/test/simics/spi/spi_test_ocram.map 
     )
 endif()

@@ -15,6 +15,9 @@
 #pragma message "Assuming the native endianness is little endian"
 #endif
 
+// HPS Client ID
+#define HPS_CLIENT_CHANNEL 2
+
 // Noted as external_master_mailbox within "i_mailbox_0x10A3_0000" documentation
 #define HPS_MAILBOX_BASE 0x10A30000
 #define HPS_MBOX_CMD_BUF_BASE 0x10A30040
@@ -37,12 +40,12 @@
  * structure denoting the base header elements for message
  */
 typedef struct __attribute__((packed)) __attribute__((aligned(4))) {
-    volatile uint32_t hps_mbox_cer_cd : 11; // Offset 0x00 "command/err code"
-    volatile uint32_t hps_mbox_ind : 1;     // Offset 0x00 "Indirect versus direct indicator"
-    volatile uint32_t hps_mbox_size : 11;   // Offset 0x00 "total count/length"
-    volatile uint32_t hps_mbox_cksm : 1;    // Offset 0x00 "Checksum present bit"
-    volatile uint32_t hps_mbox_cmd_id : 4;  // Offset 0x00 "command ID"
-    volatile uint32_t hps_mbox_ch_cl : 4;   // Offset 0x00 "client/Channel ID"
+    volatile uint32_t hps_mbox_cer_cd : 11; // Offset 0x00 B0  - B10 "command/err code"
+    volatile uint32_t hps_mbox_ind : 1;     // Offset 0x00 B11       "Indirect versus direct indicator"
+    volatile uint32_t hps_mbox_size : 11;   // Offset 0x00 B12 - B22 "total count/length"
+    volatile uint32_t hps_mbox_cksm : 1;    // Offset 0x00 B23       "Checksum present bit"
+    volatile uint32_t hps_mbox_cmd_id : 4;  // Offset 0x00 B24 - B27 "command ID"
+    volatile uint32_t hps_mbox_ch_cl : 4;   // Offset 0x00 B28 - B31 "client/Channel ID"
 } hps_mailbox_base_header_bits_t;
 
 /*

@@ -7,5 +7,5 @@ add_subdirectory(smmu)
 add_subdirectory(rstmgr)
 add_subdirectory(clkmgr)
 add_subdirectory(hps_mailbox)
+add_subdirectory(spi)
 add_subdirectory(watchdog)
-

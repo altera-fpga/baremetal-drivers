@@ -10,6 +10,12 @@
 #endif // __aarch64__
 #endif // __cplusplus
 
+// General register defines
+#define REGISTER_UNUSED (uint32_t)(0)
+#define REGISTER_READ_ONLY (uint32_t)(1)
+#define REGISTER_WRITE_ONLY (uint32_t)(2)
+#define REGISTER_RW (uint32_t)(3)
+
 // Base address of the HPS address range (default to 0)
 #ifndef HPS_BASE_ADDRESS
 #define HPS_BASE_ADDRESS (0)
@@ -42,6 +48,7 @@
 #define QSPI_SRAM_BASE HPS_OFST_TO_ADDR(0x10900000)
 #define QSPI_SRAM_BASE_OFFSET ((uint32_t)QSPI_SRAM_BASE - (uint32_t)QSPI_BASE)
 
+#define ECC0_BASE HPS_OFST_TO_ADDR(0x108C0000)
 #define UART0_BASE HPS_OFST_TO_ADDR(0X10C02000)
 #define UART1_BASE HPS_OFST_TO_ADDR(0X10C02100)
 #define I2C0_BASE HPS_OFST_TO_ADDR(0X10C02800)

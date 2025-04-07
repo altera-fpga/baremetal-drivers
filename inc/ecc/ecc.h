@@ -1,0 +1,76 @@
+#ifndef ECC_H__
+#define ECC_H__
+
+#include <stddef.h>
+#include <stdint.h>
+
+// IOCTL commands for getting and setting ecc registers
+typedef enum {
+    IOCTL_ECC_READ_REGS,
+    IOCTL_ECC_WRITE_REGS,
+    IOCTL_ECC_GET_IP_REV_ID,
+    IOCTL_ECC_GET_IP_REV_ID2,
+    IOCTL_ECC_GET_CTRL,
+    IOCTL_ECC_SET_CTRL,
+    IOCTL_ECC_GET_INITSTAT,
+    IOCTL_ECC_SET_INITSTAT,
+    IOCTL_ECC_GET_ERRINTEN,
+    IOCTL_ECC_SET_ERRINTEN,
+    IOCTL_ECC_GET_ERRINTENS,
+    IOCTL_ECC_SET_ERRINTENS,
+    IOCTL_ECC_GET_ERRINTENR,
+    IOCTL_ECC_SET_ERRINTENR,
+    IOCTL_ECC_GET_INTMODE,
+    IOCTL_ECC_SET_INTMODE,
+    IOCTL_ECC_GET_INTSTAT,
+    IOCTL_ECC_SET_INTSTAT,
+    IOCTL_ECC_GET_INTTEST,
+    IOCTL_ECC_SET_INTTEST,
+    IOCTL_ECC_GET_MODSTAT,
+    IOCTL_ECC_SET_MODSTAT,
+    IOCTL_ECC_GET_DERRADDRA,
+    IOCTL_ECC_GET_SERRADDRA,
+    IOCTL_ECC_GET_DERRADDRB,
+    IOCTL_ECC_GET_SERRADDRB,
+    IOCTL_ECC_GET_SERRCNTREG,
+    IOCTL_ECC_SET_SERRCNTREG,
+    IOCTL_ECC_GET_ECC_ADDRBUS,
+    IOCTL_ECC_SET_ECC_ADDRBUS,
+    IOCTL_ECC_GET_ECC_RDATA0BUS,
+    IOCTL_ECC_GET_ECC_RDATA1BUS,
+    IOCTL_ECC_GET_ECC_RDATA2BUS,
+    IOCTL_ECC_GET_ECC_RDATA3BUS,
+    IOCTL_ECC_SET_ECC_WDATA0BUS,
+    IOCTL_ECC_SET_ECC_WDATA1BUS,
+    IOCTL_ECC_SET_ECC_WDATA2BUS,
+    IOCTL_ECC_SET_ECC_WDATA3BUS,
+    IOCTL_ECC_GET_ECC_RDATAECC0BUS,
+    IOCTL_ECC_GET_ECC_RDATAECC1BUS,
+    IOCTL_ECC_SET_ECC_WDATAECC0BUS,
+    IOCTL_ECC_SET_ECC_WDATAECC1BUS,
+    IOCTL_ECC_GET_ECC_DBYTECTRL,
+    IOCTL_ECC_SET_ECC_DBYTECTRL,
+    IOCTL_ECC_GET_ECC_ACCCTRL,
+    IOCTL_ECC_SET_ECC_ACCCTRL,
+    IOCTL_ECC_GET_ECC_STARTACC,
+    IOCTL_ECC_SET_ECC_STARTACC,
+    IOCTL_ECC_GET_ECC_WDCTRL,
+    IOCTL_ECC_SET_ECC_WDCTRL,
+    IOCTL_ECC_GET_ECC_DECODERSTAT,
+    IOCTL_ECC_SET_ECC_DECODERSTAT,
+    IOCTL_ECC_GET_SERRLKUPA0,
+    IOCTL_ECC_SET_SERRLKUPA0,
+    IOCTL_ECC_GET_SERRLKUPB0,
+    IOCTL_ECC_SET_SERRLKUPB0,
+} ecc_ioctl_t;
+
+int32_t ecc_open(const char *path, int32_t flags);
+int32_t ecc_close(int32_t base_add);
+size_t ecc_read(int32_t base_add, uintptr_t user_data, size_t length);
+size_t ecc_recv(int32_t base_add, uintptr_t user_data, size_t length, int32_t flags);
+size_t ecc_write(int32_t base_add, uintptr_t user_data, size_t length);
+size_t ecc_send(int32_t base_add, uintptr_t user_data, size_t size, int32_t flags);
+int32_t ecc_ioctl(int32_t base_add, int32_t operation, uintptr_t user_data, size_t length);
+int32_t ecc_error(int32_t base_add);
+
+#endif // ECC_H

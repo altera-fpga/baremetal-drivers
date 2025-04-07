@@ -205,7 +205,7 @@ TEST_F(ClkmgrTest, IoctlClkmgrCtlGrpRegsRead) {
     int32_t fd = clkmgr_open("/dev/clkmgr", 0);
     ASSERT_GE(fd, 0);
 
-    int32_t ioctlCode = IOCTL_CLKMGR_CTLGRP_READ;
+    int32_t ioctlCode = IOCTL_CLKMGR_CTLGRP_REGS_READ;
     hps_clkmgr_ctlgrp_regs_t value = {0};
     int32_t result = clkmgr_ioctl(fd, ioctlCode, (uintptr_t)(&value));
     EXPECT_EQ(result, 0);
@@ -219,7 +219,7 @@ TEST_F(ClkmgrTest, IoctlClkmgrCtlGrpRegsWrite) {
     int32_t fd = clkmgr_open("/dev/clkmgr", 0);
     ASSERT_GE(fd, 0);
 
-    int32_t ioctlCode = IOCTL_CLKMGR_CTLGRP_WRITE;
+    int32_t ioctlCode = IOCTL_CLKMGR_CTLGRP_REGS_WRITE;
     hps_clkmgr_ctlgrp_regs_t value = {0};
     int32_t result = clkmgr_ioctl(fd, ioctlCode, (uintptr_t)(&value));
     EXPECT_EQ(result, 0);

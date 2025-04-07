@@ -4,6 +4,10 @@
 #include <stddef.h>
 #include <stdint.h>
 
+// Common defines
+#define SPI_IDR 0x05510000
+#define SPI_SSI_VERSION_ID 0x3430302A
+
 typedef enum {
     IOCTL_SPI_REGS_READ,
     IOCTL_SPI_REGS_WRITE,

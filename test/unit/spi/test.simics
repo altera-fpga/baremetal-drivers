@@ -1,0 +1,51 @@
+add-directory "%script%"
+
+run-command-file (sim->workspace + "/atf_env.simics")
+
+$hps_reset_vector = 0x0
+$fsbl_image_filename = $atf_base_dir + "/build/agilex5/release/bl2.bin"
+$fsbl_elf_file = $atf_base_dir + "/build/agilex5/release/bl2/bl2.elf"
+$sd_image_filename = "sd.img"
+$bl31_elf_file = $atf_base_dir + "/build/agilex5/release/bl31/bl31.elf"
+
+$application_elf_file = "build/aarch64/out/rstmgr_unittest.elf"
+
+output-radix base = 16
+
+add-directory (env FPGA_SIMICS_ROOT) + "/repo/fpga-soc/test"
+run-command-file (sim->workspace + "/targets/sm-hps/agilex5e-universal.simics")
+
+enable-debugger
+add-symbol-file $fsbl_elf_file
+add-symbol-file $bl31_elf_file
+add-symbol-file $application_elf_file
+
+$bp_ID = (bp.memory.break -x (dbg0.sym-address "exit"))
+
+bp.exception.break -all
+
+echo "setting up coverage"
+
+$coverage_object = (collect-coverage context-query="/system/'board.fpga.soc_inst.hps_subsys.agilex_hps.core[0]'" name=mycov)
+
+echo "starting test"
+
+script-branch {
+    echo "Waiting for the test to complete"
+    run
+    bp.wait-for-breakpoint $bp_ID
+    echo "Reached exit"
+    stop
+    $test_result_value = ($system.board.fpga.soc_inst.hps_subsys.agilex_hps.core[0].read-reg X0)
+    if(sim->batch_mode == TRUE) {
+        mycov.add-functions
+        mycov.disassemble
+        mycov.add-source-info
+        mycov.lcov-output output="%script%/coverage.lcov"
+        run 1 s
+        exit $test_result_value
+    } else {
+        echo -n "Test return value: "
+        echo $test_result_value
+    }
+}

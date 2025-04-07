@@ -321,6 +321,7 @@ int32_t get_hps_dbell_val(int32_t base_address, uint32_t *rparam) {
     // Get value only if base address is valid
     if (ptr_mbox_reg != NULL) {
         *rparam = ptr_mbox_reg->hps_mbox_dbell_tohps.hps_mbox_dbell_active;
+        ret_val = 0;
     }
     return ret_val;
 }

@@ -1,4 +1,5 @@
 #include "sysmgr.h"
+#include "sysmgr_regs.h"
 #include "gtest/gtest.h"
 
 class SysmgrTest : public ::testing::Test {
@@ -33,4 +34,19 @@ TEST_F(SysmgrTest, CloseValidFd) {
 TEST_F(SysmgrTest, CloseInvalidFd) {
     int32_t result = sysmgr_close(-1);
     ASSERT_EQ(result, -1);
+}
+
+// Lets validate that the elements of the Core Structure are in place via verification of the ending offset and 2 random
+// offsets within the core structure
+TEST_F(SysmgrTest, ElementVerification) {
+    // CORE Element Unit Test Start
+    int32_t result = static_cast<int32_t>(offsetof(sysmgr_regs_t, siliconid1));
+    EXPECT_EQ(result, static_cast<int32_t>(0));
+
+    result = static_cast<int32_t>(offsetof(sysmgr_regs_t, sdmmc_cmd_queue_setting_reg));
+    EXPECT_EQ(result, static_cast<int32_t>(0x138));
+
+    // Verify comp type
+    result = static_cast<int32_t>(offsetof(sysmgr_regs_t, sdm_be_araddr_remap));
+    EXPECT_EQ(result, static_cast<int32_t>(0x284));
 }

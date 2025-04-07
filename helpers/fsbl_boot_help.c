@@ -26,6 +26,9 @@ extern "C" {
 #define SOCFPGA_SDMMC_SECU_L4SYS_ADDR (SOCFPGA_L4_SYS_SCR_REG_BASE + SOCFPGA_SDMMC_SECU_BIT_OFST)
 #define SOCFPGA_LWSOC2FPGA_ENABLE (0xffe0301)
 
+// Copy of the handoff data
+uint32_t handoff_array[FSBL_HANDOFF_SIZE] = {0xFFFFFFFF};
+
 // This typically is already opened as it's needed for printf
 extern int32_t stdout_uart_fd;
 
@@ -37,11 +40,56 @@ extern int32_t stdout_uart_fd;
  * Note:
  *   These const setup all elments of our pinmux array. for details of how what value
  *   means search here
- *"https://www.intel.com/content/www/us/en/programmable/hps/agilex5/hps.html#topics/memorymap_ExportedMemMap.html"
+ *  "https://www.intel.com/content/www/us/en/programmable/hps/agilex5/hps.html#topics/memorymap_ExportedMemMap.html"
  */
 
-// The offsets below will be used in the future in other pinmux related setup components
 // clang-format off
+#define PINMUX_SELECTION_ARRAY_SIZE (48)
+#define PINMUX_SELECTION_STRUCT_SIZE (PINMUX_SELECTION_ARRAY_SIZE *2) // The selection array structure contains the offset and pinmux value 
+
+#define PINMUX_IODELAY_ARRAY_SIZE   (48)
+#define PINMUX_IODELAY_STRUCT_SIZE  (PINMUX_IODELAY_ARRAY_SIZE * 2) // The io delay array structure contains pinmux offset and pinmux value
+
+#define PINMUX_CTRL_ARRAY_SIZE      (48)
+#define PINMUX_CTRL_STRUCT_SIZE     (PINMUX_CTRL_ARRAY_SIZE * 2) // The CTRL array structure contains pinmux offset and pinmux value
+
+#define PINMUX_FPGA_ARRAY_SIZE      (22)
+#define PINMUX_FPGA_STRUCT_SIZE     (PINMUX_FPGA_ARRAY_SIZE * 2) // The FPGA strcut contains pinmux offset and pinmux value
+
+#define UART_TX_OFFSET              (2)
+#define UART_RX_OFFSET              (3)
+#define UART_PINMUX_SEL_VAL         (0x00000005)
+#define UART_TX_PINMUX_CTRL_VAL     (0x00000024) // pull up 8mA drive strength, fast slew rate, TTL no hysteresis, Weak Pull up 20kohm
+#define UART_RX_PINMUX_CTRL_VAL     (0x00000022) // pull up 4mA drive strength, slow slew rate, TTL no hysteresis, Weak Pull up 20kohm
+
+// PINMUX MASKS
+#define PINMUX_SELECT_RSV_MASK      (0xFFFFFFF0)
+#define PINMUX_SELECT_SET_MASK      (0x0000000F)
+
+#define PINMUX_DELAY_RSV_MASK       (0xFFFF8080)
+#define PINMUX_DELAY_SET_MASK       (0x00007F7F)
+
+#define PINMUX_IOCTRL_RSV_MASK      (0xFFFFFC00)
+#define PINMUX_IOCTRL_SET_MASK      (0x000003FF)
+
+#define PINMUX_FPGA_USE_RSV_MASK    (0xFFFFFFFE)
+#define PINMUX_FPGA_USE_SET_MASK    (0x00000001)
+
+/*
+ * The relationship between each offset and the HPS 1048 PINOUT is as such
+ *      IOA01 = pinmux_sel_offset[0] or pin0sel, pinmux_ioctrl_offset[0] or io0ctrl & pinmux_iodelay_offset[0] or io0_delay
+ *      IOA02 = pinmux_sel_offset[1] or pin1sel, pinmux_ioctrl_offset[1] or io1ctrl & pinmux_iodelay_offset[1] or io1_delay
+ *      ................................................................................
+ *      IOB01 = pinmux_sel_offset[24] or pin24sel, pinmux_ioctrl_offset[24] or io24ctrl & pinmux_iodelay_offset[24] or io24_delay
+ *      IOB02 = pinmux_sel_offset[25] or pin25sel, pinmux_ioctrl_offset[25] or io25ctrl & pinmux_iodelay_offset[25] or io25_delay
+ *
+ * All the items for pinmux_fpga_offset should be 0 as this denotes that the pin will be used by HPS
+ *
+ * For an understanding of pinmux values see "https://www.intel.com/content/www/us/en/programmable/hps/agilex5/topics/addressblock_Pin_Mux_summary.html"
+ * For an understanding of how the pinmux values link to the HPS 1048 PINOUT see the "SM72 Premium DevKit HAS"
+ */
+
+// The offsets below will be used in the future in other pinmux related setup components 
 /*
  *
  * pinmux Offset values for pinmux selection
@@ -176,7 +224,9 @@ static const uint32_t pinmux_fpga_offset[] = {
     0x00000044,
     0x00000048,
     0x00000050,
-    0x00000054
+    0x00000054,
+    0x000001c0,
+    0x000001c4
 };
 
 /*
@@ -234,6 +284,7 @@ static const uint32_t pinmux_iodelay_offset[] = {
     0x0000011c
 };
 
+#ifdef USE_HARDCODED_DEFAULT
 // Default pinmux select array "Currently 48 (pinmux_default_cfg_t) elements here"
 // Each elemt of this array is structured as such relative to pinmux registers:
 //  offset, value
@@ -419,6 +470,47 @@ static const pinmux_default_cfg_t sysmgr_pinmux_array_iodelay[] = {
 	{pinmux_iodelay_offset[45],	 0x00000000},
 	{pinmux_iodelay_offset[46],	 0x00000000},
 	{pinmux_iodelay_offset[47],	 0x00000000}};
+
+/*
+ * config_pinmux configures pinmux value to default known values
+ * Notes:
+ *  The main concern is ensuring that uart0 is selected as output pin for the select array
+ */
+static void config_pinmux(void) {
+
+    // Iterator
+    uint32_t i;
+
+    /* Configure the pin selection */
+    for (i = 0; i < sizeof(sysmgr_pinmux_array_sel) / sizeof(sysmgr_pinmux_array_sel[0]); i++) {
+        mem_quick_write_32(AGX5_PINMUX_PIN0SEL + sysmgr_pinmux_array_sel[i].pinmux_reg_ofst,
+                           sysmgr_pinmux_array_sel[i].pinmux_value);
+    }
+
+    /* Configure the pin control */
+    for (i = 0; i < sizeof(sysmgr_pinmux_array_ctrl) / sizeof(sysmgr_pinmux_array_ctrl[0]); i++) {
+        mem_quick_write_32(AGX5_PINMUX_IO0CTRL + sysmgr_pinmux_array_ctrl[i].pinmux_reg_ofst,
+                           sysmgr_pinmux_array_ctrl[i].pinmux_value);
+    }
+
+    /*
+     * Configure the FPGA use.
+     * The actual generic handoff contains extra 4 elements, and these 4 elements
+     * are not applicable to the Agilex5 platform. Writing these extra 4 elements
+     * will cause the system to crash, so let's avoid writing them here.
+     */
+    for (i = 0; i < sizeof(sysmgr_pinmux_array_fpga) / sizeof(sysmgr_pinmux_array_fpga[0]); i++) {
+        mem_quick_write_32(AGX5_PINMUX_EMAC0_USEFPGA + sysmgr_pinmux_array_fpga[i].pinmux_reg_ofst,
+                           sysmgr_pinmux_array_fpga[i].pinmux_value);
+    }
+
+    /* Configure the IO delay */
+    for (i = 0; i < sizeof(sysmgr_pinmux_array_iodelay) / sizeof(sysmgr_pinmux_array_iodelay[0]); i++) {
+        mem_quick_write_32(AGX5_PINMUX_IO0_DELAY + sysmgr_pinmux_array_iodelay[i].pinmux_reg_ofst,
+                           sysmgr_pinmux_array_iodelay[i].pinmux_value);
+    }
+}
+#endif // USE_HARDCODED_DEFAULT
 // clang-format on
 
 // Quick helper method to return value of address
@@ -488,50 +580,80 @@ static int32_t uart_fsbl_init(uint32_t base) {
 }
 
 /*
- * config_pinmux configures pinmux value to default known values
+ * pinmux_handoff_config to the values noted in HPS_HANDOFF area
  * Notes:
- * 	This only works at el3.
  *  The main concern is ensuring that uart0 is selected as output pin for the select array
  */
-static void config_pinmux(void) {
+bool pinmux_handoff_config(pinmux_update_group_t array_to_update, pinmux_default_cfg_t *pmux_cfg_ptr) {
 
     // Iterator
     uint32_t i;
-
-    /* Configure the pin selection */
-    for (i = 0; i < sizeof(sysmgr_pinmux_array_sel) / sizeof(sysmgr_pinmux_array_sel[0]); i++) {
-        mem_quick_write_32(AGX5_PINMUX_PIN0SEL + sysmgr_pinmux_array_sel[i].pinmux_reg_ofst,
-                           sysmgr_pinmux_array_sel[i].pinmux_value);
+    bool ret_val = false;
+    if (pmux_cfg_ptr != NULL) {
+        switch (array_to_update) {
+        case UPDATE_SEL_ARRAY:
+            /* Configure the pin selection */
+            for (i = 0; i < PINMUX_SELECTION_ARRAY_SIZE; i++) {
+                if ((i == UART_TX_OFFSET) || (i == UART_RX_OFFSET)) {
+                    // update selection for UART0
+                    pmux_cfg_ptr[i].pinmux_value = UART_PINMUX_SEL_VAL;
+                }
+                mem_quick_write_32(AGX5_PINMUX_PIN0SEL + pinmux_sel_offset[i], pmux_cfg_ptr[i].pinmux_value);
+            }
+            ret_val = true;
+            break;
+        case UPDATE_CTRL_ARRAY:
+            /* Configure the pin control */
+            for (i = 0; i < PINMUX_CTRL_ARRAY_SIZE; i++) {
+                if (i == UART_TX_OFFSET) {
+                    pmux_cfg_ptr[i].pinmux_value = UART_TX_PINMUX_CTRL_VAL;
+                }
+                if (i == UART_RX_OFFSET) {
+                    pmux_cfg_ptr[i].pinmux_value = UART_RX_PINMUX_CTRL_VAL;
+                }
+                mem_quick_write_32(AGX5_PINMUX_IO0CTRL + pinmux_ioctrl_offset[i], pmux_cfg_ptr[i].pinmux_value);
+            }
+            ret_val = true;
+            break;
+        case UPDATE_FPGA_ARRAY:
+            /*
+             * Configure the FPGA use.
+             * The actual generic handoff contains extra 4 elements, and these 4 elements
+             * are not applicable to the Agilex5 platform. Writing these extra 4 elements
+             * will cause the system to crash, so let's avoid writing them here.
+             */
+            for (i = 0; i < PINMUX_FPGA_ARRAY_SIZE; i++) {
+                if ((i == UART_TX_OFFSET) || (i == UART_RX_OFFSET)) {
+                    // update selection for UART0
+                    // Value always 0 for HPS
+                    pmux_cfg_ptr[i].pinmux_value = 0;
+                }
+                mem_quick_write_32(AGX5_PINMUX_EMAC0_USEFPGA + pinmux_fpga_offset[i], pmux_cfg_ptr[i].pinmux_value);
+            }
+            ret_val = true;
+            break;
+        case UPDATE_IO_DELAY:
+            /* Configure the IO delay */
+            for (i = 0; i < PINMUX_IODELAY_ARRAY_SIZE; i++) {
+                if ((i == UART_TX_OFFSET) || (i == UART_RX_OFFSET)) {
+                    // update selection for UART0
+                    // Value 0 for no delay
+                    pmux_cfg_ptr[i].pinmux_value = 0;
+                }
+                mem_quick_write_32(AGX5_PINMUX_IO0_DELAY + pinmux_iodelay_offset[i], pmux_cfg_ptr[i].pinmux_value);
+            }
+            ret_val = true;
+            break;
+        default:
+            printf("Invalid configuration selection\n");
+        }
     }
-
-    /* Configure the pin control */
-    for (i = 0; i < sizeof(sysmgr_pinmux_array_ctrl) / sizeof(sysmgr_pinmux_array_ctrl[0]); i++) {
-        mem_quick_write_32(AGX5_PINMUX_IO0CTRL + sysmgr_pinmux_array_ctrl[i].pinmux_reg_ofst,
-                           sysmgr_pinmux_array_ctrl[i].pinmux_value);
-    }
-
-    /*
-     * Configure the FPGA use.
-     * The actual generic handoff contains extra 4 elements, and these 4 elements
-     * are not applicable to the Agilex5 platform. Writing these extra 4 elements
-     * will cause the system to crash, so let's avoid writing them here.
-     */
-    for (i = 0; i < sizeof(sysmgr_pinmux_array_fpga) / sizeof(sysmgr_pinmux_array_fpga[0]); i++) {
-        mem_quick_write_32(AGX5_PINMUX_EMAC0_USEFPGA + sysmgr_pinmux_array_fpga[i].pinmux_reg_ofst,
-                           sysmgr_pinmux_array_fpga[i].pinmux_value);
-    }
-
-    /* Configure the IO delay */
-    for (i = 0; i < sizeof(sysmgr_pinmux_array_iodelay) / sizeof(sysmgr_pinmux_array_iodelay[0]); i++) {
-        mem_quick_write_32(AGX5_PINMUX_IO0_DELAY + sysmgr_pinmux_array_iodelay[i].pinmux_reg_ofst,
-                           sysmgr_pinmux_array_iodelay[i].pinmux_value);
-    }
+    return ret_val;
 }
 
 /*
  * config_pinmux configures pinmux value to default known values
  * Notes:
- * 	This only works at el3.
  *  The main concern is ensuring that uart0 is selected as output pin for the select array
  */
 int32_t config_pinmux_update(pinmux_update_group_t array_to_update, uint32_t *updt_arry) {
@@ -541,19 +663,17 @@ int32_t config_pinmux_update(pinmux_update_group_t array_to_update, uint32_t *up
     switch (array_to_update) {
     case UPDATE_SEL_ARRAY:
         /* Configure the pin selection */
-        for (i = 0; i < sizeof(sysmgr_pinmux_array_sel) / sizeof(sysmgr_pinmux_array_sel[0]); i++) {
-            set_val = mem_quick_read_32(AGX5_PINMUX_PIN0SEL + sysmgr_pinmux_array_sel[i].pinmux_reg_ofst);
-
-            set_val &= 0xFFFFFFF0;
-            set_val |= updt_arry[i];
-            mem_quick_write_32(AGX5_PINMUX_PIN0SEL + sysmgr_pinmux_array_sel[i].pinmux_reg_ofst, set_val);
+        for (i = 0; i < PINMUX_SELECTION_ARRAY_SIZE; i++) {
+            set_val = (PINMUX_SELECT_SET_MASK & updt_arry[i]);
+            mem_quick_write_32(AGX5_PINMUX_PIN0SEL + pinmux_sel_offset[i], set_val);
         }
         ret_val = 0;
         break;
     case UPDATE_CTRL_ARRAY:
         /* Configure the pin control */
-        for (i = 0; i < sizeof(sysmgr_pinmux_array_ctrl) / sizeof(sysmgr_pinmux_array_ctrl[0]); i++) {
-            mem_quick_write_32(AGX5_PINMUX_IO0CTRL + sysmgr_pinmux_array_ctrl[i].pinmux_reg_ofst, updt_arry[i]);
+        for (i = 0; i < PINMUX_CTRL_ARRAY_SIZE; i++) {
+            set_val = (PINMUX_IOCTRL_SET_MASK & updt_arry[i]);
+            mem_quick_write_32(AGX5_PINMUX_IO0CTRL + pinmux_ioctrl_offset[i], set_val);
         }
         ret_val = 0;
         break;
@@ -564,17 +684,98 @@ int32_t config_pinmux_update(pinmux_update_group_t array_to_update, uint32_t *up
          * are not applicable to the Agilex5 platform. Writing these extra 4 elements
          * will cause the system to crash, so let's avoid writing them here.
          */
-        for (i = 0; i < sizeof(sysmgr_pinmux_array_fpga) / sizeof(sysmgr_pinmux_array_fpga[0]); i++) {
-            mem_quick_write_32(AGX5_PINMUX_EMAC0_USEFPGA + sysmgr_pinmux_array_fpga[i].pinmux_reg_ofst, updt_arry[i]);
+        for (i = 0; i < PINMUX_FPGA_ARRAY_SIZE; i++) {
+            set_val = (PINMUX_FPGA_USE_SET_MASK & updt_arry[i]);
+            mem_quick_write_32(AGX5_PINMUX_EMAC0_USEFPGA + pinmux_fpga_offset[i], set_val);
         }
         ret_val = 0;
         break;
     case UPDATE_IO_DELAY:
         /* Configure the IO delay */
-        for (i = 0; i < sizeof(sysmgr_pinmux_array_iodelay) / sizeof(sysmgr_pinmux_array_iodelay[0]); i++) {
-            mem_quick_write_32(AGX5_PINMUX_IO0_DELAY + sysmgr_pinmux_array_iodelay[i].pinmux_reg_ofst, updt_arry[i]);
+        for (i = 0; i < PINMUX_IODELAY_ARRAY_SIZE; i++) {
+            set_val = (PINMUX_DELAY_SET_MASK & updt_arry[i]);
+            mem_quick_write_32(AGX5_PINMUX_IO0_DELAY + pinmux_iodelay_offset[i], set_val);
         }
         ret_val = 0;
+        break;
+
+    default:
+        printf("invalid pinmux update\n");
+        break;
+    }
+
+    return ret_val;
+}
+
+/*
+ * config_pinmux_ofst_update configures pinmux value to default known values
+ * Notes:
+ *  -- The main concern is ensuring that uart0 is selected as output pin for the select array
+ *  -- The offset value will utilize pinmux_sel_offset, pinmux_ioctrl_offset, pinmux_ioctrl_offset & pinmux_fpga_offset
+ * arrays to pick the correct offset value for the passed value. See
+ * "https://www.intel.com/content/www/us/en/programmable/hps/agilex5/topics/addressblock_Pin_Mux_summary.html" for an
+ * understanding of the pinmux offsets for each item.
+ *  -- The offset value depends on the item being updated
+ *     pinmux selection values update pin0sel - pin47sel
+ *     pinmux control array updates io0ctrl - io47ctrl
+ *     pinmux fpga array updates pinmux_...._usefpga values
+ *     pinmux IO dealy array updates io0_delay - io47_delay values
+ *     Again see
+ * "https://www.intel.com/content/www/us/en/programmable/hps/agilex5/topics/addressblock_Pin_Mux_summary.html"  for
+ * details of values being set
+ */
+int32_t config_pinmux_ofst_update(pinmux_update_group_t update_group, uint32_t value, uint32_t offset) {
+    int32_t ret_val = -1;
+    uint32_t set_val = 0;
+
+    // Update selected pinmux parameter
+    switch (update_group) {
+    case UPDATE_SEL_ARRAY:
+        /* Configure the pin selection */
+        if (offset < PINMUX_SELECTION_ARRAY_SIZE) {
+            set_val = (PINMUX_SELECT_SET_MASK & value);
+            mem_quick_write_32(AGX5_PINMUX_PIN0SEL + pinmux_sel_offset[offset], set_val);
+            ret_val = 0;
+        } else {
+            // Invalid selection array size
+            ret_val = -2;
+        }
+        break;
+    case UPDATE_CTRL_ARRAY:
+        /* Configure the pin control */
+        if (offset < PINMUX_CTRL_ARRAY_SIZE) {
+            set_val = (PINMUX_IOCTRL_SET_MASK & value);
+            mem_quick_write_32(AGX5_PINMUX_IO0CTRL + pinmux_ioctrl_offset[offset], set_val);
+            ret_val = 0;
+        } else {
+            // Invalid control array offset
+            ret_val = -2;
+        }
+        break;
+    case UPDATE_FPGA_ARRAY:
+        /*
+         * Configure the FPGA use.
+         */
+        if (offset < PINMUX_FPGA_ARRAY_SIZE) {
+            set_val = (PINMUX_FPGA_USE_SET_MASK & value);
+            mem_quick_write_32(AGX5_PINMUX_EMAC0_USEFPGA + pinmux_fpga_offset[offset], set_val);
+            ret_val = 0;
+        } else {
+
+            // Invalid FPGA array offset
+            ret_val = -2;
+        }
+        break;
+    case UPDATE_IO_DELAY:
+        /* Configure the IO delay */
+        if (offset < PINMUX_IODELAY_ARRAY_SIZE) {
+            set_val = (PINMUX_DELAY_SET_MASK & value);
+            mem_quick_write_32(AGX5_PINMUX_IO0_DELAY + pinmux_iodelay_offset[offset], set_val);
+            ret_val = 0;
+        } else {
+            // Invalid IO delay offset
+            ret_val = -2;
+        }
         break;
 
     default:
@@ -591,9 +792,38 @@ int32_t config_pinmux_update(pinmux_update_group_t array_to_update, uint32_t *up
 int32_t fsbl_configuration(void) {
     int32_t ret_val = -1;
 
+    // Copy handoff data to temporary array
+    uint32_t *temp_hndof_ptr = (uint32_t *)PLAT_HANDOFF_OFFSET;
+    for (uint32_t ii = 0; ii < FSBL_HANDOFF_SIZE; ii++) {
+
+        handoff_array[ii] = temp_hndof_ptr[ii];
+    }
+
+    // Used to view handoff area elements for pinmux
+    fsbl_handoff_t *reverse_handoff_ptr = (fsbl_handoff_t *)handoff_array;
+
+    b32_swap((uint32_t *)&(reverse_handoff_ptr->header_magic));
+    for (uint32_t ii = 0; ii < 96; ii++) {
+        // SWAP handoff area memory
+        b32_swap((uint32_t *)&(reverse_handoff_ptr->pinmux_sel_array[ii]));
+        b32_swap((uint32_t *)&(reverse_handoff_ptr->pinmux_io_array[ii]));
+        b32_swap((uint32_t *)&(reverse_handoff_ptr->pinmux_iodelay_array[ii]));
+
+        if (ii < 44) {
+            b32_swap((uint32_t *)&(reverse_handoff_ptr->pinmux_fpga_array[ii]));
+        }
+    }
+
+#ifdef USE_HARDCODED_DEFAULT
     // Default pinmux
     config_pinmux();
-
+#else
+    // Configure pinmux according to handoff area
+    pinmux_handoff_config(UPDATE_SEL_ARRAY, (pinmux_default_cfg_t *)&reverse_handoff_ptr->pinmux_sel_array[0]);
+    pinmux_handoff_config(UPDATE_CTRL_ARRAY, (pinmux_default_cfg_t *)&reverse_handoff_ptr->pinmux_io_array[0]);
+    pinmux_handoff_config(UPDATE_FPGA_ARRAY, (pinmux_default_cfg_t *)&reverse_handoff_ptr->pinmux_fpga_array[0]);
+    pinmux_handoff_config(UPDATE_IO_DELAY, (pinmux_default_cfg_t *)&reverse_handoff_ptr->pinmux_iodelay_array[0]);
+#endif
     // stdout_uart_fd should be equal to our uart0 base address if not something is wrong
     if (stdout_uart_fd == UART0_BASE) {
 
@@ -615,6 +845,36 @@ int32_t fsbl_configuration(void) {
             ret_val = 0;
         }
     }
+
+#ifdef DEBUG_PINMUX_SETTINGS
+    pinmux_default_cfg_t *sel_array = (pinmux_default_cfg_t *)&reverse_handoff_ptr->pinmux_sel_array[0];
+    pinmux_default_cfg_t *io_array = (pinmux_default_cfg_t *)&reverse_handoff_ptr->pinmux_io_array[0];
+    pinmux_default_cfg_t *io_delay_array = (pinmux_default_cfg_t *)&reverse_handoff_ptr->pinmux_iodelay_array[0];
+    pinmux_default_cfg_t *fpga_array = (pinmux_default_cfg_t *)&reverse_handoff_ptr->pinmux_fpga_array[0];
+    printf("io selection array values\n\n");
+    for (uint32_t ii = 0; ii < PINMUX_SELECTION_ARRAY_SIZE; ii++) {
+        // SWAP handoff area memory
+        printf("0x%x\n", sel_array[ii].pinmux_value);
+    }
+
+    printf("\n\n IO ctrl array values\n\n");
+    for (uint32_t ii = 0; ii < PINMUX_CTRL_ARRAY_SIZE; ii++) {
+        // SWAP handoff area memory
+        printf("0x%x\n", io_array[ii].pinmux_value);
+    }
+
+    printf("\n\n IO delay array values\n\n");
+    for (uint32_t ii = 0; ii < PINMUX_IODELAY_ARRAY_SIZE; ii++) {
+        // SWAP handoff area memory
+        printf("0x%x\n", io_delay_array[ii].pinmux_value);
+    }
+
+    printf("\n\n IO FPGA use array values\n\n");
+    for (uint32_t ii = 0; ii < PINMUX_FPGA_ARRAY_SIZE; ii++) {
+        // SWAP handoff area memory
+        printf("0x%x\n", fpga_array[ii].pinmux_value);
+    }
+#endif // DEBUG_PINMUX_SETTINGS
 
     // Set OCRAM to allow secure and non-secure access to its memory
     mem_quick_write_32(OCRAM_REG0_ACCESS_ADDR, NON_SECURE_ENABLE);

@@ -6,7 +6,6 @@ This repository contains baremetal driver code for Intel FPGA peripherals and so
 - [Introduction](#introduction)
 - [Build Instructions](#build-instructions)
 - [Coding Style](#coding-style)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Introduction

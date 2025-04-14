@@ -2,11 +2,8 @@
 extern "C" {
 #endif // __cplusplus
 
+#include "bridge_helper.h"
 #include "page_tables.h"
-#include "rstmgr.h"
-#include "rstmgr_regs.h"
-#include "sysmgr.h"
-#include "timer.h"
 #include "uart.h"
 
 #include <stdio.h>
@@ -40,11 +37,11 @@ extern "C" {
 // The ref clock l4_sp_clk is 100MHz by default.
 // check if clkmgr.nocdiv->l4spclk is 0x2 (default).
 // If not, then this definition needs to be updated accordingly.
-#define TICKS_PER_MILLI_SEC 0x186A0
+#define TICKS_PER_MILLI_SEC 0xC350
 
 #define TMR_SP0_CTRL_TIMER_ENABLE 0x1
 #define TMR_SP0_CTRL_TIMER_MODE_USR 0x2
-#define ACK_POLLING_MILLI_SEC 1
+#define ACK_POLLING_MILLI_SEC 100
 
 #define SYS_MGR_FPGA_BRIDGE_CTRL_SOC2FPGA_EN 0x00000001
 #define SYS_MGR_FPGA_BRIDGE_CTRL_LWSOC2FPGA_EN 0x00000002
@@ -53,51 +50,45 @@ extern "C" {
 
 int32_t delay_timer(int32_t timer_handle, int32_t count) {
     uint32_t param = count;
+    int32_t return_value = 0;
     if (timer_ioctl(timer_handle, (int32_t)IOCTL_TIMER_COUNT_SET, (uintptr_t)(&param), sizeof(uint32_t))) {
-        printf("[Timer Error] count set.\n");
         return -1;
     }
 
     // Set timer not free running
     param = TMR_SP0_CTRL_TIMER_MODE_USR;
-    if (timer_ioctl(timer_handle, (int32_t)IOCTL_TIMER_CONTROL_SET, (uintptr_t)(&param), sizeof(uint32_t))) {
-        printf("[Timer Error] control set for free running.\n");
-        return -1;
-    }
+    return_value = timer_ioctl(timer_handle, (int32_t)IOCTL_TIMER_CONTROL_SET, (uintptr_t)(&param), sizeof(uint32_t));
 
     // Start timer
     param |= TMR_SP0_CTRL_TIMER_ENABLE;
-    if (timer_ioctl(timer_handle, (int32_t)IOCTL_TIMER_CONTROL_SET, (uintptr_t)(&param), sizeof(uint32_t))) {
-        printf("[Timer Error] control set for starting timer.\n");
-        return -1;
-    }
+    return_value = timer_ioctl(timer_handle, (int32_t)IOCTL_TIMER_CONTROL_SET, (uintptr_t)(&param), sizeof(uint32_t));
 
     // Verify timer is not 0
     param = 0;
-    if (timer_ioctl(timer_handle, (int32_t)IOCTL_TIMER_CURRENT_VAL_GET, (uintptr_t)(&param), sizeof(uint32_t))) {
-        printf("[Timer Error] Unable to get current value.\n");
-        return -1;
-    }
+    return_value =
+        timer_ioctl(timer_handle, (int32_t)IOCTL_TIMER_CURRENT_VAL_GET, (uintptr_t)(&param), sizeof(uint32_t));
+
     if (param == 0) {
-        printf("[Timer Error] current value is 0.\n");
-        return -1;
+        return_value = -1;
     }
 
-    printf("[Timer] START\n");
+    if (return_value == 0) {
+        // Wait for timer to expire
+        while (1) {
+            param = 0;
+            if (0 != timer_ioctl(timer_handle, (int32_t)IOCTL_TIMER_CURRENT_VAL_GET, (uintptr_t)(&param),
+                                 sizeof(uint32_t))) {
+                return_value = -1;
+                break;
+            }
 
-    // Wait for timer to expire
-    while (1) {
-        param = 0;
-        if (timer_ioctl(timer_handle, (int32_t)IOCTL_TIMER_CURRENT_VAL_GET, (uintptr_t)(&param), sizeof(uint32_t))) {
-            printf("[Timer Error] Unable to get current value.\n");
-            return -1;
-        }
-        if (param == 0) {
-            printf("[Timer] Expired... Leaving the loop... \n");
-            break;
+            if (param == 0) {
+                break;
+            }
         }
     }
-    return 0;
+
+    return return_value;
 }
 
 int32_t polling_register(int32_t handle, int32_t cmd, int32_t mask, int32_t ms, int32_t timer_handle, bool assert) {
@@ -105,8 +96,6 @@ int32_t polling_register(int32_t handle, int32_t cmd, int32_t mask, int32_t ms, 
     int32_t param = 0, count = ms;
 
     while (count-- > 0) {
-
-        printf("POLLING #%d ...\n", (count + 1));
 
         rstmgr_ioctl(handle, (int32_t)cmd, (uintptr_t)&param, sizeof(uint32_t));
         if (assert) {
@@ -133,7 +122,7 @@ int32_t bridge_enable(int32_t rstmgr_handle, int32_t timer_handle, int32_t sysmg
     int32_t return_value = 0;
     int32_t sysmgr_ret = 0;
 
-    printf("============= Bridge Enable =============\n");
+    printf("================= Bridge Enable =================\n");
 
     /* Enable SOC2FPGA */
 
@@ -185,10 +174,10 @@ int32_t bridge_enable(int32_t rstmgr_handle, int32_t timer_handle, int32_t sysmg
             return -1;
         }
 
-        printf("----- SOC2FPGA reset flow is SUCCESSFUL. -----\n");
+        printf("----- SOC2FPGA enable flow is SUCCESSFUL. -----\n");
 
     } else {
-        printf("[Warning]: brgmodrst is 0 for SOC2FPGA\n");
+        printf("[Warning]: brgmodrst is already 0 for SOC2FPGA\n");
     }
 
     /* Enable LWSOC2FPGA */
@@ -241,9 +230,9 @@ int32_t bridge_enable(int32_t rstmgr_handle, int32_t timer_handle, int32_t sysmg
             return -1;
         }
 
-        printf("----- LWSOC2FPGA reset flow is SUCCESSFUL. -----\n");
+        printf("----- LWSOC2FPGA enable flow is SUCCESSFUL. -----\n");
     } else {
-        printf("[Warning]: brgmodrst is 0 for LWSOC2FPGA\n");
+        printf("[Warning]: brgmodrst is already 0 for LWSOC2FPGA\n");
     }
 
     /* Enable FPGA2SOC */
@@ -316,9 +305,9 @@ int32_t bridge_enable(int32_t rstmgr_handle, int32_t timer_handle, int32_t sysmg
             return -1;
         }
 
-        printf("----- F2SOC reset flow is SUCCESSFUL. -----\n");
+        printf("----- F2SOC enable flow is SUCCESSFUL. -----\n");
     } else {
-        printf("[Warning]: brgmodrst is 0 for F2SOC\n");
+        printf("[Warning]: brgmodrst is already 0 for F2SOC\n");
     }
 
     /* Enable FPGA2SDRAM */
@@ -376,250 +365,353 @@ int32_t bridge_enable(int32_t rstmgr_handle, int32_t timer_handle, int32_t sysmg
         }
         printf("[Enable] Polling F2SDRAMFLUSHACK = 0 OK!\n");
 
-        printf("----- F2SDRAM reset flow is SUCCESSFUL. -----\n");
+        printf("----- F2SDRAM enable flow is SUCCESSFUL. -----\n");
     } else {
-        printf("[Warning]: brgmodrst is 0 for F2SOC\n");
+        printf("[Warning]: brgmodrst is already 0 for FPGA2SDRAM\n");
     }
+
     return return_value;
 }
 
 int32_t bridge_disable(int32_t rstmgr_handle, int32_t timer_handle, int32_t sysmgr_handle) {
     uint32_t param_en = 0, param_req = 0, param_ack = 0, param = 0;
     int32_t return_value = 0;
-    int32_t sysmgr_ret = 0;
 
-    printf("========== Bridge Disable ==========\n");
+    printf("============== Bridge Disable ==============\n");
 
     /* Disable SOC2FPGA */
-    printf("----- Disable SOC2FPGA -----\n");
 
-    // clear soc2fpga_ready_latency_enable in sysmgr
-    printf("[Disable] Clear soc2fpga_ready_latency_enable.\n");
-    sysmgr_ret =
-        sysmgr_ioctl(sysmgr_handle, (int32_t)IOCTL_SYSMGR_GET_FPGA_BRIDGE_CTRL, (uintptr_t)&param, sizeof(uint32_t));
-    if (sysmgr_ret != 0) {
-        printf("[Error]: SYSMGR_GET_FPGA_BRIDGE_CTRL.\n");
-        return -1;
-    }
-    param &= ~SYS_MGR_FPGA_BRIDGE_CTRL_SOC2FPGA_EN;
-
-    sysmgr_ret =
-        sysmgr_ioctl(sysmgr_handle, (int32_t)IOCTL_SYSMGR_SET_FPGA_BRIDGE_CTRL, (uintptr_t)&param, sizeof(uint32_t));
-    if (sysmgr_ret != 0) {
-        printf("[Error]: SYSMGR_SET_FPGA_BRIDGE_CTRL.\n");
-        return -1;
-    }
-
-    // clear ack
-    param_ack = RST_MGR_HDSKACK_SOC2FPGAFLUSHACK;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKACK, (uintptr_t)&param_ack, sizeof(uint32_t));
-    printf("[Enable] Clear SOC2FPGAFLUSHACK.\n");
-
-    // idle request
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
-    param_req |= RST_MGR_HDSKREQ_SOC2FPGAFLUSHREQ;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
-    printf("[Disable] SOC2FPGA idle request.\n");
-
-    // get ack
-    if (polling_register(rstmgr_handle, IOCTL_RSTMGR_GET_HDSKACK, RST_MGR_HDSKACK_SOC2FPGAFLUSHACK,
-                         ACK_POLLING_MILLI_SEC, timer_handle, true) == -1) {
-        printf("[Error] Polling SOC2FPGAFLUSHACK = 1 timeout\n");
-        return -1;
-    }
-    printf("[Disable] Polling SOC2FPGAFLUSHACK = 1 OK!\n");
-
-    // Assert the bridge module reset
-    printf("[Disable] Assert the bridge module reset.\n");
+    // Read brgmodrst to make sure it is deasserted
     rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_BRGMODRST, (uintptr_t)&param, sizeof(uint32_t));
-    param |= RST_MGR_BRGMODRST_SOC2FPGA;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_BRGMODRST, (uintptr_t)&param, sizeof(uint32_t));
+    if (!(param & RST_MGR_BRGMODRST_SOC2FPGA)) {
+        // clear ack
+        param_ack = RST_MGR_HDSKACK_SOC2FPGAFLUSHACK;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKACK, (uintptr_t)&param_ack, sizeof(uint32_t));
+        printf("[Disable] Clear SOC2FPGAFLUSHACK.\n");
 
-    /* Disable LWSOC2FPGA */
-    printf("----- Disable LWSOC2FPGA -----\n");
+        // idle request
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
+        param_req |= RST_MGR_HDSKREQ_SOC2FPGAFLUSHREQ;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
+        printf("[Disable] SOC2FPGA idle request.\n");
 
-    // clear lwsoc2fpga_ready_latency_enable in sysmgr
-    printf("[Disable] Clear lwsoc2fpga_ready_latency_enable.\n");
-    sysmgr_ret =
-        sysmgr_ioctl(sysmgr_handle, (int32_t)IOCTL_SYSMGR_GET_FPGA_BRIDGE_CTRL, (uintptr_t)&param, sizeof(uint32_t));
-    if (sysmgr_ret != 0) {
-        printf("[Error]: SYSMGR_GET_FPGA_BRIDGE_CTRL.\n");
-        return -1;
+        // get ack
+        if (polling_register(rstmgr_handle, IOCTL_RSTMGR_GET_HDSKACK, RST_MGR_HDSKACK_SOC2FPGAFLUSHACK,
+                             ACK_POLLING_MILLI_SEC, timer_handle, true) == -1) {
+            printf("[Error] Polling SOC2FPGAFLUSHACK = 1 timeout\n");
+            return -1;
+        }
+        printf("[Disable] Polling SOC2FPGAFLUSHACK = 1 OK!\n");
+
+        // Assert the bridge module reset
+        printf("[Disable] Assert the bridge module reset.\n");
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_BRGMODRST, (uintptr_t)&param, sizeof(uint32_t));
+        param |= RST_MGR_BRGMODRST_SOC2FPGA;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_BRGMODRST, (uintptr_t)&param, sizeof(uint32_t));
+
+        printf("----- SOC2FPGA disable flow is SUCCESSFUL. -----\n");
+    } else {
+        printf("[Warning]: brgmodrst is already 1 for SOC2FPGA\n");
     }
-    param &= ~SYS_MGR_FPGA_BRIDGE_CTRL_LWSOC2FPGA_EN;
 
-    sysmgr_ret =
-        sysmgr_ioctl(sysmgr_handle, (int32_t)IOCTL_SYSMGR_SET_FPGA_BRIDGE_CTRL, (uintptr_t)&param, sizeof(uint32_t));
-    if (sysmgr_ret != 0) {
-        printf("[Error]: SYSMGR_SET_FPGA_BRIDGE_CTRL.\n");
-        return -1;
-    }
-
-    // clear ack
-    param_ack = RST_MGR_HDSKACK_LWSOC2FPGAFLUSHACK;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKACK, (uintptr_t)&param_ack, sizeof(uint32_t));
-    printf("[Disable] Clear LWSOC2FPGAFLUSHACK.\n");
-
-    // idle request
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
-    param_req |= RST_MGR_HDSKREQ_LWSOC2FPGAFLUSHREQ;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
-    printf("[Disable] LWSOC2FPGA idle request.\n");
-
-    // get ack
-    if (polling_register(rstmgr_handle, IOCTL_RSTMGR_GET_HDSKACK, RST_MGR_HDSKACK_LWSOC2FPGAFLUSHACK,
-                         ACK_POLLING_MILLI_SEC, timer_handle, true) == -1) {
-        printf("[Error] Polling LWSOC2FPGAFLUSHACK = 1 timeout\n");
-        return -1;
-    }
-    printf("[Disable] Polling LWSOC2FPGAFLUSHACK = 1 OK!\n");
-
-    // Assert the bridge module reset
-    printf("[Disable] Assert the bridge module reset.\n");
     rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_BRGMODRST, (uintptr_t)&param, sizeof(uint32_t));
-    param |= RST_MGR_BRGMODRST_LWSOC2FPGA;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_BRGMODRST, (uintptr_t)&param, sizeof(uint32_t));
+    if (!(param & RST_MGR_BRGMODRST_LWSOC2FPGA)) {
+        /* Disable LWSOC2FPGA */
+        // clear ack
+        param_ack = RST_MGR_HDSKACK_LWSOC2FPGAFLUSHACK;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKACK, (uintptr_t)&param_ack, sizeof(uint32_t));
+        printf("[Disable] Clear LWSOC2FPGAFLUSHACK.\n");
 
-    /* Disable FPGA2SOC */
-    printf("----- Disable FPGA2SOC -----\n");
+        // idle request
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
+        param_req |= RST_MGR_HDSKREQ_LWSOC2FPGAFLUSHREQ;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
+        printf("[Disable] LWSOC2FPGA idle request.\n");
 
-    // clear f2soc_enable in sysmgr
-    printf("[Disable] Clear f2soc_enable.\n");
-    sysmgr_ret =
-        sysmgr_ioctl(sysmgr_handle, (int32_t)IOCTL_SYSMGR_GET_F2S_BRIDGE_CTRL, (uintptr_t)&param, sizeof(uint32_t));
-    if (sysmgr_ret != 0) {
-        printf("[Error]: SYSMGR_GET_F2S_BRIDGE_CTRL.\n");
-        return -1;
+        // get ack
+        if (polling_register(rstmgr_handle, IOCTL_RSTMGR_GET_HDSKACK, RST_MGR_HDSKACK_LWSOC2FPGAFLUSHACK,
+                             ACK_POLLING_MILLI_SEC, timer_handle, true) == -1) {
+            printf("[Error] Polling LWSOC2FPGAFLUSHACK = 1 timeout\n");
+            return -1;
+        }
+        printf("[Disable] Polling LWSOC2FPGAFLUSHACK = 1 OK!\n");
+
+        // Assert the bridge module reset
+        printf("[Disable] Assert the bridge module reset.\n");
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_BRGMODRST, (uintptr_t)&param, sizeof(uint32_t));
+        param |= RST_MGR_BRGMODRST_LWSOC2FPGA;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_BRGMODRST, (uintptr_t)&param, sizeof(uint32_t));
+
+        printf("----- LWSOC2FPGA disable flow is SUCCESSFUL. -----\n");
+    } else {
+        printf("[Warning]: brgmodrst is already 1 for LWSOC2FPGA\n");
     }
-    param &= ~SYS_MGR_F2S_BRIDGE_CTRL_F2SOC_EN;
 
-    sysmgr_ret =
-        sysmgr_ioctl(sysmgr_handle, (int32_t)IOCTL_SYSMGR_SET_F2S_BRIDGE_CTRL, (uintptr_t)&param, sizeof(uint32_t));
-    if (sysmgr_ret != 0) {
-        printf("[Error]: SYSMGR_SET_F2S_BRIDGE_CTRLL.\n");
-        return -1;
-    }
-
-    // enable idle request for F2SOC
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKEN, (uintptr_t)&param_en, sizeof(uint32_t));
-    param_en |= RST_MGR_HDSKEN_F2SFLUSHEN;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKEN, (uintptr_t)&param_en, sizeof(uint32_t));
-    printf("[Disable] F2S idle request: enabled.\n");
-
-    // enable idle request for FPGA
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKEN, (uintptr_t)&param_en, sizeof(uint32_t));
-    param_en |= RST_MGR_HDSKEN_FPGAHSEN;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKEN, (uintptr_t)&param_en, sizeof(uint32_t));
-    printf("[Disable] FPGA idle request: enabled.\n");
-
-    // clear idle ack (FPGA)
-    param_ack = RST_MGR_HDSKACK_FPGAHSACK;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKACK, (uintptr_t)&param_ack, sizeof(uint32_t));
-    printf("[Disable] Clear FPGAHSACK.\n");
-
-    // idle request (FPGA)
-    printf("[Disable] FPGA idle request: request.\n");
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
-    param_req |= RST_MGR_HDSKREQ_FPGAHSREQ;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
-
-    // get ack (FPGA)
-    if (polling_register(rstmgr_handle, IOCTL_RSTMGR_GET_HDSKACK, RST_MGR_HDSKACK_FPGAHSACK, ACK_POLLING_MILLI_SEC,
-                         timer_handle, true) == -1) {
-        printf("[Error] Polling FPGAHSACK = 1 timeout\n");
-        return -1;
-    }
-    printf("[Disable] Polling FPGAHSACK = 1 SUCCESSFUL!\n");
-
-    // Fence and Drain
-
-    // clear idle ack (F2SOC)
-    param_ack = RST_MGR_HDSKACK_F2SFLUSHACK;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKACK, (uintptr_t)&param_ack, sizeof(uint32_t));
-    printf("[Disable] Fence and Drain: Clear F2SFLUSHACK.\n");
-
-    // idle request (F2SOC)
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
-    param_req |= RST_MGR_HDSKREQ_F2SFLUSHREQ;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
-    printf("[Disable] Fence and Drain: requested.\n");
-
-    // get ack (F2SOC)
-    if (polling_register(rstmgr_handle, IOCTL_RSTMGR_GET_HDSKACK, RST_MGR_HDSKACK_F2SFLUSHACK, ACK_POLLING_MILLI_SEC,
-                         timer_handle, true) == -1) {
-        printf("[Error] Polling F2SFLUSHACK = 1 timeout\n");
-        return -1;
-    }
-    printf("[Disable] Polling F2SFLUSHACK = 1 OK!\n");
-
-    // Assert the bridge module reset
-    printf("[Disable] Assert the bridge module reset.\n");
+    // Read brgmodrst to make sure it is deasserted
     rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_BRGMODRST, (uintptr_t)&param, sizeof(uint32_t));
-    param |= RST_MGR_BRGMODRST_FPGA2SOC;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_BRGMODRST, (uintptr_t)&param, sizeof(uint32_t));
+    if (!(param & RST_MGR_BRGMODRST_FPGA2SOC)) {
+        /* Disable FPGA2SOC */
+        // enable idle request for F2SOC
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKEN, (uintptr_t)&param_en, sizeof(uint32_t));
+        param_en |= RST_MGR_HDSKEN_F2SFLUSHEN;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKEN, (uintptr_t)&param_en, sizeof(uint32_t));
+        printf("[Disable] Set HDSKEN (f2soc_flush)\n");
 
-    /* Disable F2SDRAM */
-    printf("----- Disable F2SDRAM -----\n");
+        // enable idle request for FPGA
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKEN, (uintptr_t)&param_en, sizeof(uint32_t));
+        param_en |= RST_MGR_HDSKEN_FPGAHSEN;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKEN, (uintptr_t)&param_en, sizeof(uint32_t));
+        printf("[Disable] Set HDSKEN (fpgahsen)\n");
 
-    // enable idle request for F2SDRAM
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKEN, (uintptr_t)&param_en, sizeof(uint32_t));
-    param_en |= RST_MGR_HDSKEN_F2SDRAMFLUSHEN;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKEN, (uintptr_t)&param_en, sizeof(uint32_t));
-    printf("[Disable] F2SDRAM idle request: enabled.\n");
+        // clear idle ack (FPGA)
+        param_ack = RST_MGR_HDSKACK_FPGAHSACK;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKACK, (uintptr_t)&param_ack, sizeof(uint32_t));
+        printf("[Disable] Clear FPGAHSACK.\n");
 
-    // enable idle request for FPGA
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKEN, (uintptr_t)&param_en, sizeof(uint32_t));
-    param_en |= RST_MGR_HDSKEN_FPGAHSEN;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKEN, (uintptr_t)&param_en, sizeof(uint32_t));
-    printf("[Disable] FPGA idle request: enabled.\n");
+        // idle request (FPGA)
+        printf("[Disable] Set FPGA idle request...\n");
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
+        param_req |= RST_MGR_HDSKREQ_FPGAHSREQ;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
 
-    // clear idle ack (FPGA)
-    param_ack = RST_MGR_HDSKACK_FPGAHSACK;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKACK, (uintptr_t)&param_ack, sizeof(uint32_t));
-    printf("[Disable] Clear FPGAHSACK.\n");
+        // get ack (FPGA)
+        if (polling_register(rstmgr_handle, IOCTL_RSTMGR_GET_HDSKACK, RST_MGR_HDSKACK_FPGAHSACK, ACK_POLLING_MILLI_SEC,
+                             timer_handle, true) == -1) {
+            printf("[WARNING] Polling FPGAHSACK = 1 timeout\n");
+            printf("[WARNING] Please check if RTL has subscribed the idle request signal with rstmgr\n");
+        } else {
+            printf("[Disable] Polling FPGAHSACK = 1 OK!\n");
+        }
 
-    // idle request (FPGA)
-    printf("[Disable] FPGA idle request: request.\n");
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
-    param_req |= RST_MGR_HDSKREQ_FPGAHSREQ;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
+        // Fence and Drain
 
-    // get ack (FPGA)
-    if (polling_register(rstmgr_handle, IOCTL_RSTMGR_GET_HDSKACK, RST_MGR_HDSKACK_FPGAHSACK, ACK_POLLING_MILLI_SEC,
-                         timer_handle, true) == -1) {
-        printf("[Error] Polling FPGAHSACK = 1 timeout\n");
-        return -1;
+        // clear idle ack (F2SOC)
+        param_ack = RST_MGR_HDSKACK_F2SFLUSHACK;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKACK, (uintptr_t)&param_ack, sizeof(uint32_t));
+        printf("[Disable] Fence and Drain: Clear F2SFLUSHACK.\n");
+
+        // idle request (F2SOC)
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
+        param_req |= RST_MGR_HDSKREQ_F2SFLUSHREQ;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
+        printf("[Disable] Fence and Drain: requested.\n");
+
+        // get ack (F2SOC)
+        if (polling_register(rstmgr_handle, IOCTL_RSTMGR_GET_HDSKACK, RST_MGR_HDSKACK_F2SFLUSHACK,
+                             ACK_POLLING_MILLI_SEC, timer_handle, true) == -1) {
+            printf("[Error] Polling F2SFLUSHACK = 1 timeout\n");
+            return -1;
+        } else {
+            printf("[Disable] Polling F2SFLUSHACK = 1 OK!\n");
+        }
+
+        // Assert the bridge module reset
+        printf("[Disable] Assert the bridge module reset.\n");
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_BRGMODRST, (uintptr_t)&param, sizeof(uint32_t));
+        param |= RST_MGR_BRGMODRST_FPGA2SOC;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_BRGMODRST, (uintptr_t)&param, sizeof(uint32_t));
+
+        printf("----- FPGA2SOC disable flow is SUCCESSFUL. -----\n");
+    } else {
+        printf("[Warning]: brgmodrst is already 1 for FPGA2SOC\n");
     }
-    printf("[Disable] Polling FPGAHSACK = 1 OK!\n");
 
-    // Fence and Drain
-
-    // clear idle ack (F2SDRAM)
-    param_ack = RST_MGR_HDSKACK_F2SDRAMFLUSHACK;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKACK, (uintptr_t)&param_ack, sizeof(uint32_t));
-    printf("[Disable] Fence and Drain: Clear F2SDRAMFLUSHACK\n");
-
-    // idle request (F2SDRAM)
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
-    param_req |= RST_MGR_HDSKREQ_F2SDRAMFLUSHREQ;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
-    printf("[Disable] Fence and Drain: requested.\n");
-
-    // get ack (F2SDRAM)
-    if (polling_register(rstmgr_handle, IOCTL_RSTMGR_GET_HDSKACK, RST_MGR_HDSKACK_F2SDRAMFLUSHACK,
-                         ACK_POLLING_MILLI_SEC, timer_handle, true) == -1) {
-        printf("[Error] Polling F2SDRAMFLUSHACK = 1 timeout\n");
-        return -1;
-    }
-    printf("[Disable] Polling F2SDRAMFLUSHACK = 1 OK!\n");
-
-    // Assert the bridge module reset
-    printf("[Disable] Assert the bridge module reset.\n");
+    // Read brgmodrst to make sure it is deasserted
     rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_BRGMODRST, (uintptr_t)&param, sizeof(uint32_t));
-    param |= RST_MGR_BRGMODRST_FPGA2SDRAM;
-    rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_BRGMODRST, (uintptr_t)&param, sizeof(uint32_t));
+    if (!(param & RST_MGR_BRGMODRST_FPGA2SDRAM)) {
+        /* Disable F2SDRAM */
+
+        // enable idle request for F2SDRAM
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKEN, (uintptr_t)&param_en, sizeof(uint32_t));
+        param_en |= RST_MGR_HDSKEN_F2SDRAMFLUSHEN;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKEN, (uintptr_t)&param_en, sizeof(uint32_t));
+        printf("[Disable] F2SDRAM idle request: enabled.\n");
+
+        // Fence and Drain
+
+        // clear idle ack (F2SDRAM)
+        param_ack = RST_MGR_HDSKACK_F2SDRAMFLUSHACK;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKACK, (uintptr_t)&param_ack, sizeof(uint32_t));
+        printf("[Disable] Fence and Drain: Clear F2SDRAMFLUSHACK\n");
+
+        // idle request (F2SDRAM)
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
+        param_req |= RST_MGR_HDSKREQ_F2SDRAMFLUSHREQ;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_HDSKREQ, (uintptr_t)&param_req, sizeof(uint32_t));
+        printf("[Disable] Fence and Drain: requested.\n");
+
+        // get ack (F2SDRAM)
+        if (polling_register(rstmgr_handle, IOCTL_RSTMGR_GET_HDSKACK, RST_MGR_HDSKACK_F2SDRAMFLUSHACK,
+                             ACK_POLLING_MILLI_SEC, timer_handle, true) == -1) {
+            printf("[Error] Polling F2SDRAMFLUSHACK = 1 timeout\n");
+            return -1;
+        } else {
+            printf("[Disable] Polling F2SDRAMFLUSHACK = 1 OK!\n");
+        }
+
+        // Assert the bridge module reset
+        printf("[Disable] Assert the bridge module reset.\n");
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_GET_BRGMODRST, (uintptr_t)&param, sizeof(uint32_t));
+        param |= RST_MGR_BRGMODRST_FPGA2SDRAM;
+        rstmgr_ioctl(rstmgr_handle, (int32_t)IOCTL_RSTMGR_SET_BRGMODRST, (uintptr_t)&param, sizeof(uint32_t));
+
+        printf("----- F2SDRAM disable flow is SUCCESSFUL. -----\n");
+    } else {
+        printf("[Warning]: brgmodrst is already 1 for FPGA2SDRAM\n");
+    }
 
     return return_value;
+}
+
+int32_t bridge_mbox_helper(int32_t mbox_handle, uint32_t cmd, uint32_t *resp_data, uint32_t resp_num) {
+
+    uint32_t cur_rin_value = 0;
+    uint32_t cur_rout_value = 0;
+
+    uint32_t hps_param = 0;
+    int32_t return_value = 0;
+
+    volatile hps_mailbox_reg_msg_t cin_buff;
+
+    // Set command paramters for getting command
+    cin_buff.hps_mbox_nrm_bhdr.hps_mbox_cer_cd = cmd;
+
+    // Set indirect message indicator to false
+    cin_buff.hps_mbox_nrm_bhdr.hps_mbox_ind = 0;
+
+    // Set length to 0
+    cin_buff.hps_mbox_nrm_bhdr.hps_mbox_size = 0;
+
+    // Set CheckSum Present to False
+    cin_buff.hps_mbox_nrm_bhdr.hps_mbox_cksm = 0;
+
+    // Set Channel ID to 1
+    cin_buff.hps_mbox_nrm_bhdr.hps_mbox_cmd_id = HPS_MBOX_ID;
+
+    // Set Channel to HPS
+    cin_buff.hps_mbox_nrm_bhdr.hps_mbox_ch_cl = HPS_MBOX_CLIENT;
+
+    // SET COE interrupt enable
+    hps_param = 1;
+    return_value |= hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_SET_COE_FLAG, (uintptr_t)&hps_param, sizeof(uint32_t));
+
+    // Write Header word to the command buffer
+    uintptr_t addr_ptr = (uintptr_t)&cin_buff;
+    uint32_t *ptr_hdr = (uint32_t *)addr_ptr;
+
+    printf("\n[Mailbox] Command: 0x%x\n", *ptr_hdr);
+
+    // Write value to Command buffer
+    return_value |= hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_SET_CBUF_VAL, (uintptr_t)ptr_hdr, sizeof(uint32_t));
+
+    // Increment the CIN address
+    return_value |= hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_INC_CIN_ADDR, (uintptr_t)&hps_param, sizeof(uint32_t));
+
+    // Get CIN and COUT Values
+    return_value |= hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_GET_CIN_OFST, (uintptr_t)&hps_param, sizeof(uint32_t));
+
+    return_value |= hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_GET_COUT_OFST, (uintptr_t)&hps_param, sizeof(uint32_t));
+
+    // Get RIN offset cur_rin_value
+    return_value |=
+        hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_GET_RIN_OFST, (uintptr_t)&cur_rin_value, sizeof(uint32_t));
+
+    // Get RIN offset cur_rout_value
+    return_value |=
+        hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_GET_ROUT_OFST, (uintptr_t)&cur_rout_value, sizeof(uint32_t));
+
+    // Set DBELL to SDM flag
+    hps_param = 1;
+    return_value |=
+        hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_SET_DBELL_TOSDM, (uintptr_t)&hps_param, sizeof(uint32_t));
+
+    // Wait for SDM to interrupt HPS
+    uint32_t ii = 400;
+    hps_param = 0;
+    do {
+
+        // Get doorbell to HPS
+        return_value |=
+            hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_GET_HPS_DBELL, (uintptr_t)&hps_param, sizeof(uint32_t));
+        if (hps_param != 0) {
+            ii = 0;
+
+            // Clear doorbell to HPS
+            hps_param = 0;
+            return_value |=
+                hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_SET_DBELL_TOHPS, (uintptr_t)&hps_param, sizeof(uint32_t));
+            printf("Doorbell answered\n");
+        }
+
+    } while (ii--);
+
+    // Get RIN offset cur_rin_value
+    hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_GET_RIN_OFST, (uintptr_t)&cur_rin_value, sizeof(uint32_t));
+
+    // Get ROUT offset cur_rout_value
+    hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_GET_ROUT_OFST, (uintptr_t)&cur_rout_value, sizeof(uint32_t));
+
+    if (cur_rin_value != cur_rout_value) {
+        // Get value from Response Buffer
+        hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_GET_RBUF_VAL, (uintptr_t)&hps_param, sizeof(uint32_t));
+
+        // Increment the ROUT address "hps_param will not be changed by increment ROUT"
+        hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_INC_ROUT_ADDR, (uintptr_t)&hps_param, sizeof(uint32_t));
+
+        // Make sure no other data was waiting to be written due to rout's position
+        // Get RIN offset cur_rin_value
+        hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_GET_RIN_OFST, (uintptr_t)&cur_rin_value, sizeof(uint32_t));
+    }
+    // Point to header to get remaining length of response "Break Header Down"
+    addr_ptr = (uintptr_t)&hps_param;
+    hps_mailbox_reg_msg_t *ptr_cfg_hdr = (hps_mailbox_reg_msg_t *)addr_ptr;
+
+    // Check header
+    if (ptr_cfg_hdr->hps_mbox_nrm_bhdr.hps_mbox_cer_cd == (uint32_t)0) {
+
+        if (ptr_cfg_hdr->hps_mbox_nrm_bhdr.hps_mbox_size != resp_num) {
+            printf("[Mailbox Error] CMD: 0x%x: expected number of response data:%d, actual number: %d\n", cmd, resp_num,
+                   ptr_cfg_hdr->hps_mbox_nrm_bhdr.hps_mbox_size);
+        }
+    } else {
+        printf("[Mailbox Error] error code= 0x%x\n", ptr_cfg_hdr->hps_mbox_nrm_bhdr.hps_mbox_cer_cd);
+    }
+
+    for (uint32_t i = 0; i < resp_num; i++) {
+        // Get RIN offset cur_rin_value
+        hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_GET_RIN_OFST, (uintptr_t)&cur_rin_value, sizeof(uint32_t));
+
+        // Get value from Response Buffer
+        hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_GET_RBUF_VAL, (uintptr_t)&hps_param, sizeof(uint32_t));
+
+        // Increment the ROUT address "hps_param will not be changed by increment ROUT"
+        hps_mbox_ioctl(mbox_handle, IOCTL_MBOX_CMD_INC_ROUT_ADDR, (uintptr_t)&hps_param, sizeof(uint32_t));
+
+        printf("[Mailbox] CMD: 0x%x: resp_data[%d]: 0x%x\n", cmd, resp_num, hps_param);
+        resp_data[i] = hps_param;
+    }
+
+    return return_value;
+}
+
+int32_t bridge_smmu_enabled_check_helper(int32_t smmu_handle) {
+
+    uint32_t smmu_param = 0;
+    int32_t ret_val = 1;
+
+    smmu_ioctl(smmu_handle, IOCTL_SMMU_IIDR_GET, (uintptr_t)&smmu_param, sizeof(smmu_param));
+    if (smmu_param != SMMU_IIDR) {
+        printf("[SMMU Warning] IIDR value is incorrect. Received: 0x%x\n", smmu_param);
+        ret_val = 0;
+    }
+
+    smmu_ioctl(smmu_handle, IOCTL_SMMU_CR0_GET, (uintptr_t)&smmu_param, sizeof(smmu_param));
+    if ((smmu_param & SMMU_CR0_SMMU_EN) == 0) {
+        printf("[SMMU] SMMU is disabled, HPS_FPGA_COMPLETE is NOT needed\n");
+        ret_val = 0;
+    }
+
+    return ret_val;
 }
 
 #ifdef __cplusplus

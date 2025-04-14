@@ -6,8 +6,9 @@ $fsbl_image_filename = "build/aarch64/out/i3c_test_ocram.bin"
 
 output-radix base = 16
 
-
 run-command-file (sim->workspace + "/targets/sm-hps/agilex5e-universal.simics")
+
+system.board.i3c0_device1.target->inverted_loopback = TRUE
 
 enable-debugger
 add-symbol-file $fsbl_elf_filename
@@ -17,8 +18,6 @@ $bp_ID = (bp.memory.break -x (dbg0.sym-address "exit"))
 echo "setting up coverage"
 
 $coverage_object = (collect-coverage context-query="/system/'board.fpga.soc_inst.hps_subsys.agilex_hps.core[0]'" name=mycov)
-
-log-level system.board.fpga.soc_inst.hps_subsys.agilex_hps.i3c0 -r 3
 
 echo "starting test"
 

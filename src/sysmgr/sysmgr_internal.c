@@ -4,6 +4,173 @@ extern "C" {
 
 #include "sysmgr_internal.h"
 #include "sysmgr_regs.h"
+// Array denoting the access level for each parameter
+// clang-format off
+const uint32_t sysmgr_regs_rw_status[sizeof(sysmgr_regs_t)/sizeof(uint32_t)] = {
+    REGISTER_READ_ONLY,                     /* SILICONID1 */
+    REGISTER_READ_ONLY,                     /* SILICONID2 */
+    REGISTER_RW,                            /* WDDBG */
+    REGISTER_UNUSED,                        /* *UNDEFINED* */
+    REGISTER_READ_ONLY,                     /* MPU_STATUS */
+    REGISTER_UNUSED,                        /* *UNDEFINED* */
+    REGISTER_UNUSED,
+    REGISTER_UNUSED,
+    REGISTER_UNUSED,
+    REGISTER_UNUSED,
+    REGISTER_UNUSED,
+    REGISTER_RW,                            /* SDMMC_L3MASTER */
+    REGISTER_UNUSED,                        /* *UNDEFINED* */
+    REGISTER_RW,                            /* NAND_L3MASTER */
+    REGISTER_RW,                            /* USB0_L3MASTER */
+    REGISTER_RW,                            /* USB1_L3MASTER */
+    REGISTER_RW,                            /* TSN_GLOBAL */
+    REGISTER_RW,                            /* TSN0 */
+    REGISTER_RW,                            /* TSN1 */
+    REGISTER_RW,                            /* TSN2 */
+    REGISTER_RW,                            /* TSN0_ACE */
+    REGISTER_RW,                            /* TSN1_ACE */
+    REGISTER_RW,                            /* TSN2_ACE */
+    REGISTER_RW,                            /* FPGA_BRIDGE_CTRL */
+    REGISTER_UNUSED,                        /* *UNDEFINED* */
+    REGISTER_UNUSED,
+    REGISTER_RW,                            /* FPGAINTF_EN_1 */
+    REGISTER_RW,                            /* FPGAINTF_EN_2 */
+    REGISTER_RW,                            /* FPGAINTF_EN_3 */
+    REGISTER_RW,                            /* DMAC0_L3MASTER */
+    REGISTER_RW,                            /* ETR_L3MASTER */
+    REGISTER_RW,                            /* DMAC1_L3MASTER */
+    REGISTER_READ_ONLY,                     /* SEC_CTRL_SLT */
+    REGISTER_READ_ONLY,                     /* OSC_TRIM */
+    REGISTER_RW,                            /* DMAC0_CTRL_STATUS_REG */
+    REGISTER_RW,                            /* DMAC1_CTRL_STATUS_REG */
+    REGISTER_RW,                            /* ECC_INTMASK_VALUE */
+    REGISTER_WRITE_ONLY,                    /* ECC_INTMASK_SET */
+    REGISTER_WRITE_ONLY,                    /* ECC_INTMASK_CLR */
+    REGISTER_READ_ONLY,                     /* ECC_INTSTATUS_SERR */
+    REGISTER_READ_ONLY,                     /* ECC_INTSTATUS_DERR */
+    REGISTER_UNUSED,                        /* *UNDEFINED* 0xa4 - 0xbf */
+    REGISTER_UNUSED,
+    REGISTER_UNUSED,
+    REGISTER_UNUSED,
+    REGISTER_UNUSED,
+    REGISTER_UNUSED,
+    REGISTER_UNUSED,
+    REGISTER_RW,                            /* NOC_TIMEOUT */
+    REGISTER_UNUSED,                        /* *UNDEFINED* 0xc4 - 0xd3*/
+    REGISTER_UNUSED,
+    REGISTER_UNUSED,
+    REGISTER_UNUSED,
+    REGISTER_READ_ONLY,                     /* NOC_IDLESTATUS */
+    REGISTER_RW,                            /* FPGA2SOC_CTRL */
+    REGISTER_READ_ONLY,                     /* FPGA_CONFIG */
+    REGISTER_UNUSED,                        /* *UNDEFINED* */
+    REGISTER_RW,                            /* GPO */
+    REGISTER_READ_ONLY,                     /* GPI */
+    REGISTER_UNUSED,                        /* *UNDEFINED* 0xec - 0ef */
+    REGISTER_RW,                            /* MPU */
+    REGISTER_RW,                            /* SDM_HPS_SPARE */
+    REGISTER_RW,                            /* HPS_SDM_SPARE */
+    REGISTER_RW,                            /* DFI_INTERFACE_CFG */
+    REGISTER_RW,                            /* NAND_DD_CTRL */
+    REGISTER_RW,                            /* NAND_PHY_CTRL_REG */
+    REGISTER_RW,                            /* NAND_PHY_TSEL_REG */
+    REGISTER_RW,                            /* NAND_PHY_DQ_TIMING_REG */
+    REGISTER_RW,                            /* PHY_DQS_TIMING_REG */
+    REGISTER_RW,                            /* NAND_PHY_GATE_LPBK_CTRL_REG */
+    REGISTER_RW,                            /* NAND_PHY_DLL_MASTER_CTRL_REG */
+    REGISTER_RW,                            /* NAND_PHY_DLL_SLAVE_CTRL_REG */
+    REGISTER_RW,                            /* NAND_DD_DEFAULT_SETTING_REG0 */
+    REGISTER_RW,                            /* NAND_DD_DEFAULT_SETTING_REG1 */
+    REGISTER_READ_ONLY,                     /* NAND_DD_STATUS_REG */
+    REGISTER_READ_ONLY,                     /* NAND_DD_ID_LOW_REG */
+    REGISTER_READ_ONLY,                     /* NAND_DD_ID_HIGH_REG */
+    REGISTER_RW,                            /* NAND_WRITE_PROT_EN_REG */
+    REGISTER_RW,                            /* SDMMC_CMD_QUEUE_SETTING_REG */
+    REGISTER_RW,                            /* I3C_SLV_PID_LOW */
+    REGISTER_RW,                            /* I3C_SLV_PID_HIGH */
+    REGISTER_RW,                            /* I3C_SLV_CTRL_0 */
+    REGISTER_RW,                            /* I3C_SLV_CTRL_1 */
+    REGISTER_RW,                            /* F2S_BRIDGE_CTRL */
+    REGISTER_RW,                            /* DMA_TBU_STASH_CTRL_REG_0_DMA0 */
+    REGISTER_RW,                            /* DMA_TBU_STASH_CTRL_REG_0_DMA1 */
+    REGISTER_RW,                            /* SDM_TBU_STASH_CTRL_REG_1_SDM */
+    REGISTER_RW,                            /* IO_TBU_STASH_CTRL_REG_2_USB2 */
+    REGISTER_RW,                            /* IO_TBU_STASH_CTRL_REG_2_USB3 */
+    REGISTER_RW,                            /* IO_TBU_STASH_CTRL_REG_2_SDMMC */
+    REGISTER_RW,                            /* IO_TBU_STASH_CTRL_REG_2_NAND */
+    REGISTER_RW,                            /* IO_TBU_STASH_CTRL_REG_2_ETR */
+    REGISTER_RW,                            /* TSN_TBU_STASH_CTRL_REG_3_TSN0 */
+    REGISTER_RW,                            /* TSN_TBU_STASH_CTRL_REG_3_TSN1 */
+    REGISTER_RW,                            /* TSN_TBU_STASH_CTRL_REG_3_TSN2 */
+    REGISTER_RW,                            /* DMA_TBU_STREAM_CTRL_REG_0_DMA0 */
+    REGISTER_RW,                            /* DMA_TBU_STREAM_CTRL_REG_0_DMA1 */
+    REGISTER_RW,                            /* SDM_TBU_STREAM_CTRL_REG_1_SDM */
+    REGISTER_RW,                            /* IO_TBU_STREAM_CTRL_REG_2_USB2 */
+    REGISTER_RW,                            /* IO_TBU_STREAM_CTRL_REG_2_USB3 */
+    REGISTER_RW,                            /* IO_TBU_STREAM_CTRL_REG_2_SDMMC */
+    REGISTER_RW,                            /* IO_TBU_STREAM_CTRL_REG_2_NAND */
+    REGISTER_RW,                            /* IO_TBU_STREAM_CTRL_REG_2_ETR */
+    REGISTER_RW,                            /* TSN_TBU_STREAM_CTRL_REG_3_TSN0 */
+    REGISTER_RW,                            /* TSN_TBU_STREAM_CTRL_REG_3_TSN1 */
+    REGISTER_RW,                            /* TSN_TBU_STREAM_CTRL_REG_3_TSN2 */
+    REGISTER_RW,                            /* DMA_TBU_STREAM_ID_ax_REG_0_DMA0 */
+    REGISTER_RW,                            /* DMA_TBU_STREAM_ID_ax_REG_0_DMA1 */
+    REGISTER_RW,                            /* SDM_TBU_STREAM_ID_ax_REG_1_SDM */
+    REGISTER_RW,                            /* IO_TBU_STREAM_ID_ax_REG_2_USB2 */
+    REGISTER_RW,                            /* IO_TBU_STREAM_ID_ax_REG_2_USB3 */
+    REGISTER_RW,                            /* IO_TBU_STREAM_ID_ax_REG_2_SDMMC */
+    REGISTER_RW,                            /* IO_TBU_STREAM_ID_ax_REG_2_NAND */
+    REGISTER_RW,                            /* IO_TBU_STREAM_ID_ax_REG_2_ETR */
+    REGISTER_RW,                            /* TSN_TBU_STREAM_ID_ax_REG_3_TSN0 */
+    REGISTER_RW,                            /* TSN_TBU_STREAM_ID_ax_REG_3_TSN1 */
+    REGISTER_RW,                            /* TSN_TBU_STREAM_ID_ax_REG_3_TSN2 */
+    REGISTER_UNUSED,                        /* *UNDEFINED* 0x1df - 0x1ef */
+    REGISTER_UNUSED,
+    REGISTER_UNUSED,
+    REGISTER_UNUSED,
+    REGISTER_UNUSED,
+    REGISTER_UNUSED,
+    REGISTER_UNUSED,
+    REGISTER_RW,                            /* USB3_MISC_CTRL_REG0 */
+    REGISTER_RW,                            /* USB3_MISC_CTRL_REG1 */
+    REGISTER_UNUSED,                        /* *UNDEFINED* 0x1f8 - 0x1ff */
+    REGISTER_UNUSED,
+    REGISTER_RW,                            /* BOOT_SCRATCH_COLD0 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_COLD1 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_COLD2 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_COLD3 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_COLD4 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_COLD5 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_COLD6 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_COLD7 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_COLD8 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_COLD9 */
+    REGISTER_RW,                            /* MPFE_CONFIG */
+    REGISTER_READ_ONLY,                     /* MPFE_STATUS */
+    REGISTER_RW,                            /* BOOT_SCRATCH_WARM0 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_WARM1 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_WARM2 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_WARM3 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_WARM4 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_WARM5 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_WARM6 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_WARM7 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_WARM8 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_WARM9 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_POR0 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_POR1 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_POR2 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_POR3 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_POR4 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_POR5 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_POR6 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_POR7 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_POR8 */
+    REGISTER_RW,                            /* BOOT_SCRATCH_POR9 */
+    REGISTER_RW,                            /* SDM_BE_AWADDR_REMAP */
+    REGISTER_RW,                            /* SDM_BE_ARADDR_REMAP */
+};
+// clang-format on
 
 int32_t sysmgr_regs_read(int32_t fd, uintptr_t buf, size_t length) {
     int32_t return_value = -1;
@@ -13,7 +180,11 @@ int32_t sysmgr_regs_read(int32_t fd, uintptr_t buf, size_t length) {
         return_value = -1;
     } else {
         for (uint32_t i = 0; i < (sizeof(sysmgr_regs_t) / 4UL); i++) {
-            buf32[i] = base[i];
+
+            // If this register can be read from allow it otherwise skip reading
+            if ((sysmgr_regs_rw_status[i] & REGISTER_READ_ONLY) == REGISTER_READ_ONLY) {
+                buf32[i] = base[i];
+            }
         }
         return_value = 0;
     }
@@ -27,7 +198,11 @@ int32_t sysmgr_regs_write(int32_t fd, uintptr_t buf, size_t length) {
         return_value = -1;
     } else {
         for (uint32_t i = 0; i < (sizeof(sysmgr_regs_t) / 4UL); i++) {
-            base[i] = buf32[i];
+
+            // If this register can be written to allow it otherwise skip writing
+            if ((sysmgr_regs_rw_status[i] & REGISTER_WRITE_ONLY) == REGISTER_WRITE_ONLY) {
+                base[i] = buf32[i];
+            }
         }
         return_value = 0;
     }

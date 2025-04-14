@@ -220,6 +220,15 @@ clock_t _times(struct tms *buf) {
     return -1;
 }
 
+// Byte Swap 32 bit
+bool b32_swap(uint32_t *p) {
+    bool ret_val = false;
+    if (p != NULL) {
+        *p = __builtin_bswap32(*p);
+        ret_val = true;
+    }
+    return ret_val;
+}
 #ifdef __cplusplus
 } // extern "C"
 #endif // __cplusplus

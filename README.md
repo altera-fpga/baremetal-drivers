@@ -1,4 +1,4 @@
-# Intel FPGA Baremetal Driver Libraries
+# Altera FPGA Baremetal Driver Libraries
 
 This repository contains baremetal driver code for Intel FPGA peripherals and soft IP.
 

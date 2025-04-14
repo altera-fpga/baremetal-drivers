@@ -1,7 +1,6 @@
 
 add_executable(sysmgr_unittest.elf EXCLUDE_FROM_ALL
     ${PROJECT_SOURCE_DIR}/test/unit/sysmgr/sysmgr_unittest.cpp
-    ${PROJECT_SOURCE_DIR}/test/unit/sysmgr/sysmgr_ioctl_unittest.cpp
     ${PROJECT_SOURCE_DIR}/src/sysmgr/sysmgr.c
     ${PROJECT_SOURCE_DIR}/src/sysmgr/sysmgr_internal.c
     ${PROJECT_SOURCE_DIR}/helpers/mylibc.cpp

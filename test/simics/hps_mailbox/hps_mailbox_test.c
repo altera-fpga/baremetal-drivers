@@ -15,7 +15,6 @@
 extern "C" {
 #endif
 
-#define HPS_CLIENT_CHANNEL 2
 #define CRYPTO_GET_CONFIG_STATUS 0x04
 
 int main(void) {

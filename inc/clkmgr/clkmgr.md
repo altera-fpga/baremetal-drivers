@@ -7,5 +7,6 @@ The clock manager is set up as a read-modify-write interface. For whole register
 The clock manager consists of four blocks: `clkmgr`, `mainpllgrp`, `perpllgrp`, and `ctlgrp`. Each block provides set and get functions. The read-modify-write approach is applicable to each block access.
 
 The clock manager must be accessed while the processor is in secure mode (PRIVILEGE MODE).
+Please note that the clkmgr is in boot mode by default, and all the clock gates from main PLL and Peripheral PLL groups are enabled in this case.
 
 More details can be found in the [Register Map](https://www.intel.com/content/www/us/en/programmable/hps/agilex5/hps.html#topics/addressblock_Clock_Mgr_summary.html)

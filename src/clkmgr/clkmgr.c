@@ -66,10 +66,10 @@ int32_t clkmgr_ioctl(int32_t fd, int32_t request, uintptr_t arg) {
         case (IOCTL_CLKMGR_PERPLL_REGS_WRITE):
             return_value = clkmgr_perpll_regs_write(arg);
             break;
-        case (IOCTL_CLKMGR_CTLGRP_READ):
+        case (IOCTL_CLKMGR_CTLGRP_REGS_READ):
             return_value = clkmgr_ctlgrp_regs_read(arg);
             break;
-        case (IOCTL_CLKMGR_CTLGRP_WRITE):
+        case (IOCTL_CLKMGR_CTLGRP_REGS_WRITE):
             return_value = clkmgr_ctlgrp_regs_write(arg);
             break;
         default:

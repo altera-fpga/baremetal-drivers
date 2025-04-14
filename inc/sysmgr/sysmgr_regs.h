@@ -13,11 +13,11 @@ typedef struct __attribute__((packed)) __attribute__((aligned(4))) {
     volatile uint32_t siliconid1;                      /* SILICONID1 */
     volatile uint32_t siliconid2;                      /* SILICONID2 */
     volatile uint32_t wddbg;                           /* WDDBG */
-    volatile uint32_t _pad_0xc_0xf;                    /* *UNDEFINED* */
+    volatile const uint32_t _pad_0xc_0xf;              /* *UNDEFINED* */
     volatile uint32_t mpu_status;                      /* MPU_STATUS */
-    volatile uint32_t _pad_0x14_0x2b[6];               /* *UNDEFINED* */
+    volatile const uint32_t _pad_0x14_0x2b[6];         /* *UNDEFINED* */
     volatile uint32_t sdmmc_l3master;                  /* SDMMC_L3MASTER */
-    volatile uint32_t _pad_0x30_0x33;                  /* *UNDEFINED* */
+    volatile const uint32_t _pad_0x30_0x33;            /* *UNDEFINED* */
     volatile uint32_t nand_l3master;                   /* NAND_L3MASTER */
     volatile uint32_t usb0_l3master;                   /* USB0_L3MASTER */
     volatile uint32_t usb1_l3master;                   /* USB1_L3MASTER */
@@ -29,7 +29,7 @@ typedef struct __attribute__((packed)) __attribute__((aligned(4))) {
     volatile uint32_t tsn1_ace;                        /* TSN1_ACE */
     volatile uint32_t tsn2_ace;                        /* TSN2_ACE */
     volatile uint32_t fpga_bridge_ctrl;                /* FPGA_BRIDGE_CTRL */
-    volatile uint32_t _pad_0x60_0x67[2];               /* *UNDEFINED* */
+    volatile const uint32_t _pad_0x60_0x67[2];         /* *UNDEFINED* */
     volatile uint32_t fpgaintf_en_1;                   /* FPGAINTF_EN_1 */
     volatile uint32_t fpgaintf_en_2;                   /* FPGAINTF_EN_2 */
     volatile uint32_t fpgaintf_en_3;                   /* FPGAINTF_EN_3 */
@@ -45,16 +45,16 @@ typedef struct __attribute__((packed)) __attribute__((aligned(4))) {
     volatile uint32_t ecc_intmask_clr;                 /* ECC_INTMASK_CLR */
     volatile uint32_t ecc_intstatus_serr;              /* ECC_INTSTATUS_SERR */
     volatile uint32_t ecc_intstatus_derr;              /* ECC_INTSTATUS_DERR */
-    volatile uint32_t _pad_0xa4_0xbf[7];               /* *UNDEFINED* */
+    volatile const uint32_t _pad_0xa4_0xbf[7];         /* *UNDEFINED* */
     volatile uint32_t noc_timeout;                     /* NOC_TIMEOUT */
-    volatile uint32_t _pad_0xc4_0xd3[4];               /* *UNDEFINED* */
+    volatile const uint32_t _pad_0xc4_0xd3[4];         /* *UNDEFINED* */
     volatile uint32_t noc_idlestatus;                  /* NOC_IDLESTATUS */
     volatile uint32_t fpga2soc_ctrl;                   /* FPGA2SOC_CTRL */
     volatile uint32_t fpga_config;                     /* FPGA_CONFIG */
-    volatile uint32_t _pad_0xe0_0xe3;                  /* *UNDEFINED* */
+    volatile const uint32_t _pad_0xe0_0xe3;            /* *UNDEFINED* */
     volatile uint32_t gpo;                             /* GPO */
     volatile uint32_t gpi;                             /* GPI */
-    volatile uint32_t _pad_0xec_0xef;                  /* *UNDEFINED* */
+    volatile const uint32_t _pad_0xec_0xef;            /* *UNDEFINED* */
     volatile uint32_t mpu;                             /* MPU */
     volatile uint32_t sdm_hps_spare;                   /* SDM_HPS_SPARE */
     volatile uint32_t hps_sdm_spare;                   /* HPS_SDM_SPARE */
@@ -112,10 +112,10 @@ typedef struct __attribute__((packed)) __attribute__((aligned(4))) {
     volatile uint32_t tsn_tbu_stream_id_ax_reg_3_tsn0; /* TSN_TBU_STREAM_ID_ax_REG_3_TSN0 */
     volatile uint32_t tsn_tbu_stream_id_ax_reg_3_tsn1; /* TSN_TBU_STREAM_ID_ax_REG_3_TSN1 */
     volatile uint32_t tsn_tbu_stream_id_ax_reg_3_tsn2; /* TSN_TBU_STREAM_ID_ax_REG_3_TSN2 */
-    volatile uint32_t _pad_0x1d4_0x1ef[7];             /* *UNDEFINED* */
+    volatile const uint32_t _pad_0x1d4_0x1ef[7];       /* *UNDEFINED* */
     volatile uint32_t usb3_misc_ctrl_reg0;             /* USB3_MISC_CTRL_REG0 */
     volatile uint32_t usb3_misc_ctrl_reg1;             /* USB3_MISC_CTRL_REG1 */
-    volatile uint32_t _pad_0x1f8_0x1ff[2];             /* *UNDEFINED* */
+    volatile const uint32_t _pad_0x1f8_0x1ff[2];       /* *UNDEFINED* */
     volatile uint32_t boot_scratch_cold0;              /* BOOT_SCRATCH_COLD0 */
     volatile uint32_t boot_scratch_cold1;              /* BOOT_SCRATCH_COLD1 */
     volatile uint32_t boot_scratch_cold2;              /* BOOT_SCRATCH_COLD2 */
@@ -151,6 +151,9 @@ typedef struct __attribute__((packed)) __attribute__((aligned(4))) {
     volatile uint32_t sdm_be_awaddr_remap;             /* SDM_BE_AWADDR_REMAP */
     volatile uint32_t sdm_be_araddr_remap;             /* SDM_BE_ARADDR_REMAP */
 } sysmgr_regs_t;
+
+// Array denoting the access level for each parameter
+extern const uint32_t sysmgr_regs_rw_status[sizeof(sysmgr_regs_t) / sizeof(uint32_t)];
 
 #ifdef __cplusplus
 }

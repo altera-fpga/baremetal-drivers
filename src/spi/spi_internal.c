@@ -79,7 +79,7 @@ int32_t spi_set_frame_format(int32_t fd, uintptr_t arg, size_t length) {
         return_value = -1;
     } else {
         spi->CTRLR0 &= ~spi_CTRLR0_FRF_MASK;
-        spi->CTRLR0 |= ((buf[0] << spi_CTRLR0_CFS_BIT_OFST) & spi_CTRLR0_FRF_MASK);
+        spi->CTRLR0 |= ((buf[0] << spi_CTRLR0_FRF_BIT_OFST) & spi_CTRLR0_FRF_MASK);
         return_value = 0;
     }
     return return_value;
@@ -106,7 +106,7 @@ int32_t spi_set_frame_size(int32_t fd, uintptr_t arg, size_t length) {
         return_value = -1;
     } else {
         spi->CTRLR0 &= ~spi_CTRLR0_DFS_32_MASK;
-        spi->CTRLR0 |= ((buf[0] << spi_CTRLR0_CFS_BIT_OFST) & spi_CTRLR0_DFS_32_MASK);
+        spi->CTRLR0 |= ((buf[0] << spi_CTRLR0_DFS_32_BIT_OFST) & spi_CTRLR0_DFS_32_MASK);
         return_value = 0;
     }
     return return_value;

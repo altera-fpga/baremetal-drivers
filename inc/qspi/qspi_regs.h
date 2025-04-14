@@ -63,7 +63,7 @@ typedef struct __attribute__((packed)) __attribute__((aligned(4))) {
     volatile uint32_t FLASHCMDRDDATAUP; // Offset 0xA4
     volatile uint32_t FLASHCMDWRDATALO; // Offset 0xA8
     volatile uint32_t FLASHCMDWRDATAUP; // Offset 0xAC
-    volatile uint32_t _pad_0xB0_0xF8[18];
+    volatile uint32_t _pad_0xB0_0xFB[19];
     volatile uint32_t MODULEID; // Offset 0xFC
 } qspi_regs_t;
 

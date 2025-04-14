@@ -1,5 +1,4 @@
 #include <stdbool.h>
-#include <stdio.h>
 #include <string.h>
 
 #include "i3c.h"
@@ -396,6 +395,18 @@ int32_t i3c_response_queue_port_get(int32_t fd, uintptr_t arg, size_t length) {
         return_value = -1;
     } else {
         buf[0] = regs->RESPONSE_QUEUE_PORT;
+        return_value = 0;
+    }
+    return return_value;
+}
+int32_t i3c_tx_data_port_get(int32_t fd, uintptr_t arg, size_t length) {
+    int32_t return_value = -1;
+    i3c_regs_t *regs = (i3c_regs_t *)(fd);
+    uint32_t *buf = (uint32_t *)arg;
+    if (length < sizeof(uint32_t)) {
+        return_value = -1;
+    } else {
+        buf[0] = regs->TX_DATA_PORT;
         return_value = 0;
     }
     return return_value;
@@ -987,6 +998,58 @@ int32_t i3c_queue_size_capability_get(int32_t fd, uintptr_t arg, size_t length) 
         return_value = -1;
     } else {
         buf[0] = regs->QUEUE_SIZE_CAPABILITY;
+        return_value = 0;
+    }
+    return return_value;
+}
+int32_t i3c_dev_addr_table_loc1_get(int32_t fd, uintptr_t arg, size_t length) {
+    int32_t return_value = -1;
+    i3c_regs_t *regs = (i3c_regs_t *)(fd);
+
+    uint32_t *buf = (uint32_t *)arg;
+    if (length < sizeof(uint32_t)) {
+        return_value = -1;
+    } else {
+        buf[0] = regs->DEV_ADDR_TABLE_LOC1;
+        return_value = 0;
+    }
+    return return_value;
+}
+int32_t i3c_dev_addr_table_loc1_set(int32_t fd, uintptr_t arg, size_t length) {
+    int32_t return_value = -1;
+    i3c_regs_t *regs = (i3c_regs_t *)(fd);
+
+    uint32_t *buf = (uint32_t *)arg;
+    if (length < sizeof(uint32_t)) {
+        return_value = -1;
+    } else {
+        regs->DEV_ADDR_TABLE_LOC1 = buf[0];
+        return_value = 0;
+    }
+    return return_value;
+}
+int32_t i3c_dev_addr_table_loc5_get(int32_t fd, uintptr_t arg, size_t length) {
+    int32_t return_value = -1;
+    i3c_regs_t *regs = (i3c_regs_t *)(fd);
+
+    uint32_t *buf = (uint32_t *)arg;
+    if (length < sizeof(uint32_t)) {
+        return_value = -1;
+    } else {
+        buf[0] = regs->DEV_ADDR_TABLE_LOC5;
+        return_value = 0;
+    }
+    return return_value;
+}
+int32_t i3c_dev_addr_table_loc5_set(int32_t fd, uintptr_t arg, size_t length) {
+    int32_t return_value = -1;
+    i3c_regs_t *regs = (i3c_regs_t *)(fd);
+
+    uint32_t *buf = (uint32_t *)arg;
+    if (length < sizeof(uint32_t)) {
+        return_value = -1;
+    } else {
+        regs->DEV_ADDR_TABLE_LOC5 = buf[0];
         return_value = 0;
     }
     return return_value;

@@ -151,6 +151,9 @@ int32_t i3c_ioctl(int32_t fd, int32_t request, uintptr_t arg, size_t length) {
         case I3C_IOCTL_RESPONSE_QUEUE_PORT_GET:
             return_value = i3c_response_queue_port_get(fd, arg, length);
             break;
+        case I3C_IOCTL_TX_DATA_PORT_GET:
+            return_value = i3c_tx_data_port_get(fd, arg, length);
+            break;
         case I3C_IOCTL_TX_DATA_PORT_SET:
             return_value = i3c_tx_data_port_set(fd, arg, length);
             break;
@@ -291,6 +294,18 @@ int32_t i3c_ioctl(int32_t fd, int32_t request, uintptr_t arg, size_t length) {
             break;
         case I3C_IOCTL_QUEUE_SIZE_CAPABILITY_GET:
             return_value = i3c_queue_size_capability_get(fd, arg, length);
+            break;
+        case I3C_IOCTL_DEV_ADDR_TABLE_LOC1_GET:
+            return_value = i3c_dev_addr_table_loc1_get(fd, arg, length);
+            break;
+        case I3C_IOCTL_DEV_ADDR_TABLE_LOC1_SET:
+            return_value = i3c_dev_addr_table_loc1_set(fd, arg, length);
+            break;
+        case I3C_IOCTL_DEV_ADDR_TABLE_LOC5_GET:
+            return_value = i3c_dev_addr_table_loc5_get(fd, arg, length);
+            break;
+        case I3C_IOCTL_DEV_ADDR_TABLE_LOC5_SET:
+            return_value = i3c_dev_addr_table_loc5_set(fd, arg, length);
             break;
         case I3C_IOCTL_DEVICE_ADDRESS_TABLE_SET:
             return_value = i3c_device_address_table_set(fd, arg, length);

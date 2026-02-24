@@ -2,6 +2,11 @@
 #include "rstmgr_regs.h"
 #include <string.h>
 
+const uint32_t rstmgr_readonly_indices[] = {
+    23  /*tststa */,
+    36  /*cpuinreset */,
+};
+
 const uint32_t rstmgr_valid_indices[] = {
     0 /* stat */,
     2 /* miscstat */,
@@ -14,12 +19,12 @@ const uint32_t rstmgr_valid_indices[] = {
     11 /* brgmodrst */,
     15 /* dbgmodrst */,
     19 /* brgwarmmask */,
-    23 /* tststa */,
+    23  /*tststa */,
     25 /* hdsktimeout */,
     27 /* dbghdsktimeout */,
     28 /* dbgrstcmplt */,
     32 /* hpsrstcmplt */,
-    36 /* cpuinreset */,
+    36  /*cpuinreset */,
     37 /* cpurstrelease */,
     38 /* cpu0_reset_base_low */,
     39 /* cpu0_reset_base_high */,
@@ -31,6 +36,16 @@ const uint32_t rstmgr_valid_indices[] = {
     45 /* cpu3_reset_base_high */,
 };
 
+static bool rstmgr_offset_is_readonly(size_t index) {
+    bool return_value = false;
+    for (size_t i = 0; i < (sizeof(rstmgr_readonly_indices) / sizeof(uint32_t)); i++) {
+        if (rstmgr_readonly_indices[i] == index) {
+            return_value = true;
+        }
+    }
+    return return_value;
+}
+
 static bool rstmgr_offset_is_valid(size_t index) {
     bool return_value = false;
     for (size_t i = 0; i < (sizeof(rstmgr_valid_indices) / sizeof(uint32_t)); i++) {
@@ -40,6 +55,7 @@ static bool rstmgr_offset_is_valid(size_t index) {
     }
     return return_value;
 }
+
 int32_t rstmgr_regs_read(int32_t fd, uintptr_t arg, size_t size) {
     uint32_t *base = (uint32_t *)((uintptr_t)fd);
     int32_t return_value = -1;
@@ -63,7 +79,7 @@ int32_t rstmgr_regs_write(int32_t fd, uintptr_t arg, size_t size) {
         return_value = -1;
     } else {
         for (size_t i = 0; i < (sizeof(hps_rstmgr_regs_t) / sizeof(uint32_t)); i++) {
-            if (rstmgr_offset_is_valid(i)) {
+            if (rstmgr_offset_is_valid(i) && !rstmgr_offset_is_readonly(i)) {
                 base[i] = ((uint32_t *)arg)[i];
             }
         }

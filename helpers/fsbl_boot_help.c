@@ -7,7 +7,8 @@ extern "C" {
 
 // UART related settings
 #define PLAT_BAUDRATE (115200)
-#define PLAT_UART_CLOCK (100000000)
+// Default boot clock with HPS_OSC_CLK=25MHz 
+#define PLAT_UART_CLOCK (85000000)
 #define UART_DLL_VAL (PLAT_UART_CLOCK / (PLAT_BAUDRATE * 16)) & 0xff
 #define UART_DLLM_VAL ((PLAT_UART_CLOCK / (PLAT_BAUDRATE * 16)) >> 8) & 0xff
 #define UARTLCR_DLAB BIT(0)

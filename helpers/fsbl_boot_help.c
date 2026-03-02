@@ -7,9 +7,10 @@ extern "C" {
 
 // UART related settings
 #define PLAT_BAUDRATE (115200)
-#define PLAT_UART_CLOCK (100000000)
+// Default boot clock with HPS_OSC_CLK=25MHz 
+#define PLAT_UART_CLOCK (85000000)
 #define UART_DLL_VAL (PLAT_UART_CLOCK / (PLAT_BAUDRATE * 16)) & 0xff
-#define UART_DLLM_VAL (UART_DLL_VAL << 8) & 0xff
+#define UART_DLLM_VAL ((PLAT_UART_CLOCK / (PLAT_BAUDRATE * 16)) >> 8) & 0xff
 #define UARTLCR_DLAB BIT(0)
 #define UARTFCR_FIFOEN (1 << 0) /* Enable the Tx/Rx FIFO */
 #define UARTFCR_DMAEN (1 << 3)  /* Enable DMA mode */
@@ -59,8 +60,11 @@ extern int32_t stdout_uart_fd;
 #define UART_TX_OFFSET              (2)
 #define UART_RX_OFFSET              (3)
 #define UART_PINMUX_SEL_VAL         (0x00000005)
-#define UART_TX_PINMUX_CTRL_VAL     (0x00000024) // pull up 8mA drive strength, fast slew rate, TTL no hysteresis, Weak Pull up 20kohm
-#define UART_RX_PINMUX_CTRL_VAL     (0x00000022) // pull up 4mA drive strength, slow slew rate, TTL no hysteresis, Weak Pull up 20kohm
+// change to uboot
+//#define UART_TX_PINMUX_CTRL_VAL     (0x00000024) // pull up 8mA drive strength, fast slew rate, TTL no hysteresis, Weak Pull up 20kohm
+#define UART_TX_PINMUX_CTRL_VAL     (0x00000036) // pull up 8mA drive strength, fast slew rate, TTL no hysteresis, Weak Pull up 20kohm
+//#define UART_RX_PINMUX_CTRL_VAL     (0x00000022) // pull up 4mA drive strength, slow slew rate, TTL no hysteresis, Weak Pull up 20kohm
+#define UART_RX_PINMUX_CTRL_VAL     (0x00000034) // pull up 4mA drive strength, slow slew rate, TTL no hysteresis, Weak Pull up 20kohm
 
 // PINMUX MASKS
 #define PINMUX_SELECT_RSV_MASK      (0xFFFFFFF0)
@@ -274,14 +278,14 @@ static const uint32_t pinmux_iodelay_offset[] = {
     0x00000094,
     0x00000098,
     0x0000009c,
-    0x00000100,
-    0x00000104,
-    0x00000108,
-    0x0000010c,
-    0x00000110,
-    0x00000114,
-    0x00000118,
-    0x0000011c
+    0x000000a0,
+    0x000000a4,
+    0x000000a8,
+    0x000000ac,
+    0x000000b0,
+    0x000000b4,
+    0x000000b8,
+    0x000000bc
 };
 
 #ifdef USE_HARDCODED_DEFAULT

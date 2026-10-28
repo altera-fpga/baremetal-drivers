@@ -1,0 +1,30 @@
+File: HPS Bare-Metal Reference
+
+Use this reference to look up public API declarations, parameter descriptions,
+types and low-level driver details. For application call order, prerequisites
+and worked examples, use the linked README for each module in the
+<API Guide Index>.
+
+Finding an API:
+
+- Start with the <API Guide Index> to choose a module and open its key symbols.
+- Expand Public API in the menu to browse headers. These are the declarations
+  used by applications.
+- Expand Technical Driver Reference for controller registers and implementation details.
+- Use symbol search when you know a function or type name.
+
+Building and Booting:
+
+Start with README.md in the root of the repository for the DDR and OCRAM build
+and boot instructions. Select PLAT=agilex5 or PLAT=agilex3 and use the
+matching board artifacts. PLAT has no default; always specify PLAT and
+BUILD_MODE for the intended platform and boot mode. The generated API
+reference does not establish hardware validation of these procedures.
+
+About This Reference:
+
+Function and type topics are generated from the source comments under api/
+and drivers/. Generation checks that the documentation can be processed;
+it does not establish that a declaration matches the implementation or that
+hardware operation has been qualified. Files without recognized topics are
+omitted because Documented Only is enabled.

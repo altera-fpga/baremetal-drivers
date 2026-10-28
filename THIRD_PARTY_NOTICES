@@ -1,0 +1,60 @@
+# Third-party notices
+
+Altera code in this repository is under the MIT-0 license in [LICENSE](LICENSE).
+The files below are exceptions. Their SPDX tags name the license that applies
+to that file.
+
+## DDR bring-up (BSD-3-Clause)
+
+These files are ported from Trusted Firmware-A
+(`plat/intel/soc/agilex5`). The DDR and IOSSM mailbox logic is the upstream
+logic. Include lines were adapted for this tree. They are compiled only for
+the Agilex 5 OCRAM build.
+
+| File | Upstream file | Copyright in this tree |
+|---|---|---|
+| `drivers/ddr/socfpga_ddr.c` | `plat/intel/soc/agilex5/soc/agilex5_ddr.c` | Copyright (c) 2024-2025, Altera Corporation |
+| `drivers/ddr/socfpga_ddr.h` | `plat/intel/soc/agilex5/include/agilex5_ddr.h` | Copyright (c) 2024, Altera Corporation |
+| `drivers/ddr/socfpga_ddr_mailbox.c` | `plat/intel/soc/agilex5/soc/agilex5_iossm_mailbox.c` | Copyright (c) 2024-2025, Altera Corporation |
+| `drivers/ddr/socfpga_ddr_mailbox.h` | `plat/intel/soc/agilex5/include/agilex5_iossm_mailbox.h` | Copyright (c) 2024-2025, Altera Corporation |
+
+Each file is tagged `SPDX-License-Identifier: BSD-3-Clause`.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+3. Neither the name of the copyright holder nor the names of its contributors
+   may be used to endorse or promote products derived from this software
+   without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+
+## Amazon Common IO (MIT)
+
+These headers contain Common IO basic V1.0.0. The Amazon copyright and MIT
+permission notice are in each file and must stay with any copy of that code.
+
+| File | Notice |
+|---|---|
+| `drivers/spi/socfpga_spi.h` | Copyright (C) 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved. |
+| `drivers/wdt/socfpga_watchdog.h` | Copyright (C) 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved. |
+| `middleware/uart/socfpga_uart.h` | Copyright (C) 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved. |
+
+Each of these files is tagged `SPDX-License-Identifier: MIT` because the
+Amazon notice requires that copyright and permission text to be kept in
+copies. The rest of this repository stays MIT-0.

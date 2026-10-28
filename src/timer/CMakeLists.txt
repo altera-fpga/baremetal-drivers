@@ -1,1 +1,0 @@
-target_sources(alterametal PRIVATE timer.c timer_internal.c)

@@ -1,1 +1,0 @@
-target_sources(alterametal PRIVATE clkmgr.c clkmgr_internal.c)

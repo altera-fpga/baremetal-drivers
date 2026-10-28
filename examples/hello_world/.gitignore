@@ -1,9 +1,0 @@
-bin/
-build/
-.project-properties
-modules/
-targets/
-*.mk
-GNUmakefile
-simics*
-documentation*

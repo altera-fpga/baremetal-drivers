@@ -1,1 +1,0 @@
-target_sources(alterametal PRIVATE combophy.c combophy_internal.c)

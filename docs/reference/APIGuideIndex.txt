@@ -1,0 +1,224 @@
+File: API Guide Index
+
+Choose a module below, then follow its symbol links into the public header
+reference. Each module has a README under api/ in the repository with
+prerequisites, call order, examples, return values and troubleshooting.
+
+Topic: HPS-to-FPGA Bridge
+
+The API opens a handle on one bridge and enables, disables, pauses or resumes it. Enabling is what makes the fabric address window respond; once a bridge is up, an application reads and writes the fabric with ordinary pointer accesses rather than through a transfer call in this API.
+
+Guide: api/bridge/README.md in the repository.
+
+Key symbols: <bridge_api_open>, <bridge_api_set_route>.
+
+Topic: CCU
+
+The API reads the coherency unit's identity and its uncorrected error status, and flushes enabled L3 cache arrays so that lines in those arrays are written back. It does not reconfigure the CCU.
+
+Guide: api/ccu/README.md in the repository.
+
+Key symbols: <ccu_api_get_id>, <ccu_api_flush_l3_cache>.
+
+Topic: Clock Manager
+
+The API reports the frequencies of the supported peripheral clocks and reads or writes the interconnect divider fields. Several other modules depend on it: I2C, SPI and the timers all derive their timing from the frequency it reports, so a wrong or zero answer here surfaces as a failure there.
+
+Guide: api/clk_mngr/README.md in the repository.
+
+Key symbols: <clk_mngr_api_get_freq>, <clk_mngr_api_get_divisor>.
+
+Topic: ComboPHY
+
+The API reads two identification registers from the Combo PHY: its version and its feature set. It is a diagnostic interface, not a configuration interface.
+
+Guide: api/combophy/README.md in the repository.
+
+Key symbols: <combophy_api_get_version>, <combophy_api_get_features>.
+
+Topic: Console and CLI
+
+The API provides the interactive shell: a prompt, line editing, tab completion, the built-in commands, and the registration interface that lets any module add a command of its own. Every module's self-test becomes reachable by registering here, but each of those commands is documented in its own module guide -- this guide covers the framework.
+
+Guide: api/console/README.md in the repository.
+
+Key symbols: <cli_register_command>, <cli_run>.
+
+Topic: CRC
+
+The CRC API calculates a checksum in software and validates a buffer against an expected size and checksum. Use it to check an image after transferring it through another subsystem. It requires no peripheral clock, reset or register access.
+
+Guide: api/crc/README.md in the repository.
+
+Key symbols: <crc_api_calculate>, <crc_api_validate>.
+
+Topic: DMA
+
+The API presents a memory-to-memory copy interface -- synchronous and asynchronous -- and builds the descriptor chains internally. It also performs the cache maintenance a DMA transfer needs, which most other modules in this repository leave to the caller.
+
+Guide: api/dma/README.md in the repository.
+
+Key symbols: <dma_init>, <dma_memcpy>, <dma_memcpy_async>, <dma_wait>.
+
+Topic: ECC
+
+The API enables ECC on the protected memory blocks, reports and counts single-bit and double-bit errors, and injects test errors so an application's error-handling path can be exercised deliberately.
+
+Guide: api/ecc/README.md in the repository.
+
+Key symbols: <ecc_api_init>, <ecc_api_poll_status>, <ecc_api_get_hw_sbe_count>.
+
+Topic: FCS — Integration Blocked
+
+The API reads device identity values, opens and closes a cryptographic session, obtains random numbers from the device's generator, and reads provisioning data.
+
+Guide: api/fcs/README.md in the repository.
+
+Key symbols: <fcs_api_init>, <fcs_api_open_session>.
+
+Topic: GIC
+
+The API initializes the interrupt controller, attaches a handler to an interrupt, enables or disables it, and sends software-generated interrupts between cores.
+
+Guide: api/gic/README.md in the repository.
+
+Key symbols: <gic_api_init>, <gic_api_register_isr>.
+
+Topic: GPIO — Known Limitations
+
+The HPS provides two GPIO controller banks. The current implementation opens one pin at a time, sets its
+direction, reads the pad state, and drives an output. Use polling in this
+revision; the interrupt callback path does not deliver the stored callback.
+
+Guide: api/gpio/README.md in the repository.
+
+Key symbols: <gpio_open>, <gpio_read_sync>.
+
+Topic: I2C
+
+The API operates one I2C bus as a controller (master), targeting one device address at a time. It handles the register-style access pattern most I2C peripherals use -- write a register index, then read its contents -- as a single combined transfer, and it derives bus timing from the live peripheral clock rather than from a hard-coded divisor.
+
+Guide: api/i2c/README.md in the repository.
+
+Key symbols: <i2c_api_init>, <i2c_api_write_then_read>.
+
+Topic: I3C
+
+The API opens an I3C controller, reports its capabilities, and performs legacy I2C transfers, private I3C transfers, or a raw command-queue operation.
+
+Guide: api/i3c/README.md in the repository.
+
+Key symbols: <i3c_api_init>, <i3c_api_get_hw_capability>.
+
+Topic: IOSSM
+
+The API opens a memory-controller instance, enables or disables ECC on external memory, reads and clears its error status, and can inject single-bit and double-bit errors at a chosen external-memory address. It also offers bounds-checked 64-bit reads and writes to external memory.
+
+Guide: api/iossm/README.md in the repository.
+
+Key symbols: <iossm_api_open>, <iossm_api_close>.
+
+Topic: SDM Mailbox
+
+The API sends a Secure Device Manager command and waits for its response, which the firmware layer places in a caller-supplied memory buffer. It is the general-purpose path for device-management commands that no dedicated module wraps.
+
+Guide: api/mailbox/README.md in the repository.
+
+Key symbols: <mailbox_init>, <mailbox_exec>.
+
+Topic: MMU
+
+The API reports whether address translation is currently enabled at a given privilege level, and builds a block translation-table entry from a physical address and a set of attributes. It is a reporting and entry-construction interface, not a translation-configuration interface.
+
+Guide: api/mmu/README.md in the repository.
+
+Key symbols: <mmu_api_is_enabled>, <mmu_api_make_block_descriptor>.
+
+Topic: NoC Firewall
+
+The API reads and writes a peripheral's interconnect security policy, and offers a convenience call that opens a peripheral to non-secure masters. Use it only to apply the platform's approved security policy. A zero register
+read or an access fault alone does not establish that a firewall change is needed.
+
+Guide: api/noc_firewall/README.md in the repository.
+
+Key symbols: <noc_firewall_api_get>, <noc_firewall_api_set>.
+
+Topic: NoC Probe
+
+The API reads the probe's identity, enables its error logger, reports whether an error has been latched, reads the latched details and clears them. It is how you find out which access caused an interconnect fault.
+
+Guide: api/noc_probe/README.md in the repository.
+
+Key symbols: <noc_probe_api_read_id>, <noc_probe_api_error_read>.
+
+Topic: Performance Monitoring
+
+The API timestamps code, converts elapsed counter ticks into microseconds or nanoseconds, computes throughput and latency figures from a byte count and an elapsed time, and records results in a small in-memory log that can be dumped from the console.
+
+Guide: api/perf/README.md in the repository.
+
+Key symbols: <perf_counter_ticks>, <perf_elapsed_us>, <perf_log_dump>.
+
+Topic: Reboot Manager
+
+The API requests a cold or a warm system reboot, with an optional callback that runs immediately before the request is issued so an application gets one last chance to flush state.
+
+Guide: api/reboot_mngr/README.md in the repository.
+
+Key symbols: <reboot>.
+
+Topic: Reset Manager
+
+The API applies a reset pulse -- assert, delay, deassert -- to a peripheral, and reports whether a peripheral is currently held in reset. The public interface covers three devices; the driver beneath it knows the full peripheral set.
+
+Guide: api/rst_mngr/README.md in the repository.
+
+Key symbols: <reset_get_device_status>, <reset_device>.
+
+Topic: SD/MMC
+
+The API initializes an SD card, reports its capacity in 512-byte blocks, and reads or writes runs of blocks synchronously.
+
+Guide: api/sdmmc/README.md in the repository.
+
+Key symbols: <sdmmc_api_init>, <sdmmc_api_read>.
+
+Topic: SEU
+
+The API reads the upset statistics and the error queue the Secure Device Manager maintains, and can inject test upsets so that an application's error-handling path can be exercised deliberately.
+
+Guide: api/seu/README.md in the repository.
+
+Key symbols: <seu_api_init>, <seu_api_read_err>.
+
+Topic: SMMU
+
+The API enables or disables the system memory management unit using a translation configuration built into the driver, reports whether it is enabled, and provides raw register access for diagnosis.
+
+Guide: api/smmu/README.md in the repository.
+
+Key symbols: <smmu_api_is_enabled>, <smmu_api_enable>.
+
+Topic: SPI
+
+The API opens one SPI instance, configures its bit rate, transfer mode and chip-select, and performs blocking full-duplex transfers. It also offers an internal loopback self-check that needs no external device and no wiring.
+
+Guide: api/spi/README.md in the repository.
+
+Key symbols: <spi_api_open>, <spi_api_transfer>.
+
+Topic: Timer
+
+The API opens one timer instance, starts and stops it, and reads its current count in microseconds. It converts the raw count using the clock rate the Clock Manager reports, so the result does not depend on a hard-coded frequency.
+
+Guide: api/timer/README.md in the repository.
+
+Key symbols: <timer_open>, <timer_start>, <timer_get_time_us>.
+
+Topic: UART
+
+The API initializes the console UART and provides polled character-at-a-time send and receive, plus printf routed to the serial port. Every diagnostic message and every console command in this repository goes through it.
+
+Guide: api/uart/README.md in the repository.
+
+Key symbols: <uart_init>, <uart_getc>.

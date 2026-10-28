@@ -1,24 +1,13 @@
-add_subdirectory(base)
-add_subdirectory(clkmgr)
-add_subdirectory(gpio)
-add_subdirectory(rstmgr)
-add_subdirectory(timer)
-add_subdirectory(gic)
-add_subdirectory(uart)
-add_subdirectory(i2c)
-add_subdirectory(i3c)
-add_subdirectory(mmu)
-add_subdirectory(smmu)
-add_subdirectory(spi)
-add_subdirectory(qspi)
-add_subdirectory(sysmgr)
-add_subdirectory(watchdog)
-add_subdirectory(combophy)
-add_subdirectory(sdmmc)
-add_subdirectory(dma)
-add_subdirectory(hps_mailbox)
-add_subdirectory(noc_firewall)
-add_subdirectory(noc_probe)
-add_subdirectory(ccu)
-add_subdirectory(xgmac)
-add_subdirectory(ecc)
+cmake_minimum_required(VERSION 3.20)
+
+# Reusable app utilities (NOT startup, NOT main)
+add_library(bm_app STATIC
+	../lib/lib_string.c
+	../lib/lib_time.c
+	../lib/lib_printf.c
+	../lib/lib_parse.c
+	../lib/cache_maintenance.S
+)
+
+# Export include dir(s) for headers under src/
+target_include_directories(bm_app PUBLIC ${CMAKE_CURRENT_LIST_DIR})

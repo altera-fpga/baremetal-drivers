@@ -1,0 +1,50 @@
+/*
+ * SPDX-FileCopyrightText: Copyright (C) 2026 Altera Corporation
+ *
+ * SPDX-License-Identifier: MIT-0
+ */
+
+
+/* File: socfpga_noc_probe_reg.h
+ *
+ * NoC Probe register definition header for the SoCFPGA bare-metal software stack.
+ *
+ */
+
+#ifndef SOCFPGA_NOC_PROBE_REG_H
+#define SOCFPGA_NOC_PROBE_REG_H
+
+#define NOC_PROBE_ATBENDPOINT_ID_COREID        0x0000U
+#define NOC_PROBE_ERRORLOGGER0_BASE            0x0080U
+#define NOC_PROBE_ERRORLOGGER_FAULTEN          0x0008U
+#define NOC_PROBE_ERRORLOGGER_ERRVLD           0x000CU
+#define NOC_PROBE_ERRORLOGGER_ERRCLR           0x0010U
+#define NOC_PROBE_ERRORLOGGER_ERRLOG0          0x0014U
+#define NOC_PROBE_ERRORLOGGER_ERRLOG1          0x0018U
+#define NOC_PROBE_ERRORLOGGER_ERRLOG3          0x0020U
+#define NOC_PROBE_ERRORLOGGER_ERRLOG4          0x0024U
+#define NOC_PROBE_ERRORLOGGER_ERRLOG5          0x0028U
+#define NOC_PROBE_ERRORLOGGER_ERRLOG6          0x002CU
+#define NOC_PROBE_ERRORLOGGER_ERRLOG7          0x0030U
+
+#define NOC_PROBE_CCU_PROBE_BASE               0x0400U
+#define NOC_PROBE_SOC2FPGA_PROBE_BASE          0x0C00U
+#define NOC_PROBE_IO_PROBE_BASE                0x1400U
+#define NOC_PROBE_PROBE_MAINCTL                0x0008U
+#define NOC_PROBE_PROBE_CFGCTL                 0x000CU
+#define NOC_PROBE_PROBE_STATPERIOD             0x0024U
+#define NOC_PROBE_PROBE_STATGO                 0x0028U
+#define NOC_PROBE_PROBE_COUNTER_BASE           0x0200U
+#define NOC_PROBE_PROBE_COUNTER_STRIDE         0x0010U
+#define NOC_PROBE_PROBE_COUNTER_SRC            0x0004U
+#define NOC_PROBE_PROBE_COUNTER_ALARMMODE      0x0008U
+#define NOC_PROBE_PROBE_COUNTER_VAL            0x000CU
+
+#define NOC_PROBE_ERRORLOGGER_ERRVLD_MASK      0x00000001U
+#define NOC_PROBE_ERRORLOGGER_ERRVLD_POS       0U
+#define NOC_PROBE_ERRORLOGGER_ERRCLR_MASK      0x00000001U
+#define NOC_PROBE_ERRORLOGGER_ERRCLR_POS       0U
+#define NOC_PROBE_PROBE_STATGO_MASK            0x00000001U
+#define NOC_PROBE_PROBE_STATGO_POS             0U
+
+#endif /* SOCFPGA_NOC_PROBE_REG_H */

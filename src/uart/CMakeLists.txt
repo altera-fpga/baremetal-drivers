@@ -1,1 +1,0 @@
-target_sources(alterametal PRIVATE uart.c uart_internal.c)

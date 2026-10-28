@@ -1,1 +1,0 @@
-target_sources(alterametal PRIVATE gic.c gic_internal.c)

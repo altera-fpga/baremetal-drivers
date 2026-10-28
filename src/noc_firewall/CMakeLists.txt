@@ -1,1 +1,0 @@
-target_sources(alterametal PRIVATE noc_firewall.c noc_firewall_internal.c)

@@ -1,1 +1,0 @@
-target_sources(alterametal PRIVATE ecc.c ecc_internal.c)

@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:seu/socfpga_seu.c","socfpga_seu.c");NDSummary.OnSummaryLoaded("File2:seu/socfpga_seu.c",[["C/C++","C"]],[["Files","File"]],[[879,0,0,"socfpga_seu.c","socfpga_seu.c"]]);

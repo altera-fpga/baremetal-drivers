@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("lin",["Constant"],[["line",,[[,"LCR - line control register",,"lcr-line control register",0,"File2:uart/socfpga_uart_reg.h:LCR-line_control_register"],[,"LSR - line status register",,"lsr-line status register",0,"File2:uart/socfpga_uart_reg.h:LSR-line_status_register"]]]]);

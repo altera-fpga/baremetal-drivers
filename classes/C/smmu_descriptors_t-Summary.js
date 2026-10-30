@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:smmu_descriptors_t","smmu_descriptors_t");NDSummary.OnSummaryLoaded("CClass:smmu_descriptors_t",[["C/C++","C"]],[["Structs","Struct"]],[[910,0,0,"smmu_descriptors_t"]]);

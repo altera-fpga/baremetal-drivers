@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:reset_mngr/socfpga_rst_mngr.c",{815:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">Reset Manager source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

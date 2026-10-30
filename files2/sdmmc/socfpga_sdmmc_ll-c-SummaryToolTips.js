@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:sdmmc/socfpga_sdmmc_ll.c",{847:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">SDMMC source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

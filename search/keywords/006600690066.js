@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("fif",["Constant"],[["FIFO",,[[,"FIFO level masks",,,0,"File2:uart/socfpga_uart_reg.h:FIFO_level_masks"],[,"Advanced FIFO and status control",,,0,"File2:uart/socfpga_uart_reg.h:Advanced_FIFO_and_status_control"],[,"FCR - FIFO control register",,"fcr-fifo control register",0,"File2:uart/socfpga_uart_reg.h:FCR-FIFO_control_register"]]]]);

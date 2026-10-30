@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("ver",["Constant"],[["VERBOSE",,[[,,,,0,"File2:ddr/ddr_platform_compat.h:VERBOSE"]]],["version",,[[,"Component version and ID masks",,,0,"File2:uart/socfpga_uart_reg.h:Component_version_and_ID_masks"]]]]);

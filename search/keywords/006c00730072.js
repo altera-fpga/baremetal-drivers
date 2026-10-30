@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("lsr",["Constant"],[["LSR",,[[,"LSR - line status register",,"lsr-line status register",0,"File2:uart/socfpga_uart_reg.h:LSR-line_status_register"]]]]);

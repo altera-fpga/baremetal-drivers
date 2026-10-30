@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("tri",["Function","Constant"],[["trig_mem_cal",,[[,,,,0,"File2:ddr/socfpga_ddr_mailbox.h:trig_mem_cal"],[,"TRIG_MEM_CAL",,,1,"File2:ddr/socfpga_ddr_mailbox.h:TRIG_MEM_CAL"]]]]);

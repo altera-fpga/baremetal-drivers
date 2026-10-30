@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:read_err_data_t","read_err_data_t");NDSummary.OnSummaryLoaded("CClass:read_err_data_t",[["C/C++","C"]],[["Structs","Struct"]],[[883,0,0,"read_err_data_t"]]);

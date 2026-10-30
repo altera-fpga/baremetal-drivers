@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("hel",["Constant"],[["helpers",,[[,"Bit and size helpers",,,0,"File2:ddr/ddr_platform_compat.h:Bit_and_size_helpers"],[,"Field helpers",,,0,"File2:ddr/socfpga_ddr_mailbox.h:Field_helpers"]]]]);

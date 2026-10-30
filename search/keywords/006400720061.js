@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("dra",["Constant"],[["DRAM",,[[,"DRAM bank count",,,0,"File2:ddr/socfpga_ddr.h:DRAM_bank_count"]]],["DRAM_BASE",,[[,,,,0,"File2:ddr/ddr_platform_compat.h:DRAM_BASE"]]]]);

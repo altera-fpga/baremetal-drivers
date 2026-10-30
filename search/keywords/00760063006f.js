@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("vco",["Constant"],[["VCO",,[[,"VCO clock sources",,,0,"File2:clk_mngr/socfpga_clk_mngr_ll.h:VCO_clock_sources"]]]]);

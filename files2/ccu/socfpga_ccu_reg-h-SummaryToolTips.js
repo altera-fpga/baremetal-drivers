@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:ccu/socfpga_ccu_reg.h",{42:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">CCU register definition header for the SoCFPGA bare-metal software stack.</div></div>"});

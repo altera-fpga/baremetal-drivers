@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("phy",["Type"],[["phys_addr_t",,[[,,,,0,"File2:ddr/socfpga_ddr.h:phys_addr_t"]]],["phys_size_t",,[[,,,,0,"File2:ddr/socfpga_ddr.h:phys_size_t"]]]]);

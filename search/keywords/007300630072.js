@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("scr",["Constant"],[["SCR",,[[,"SCR and shadow register masks",,,0,"File2:uart/socfpga_uart_reg.h:SCR_and_shadow_register_masks"]]]]);

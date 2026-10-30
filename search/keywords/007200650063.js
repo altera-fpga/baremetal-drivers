@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("rec",["Constant"],[["receive",,[[,"Shadow receive and transmit registers",,,0,"File2:uart/socfpga_uart_reg.h:Shadow_receive_and_transmit_registers"]]]]);

@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:seu_stat_t",{885:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Describes SEU configuration, state, or transfer information.</div></div>",887:"<div class=\"NDToolTip TType LC\"><div class=\"TTSummary\">Callback signature used by the SEU module.</div></div>"});

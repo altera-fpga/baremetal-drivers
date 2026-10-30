@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:sdmmc/socfpga_combo_phy.h","socfpga_combo_phy.h");NDSummary.OnSummaryLoaded("File2:sdmmc/socfpga_combo_phy.h",[["C/C++","C"]],[["Files","File"]],[[868,0,0,"socfpga_combo_phy.h","socfpga_combo_phy.h"]]);

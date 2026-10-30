@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:gpio/socfpga_gpio_reg.h",{511:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">GPIO register definition header for the SoCFPGA bare-metal software stack.</div></div>"});

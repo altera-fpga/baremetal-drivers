@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:dma_channel_reg_list","dma_channel_reg_list");NDSummary.OnSummaryLoaded("CClass:dma_channel_reg_list",[["C/C++","C"]],[["Structs","Struct"]],[[196,0,0,"dma_channel_reg_list"]]);

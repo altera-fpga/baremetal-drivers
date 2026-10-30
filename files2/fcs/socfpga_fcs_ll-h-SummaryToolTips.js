@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:fcs/socfpga_fcs_ll.h",{256:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">FCS low-level driver interface for the SoCFPGA bare-metal software stack.</div></div>"});

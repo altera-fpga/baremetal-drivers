@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("l4_",["Constant"],[["L4_MP_CLK",,[[,,,,0,"File2:clk_mngr/socfpga_clk_mngr_ll.h:L4_MP_CLK"]]],["L4_SP_CLK",,[[,,,,0,"File2:clk_mngr/socfpga_clk_mngr_ll.h:L4_SP_CLK"]]],["L4_SYS_FREE_CLK",,[[,,,,0,"File2:clk_mngr/socfpga_clk_mngr_ll.h:L4_SYS_FREE_CLK"]]]]);

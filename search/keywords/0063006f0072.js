@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("cor",["Section"],[["Core",,[[,"Core 16550 UART Registers",,,0,"File2:uart/socfpga_uart_reg.h:Core_16550_UART_Registers"]]]]);

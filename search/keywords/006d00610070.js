@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("map",["Constant","Section"],[["mapping",,[[,"Interrupt priority mapping",,,0,"File2:uart/socfpga_uart_ll.h:Interrupt_priority_mapping"]]],["Mappings",,[[,"Address Translation Mappings",,,1,"File2:smmu/socfpga_smmu.h:Address_Translation_Mappings"]]]]);

@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("mul",["Constant"],[["MULTIPLE_DOUBLE_BIT_ERRORS",,[[,,,,0,"File2:ddr/socfpga_ddr_mailbox.h:MULTIPLE_DOUBLE_BIT_ERRORS"]]],["MULTIPLE_SINGLE_BIT_ERRORS",,[[,,,,0,"File2:ddr/socfpga_ddr_mailbox.h:MULTIPLE_SINGLE_BIT_ERRORS"]]],["multiplexer",,[[,"Pin multiplexer",,,0,"File2:gpio/socfpga_gpio.h:Pin_multiplexer"]]]]);

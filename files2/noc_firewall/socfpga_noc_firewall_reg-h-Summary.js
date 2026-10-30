@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:noc_firewall/socfpga_noc_firewall_reg.h","socfpga_noc_firewall_reg.h");NDSummary.OnSummaryLoaded("File2:noc_firewall/socfpga_noc_firewall_reg.h",[["C/C++","C"]],[["Files","File"]],[[712,0,0,"socfpga_noc_firewall_reg.h","socfpga_noc_firewall_reg.h"]]);

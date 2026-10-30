@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:bridge/socfpga_bridge_ll.c",{31:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">Bridge source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

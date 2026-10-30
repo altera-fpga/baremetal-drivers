@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:socfpga_i2c_config_t",{638:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Defines the initial hardware state and timing parameters for the I2C controller.</div></div>"});

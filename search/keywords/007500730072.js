@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("usr",["Constant"],[["USR",,[[,"USR - UART status register",,"usr-uart status register",0,"File2:uart/socfpga_uart_reg.h:USR-UART_status_register"]]]]);

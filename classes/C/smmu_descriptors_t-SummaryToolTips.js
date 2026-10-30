@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:smmu_descriptors_t",{910:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">A master aggregation structure containing all in-memory tables required by the SMMUv3 controller.</div></div>"});

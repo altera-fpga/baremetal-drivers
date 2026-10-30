@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:reset_mngr/socfpga_rst_mngr_reg.h","socfpga_rst_mngr_reg.h");NDSummary.OnSummaryLoaded("File2:reset_mngr/socfpga_rst_mngr_reg.h",[["C/C++","C"]],[["Files","File"]],[[802,0,0,"socfpga_rst_mngr_reg.h","socfpga_rst_mngr_reg.h"]]);

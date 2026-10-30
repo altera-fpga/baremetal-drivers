@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:socfpga_i3c_config_t","socfpga_i3c_config_t");NDSummary.OnSummaryLoaded("CClass:socfpga_i3c_config_t",[["C/C++","C"]],[["Structs","Struct"]],[[767,0,0,"socfpga_i3c_config_t"]]);

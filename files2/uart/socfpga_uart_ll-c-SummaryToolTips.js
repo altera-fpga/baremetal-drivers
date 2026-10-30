@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:uart/socfpga_uart_ll.c",{1012:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">UART source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("kno",["Information"],[["Known",,[[,"GPIO — Known Limitations",,"gpio—known limitations",0,"File3:APIGuideIndex.txt:GPIO_—_Known_Limitations"]]]]);

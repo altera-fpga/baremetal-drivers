@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("win",["Constant"],[["window",,[[,"DDR window base",,,0,"File2:ddr/ddr_platform_compat.h:DDR_window_base"]]]]);

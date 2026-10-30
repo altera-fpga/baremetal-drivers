@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("bas",["Constant"],[["base",,[[,"DDR window base",,,0,"File2:ddr/ddr_platform_compat.h:DDR_window_base"],[,"UART base addressing",,,0,"File2:uart/socfpga_uart_reg.h:UART_base_addressing"]]]]);

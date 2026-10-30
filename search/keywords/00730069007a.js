@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("siz",["Constant"],[["size",,[[,"Bit and size helpers",,,0,"File2:ddr/ddr_platform_compat.h:Bit_and_size_helpers"],[,"Interface counts and size",,,0,"File2:ddr/socfpga_ddr_mailbox.h:Interface_counts_and_size"]]],["sizes",,[[,"Buffer and key sizes",,,0,"File2:fcs/socfpga_fcs.h:Buffer_and_key_sizes"]]]]);

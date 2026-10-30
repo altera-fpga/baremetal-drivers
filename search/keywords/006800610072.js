@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("har",["Constant"],[["Hardware",,[[,"Hardware tuning and timeouts",,,0,"File2:spi/socfpga_spi_ll.h:Hardware_tuning_and_timeouts"]]]]);

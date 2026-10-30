@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("cs_",["Constant"],[["CS_CLK",,[[,,,,0,"File2:clk_mngr/socfpga_clk_mngr_ll.h:CS_CLK"]]],["CS_PDBG_CLK",,[[,,,,0,"File2:clk_mngr/socfpga_clk_mngr_ll.h:CS_PDBG_CLK"]]],["CS_TRACE_CLK",,[[,,,,0,"File2:clk_mngr/socfpga_clk_mngr_ll.h:CS_TRACE_CLK"]]]]);

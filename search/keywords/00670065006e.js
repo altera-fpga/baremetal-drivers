@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("gen",["Constant"],[["GENMASK",,[[,,,,0,"File2:ddr/ddr_platform_compat.h:GENMASK"]]]]);

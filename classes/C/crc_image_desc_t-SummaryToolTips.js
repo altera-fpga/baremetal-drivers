@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:crc_image_desc_t",{1517:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Image description and expected values used by crc_api_validate().</div></div>"});

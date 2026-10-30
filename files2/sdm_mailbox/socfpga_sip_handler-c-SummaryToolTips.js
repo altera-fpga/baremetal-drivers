@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:sdm_mailbox/socfpga_sip_handler.c",{823:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">SDM Mailbox source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

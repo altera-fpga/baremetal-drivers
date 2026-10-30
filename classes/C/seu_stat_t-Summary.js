@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:seu_stat_t","seu_stat_t");NDSummary.OnSummaryLoaded("CClass:seu_stat_t",[["C/C++","C"]],[["Groups","Group"],["Structs","Struct"],["Types","Type"]],[[885,0,1,"seu_stat_t"],[886,0,0,"Types","Types"],[887,0,2,"seu_call_back_t","seu_call_back_t"]]);

@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("add",["Section","Constant"],[["Address",,[[,"Address Translation Mappings",,,0,"File2:smmu/socfpga_smmu.h:Address_Translation_Mappings"],[,"BIST start address",,,1,"File2:ddr/socfpga_ddr_mailbox.h:BIST_start_address"]]],["addressing",,[[,"UART base addressing",,,1,"File2:uart/socfpga_uart_reg.h:UART_base_addressing"]]]]);

@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("lat",["Constant"],[["latch",,[[,"Buffer and latch masks",,,0,"File2:uart/socfpga_uart_reg.h:Buffer_and_latch_masks"]]]]);

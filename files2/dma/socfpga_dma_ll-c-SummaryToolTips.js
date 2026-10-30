@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:dma/socfpga_dma_ll.c",{194:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">DMA source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

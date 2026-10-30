@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("wri",["Constant"],[["WRITE_LINK_DOUBLE_BIT_ERROR",,[[,,,,0,"File2:ddr/socfpga_ddr_mailbox.h:WRITE_LINK_DOUBLE_BIT_ERROR"]]],["WRITE_LINK_SINGLE_BIT_ERROR",,[[,,,,0,"File2:ddr/socfpga_ddr_mailbox.h:WRITE_LINK_SINGLE_BIT_ERROR"]]]]);

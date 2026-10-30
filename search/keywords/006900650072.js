@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("ier",["Constant"],[["IER",,[[,"IER - interrupt enable register",,"ier-interrupt enable register",0,"File2:uart/socfpga_uart_reg.h:IER-interrupt_enable_register"]]]]);

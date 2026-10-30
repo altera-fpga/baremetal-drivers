@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("pin",["Constant"],[["Pin",,[[,"Pin multiplexer",,,0,"File2:gpio/socfpga_gpio.h:Pin_multiplexer"]]],["PINMUX_GPIO",,[[,,,,0,"File2:gpio/socfpga_gpio.h:PINMUX_GPIO"]]],["PINMUX_MASK",,[[,,,,0,"File2:gpio/socfpga_gpio.h:PINMUX_MASK"]]],["PINMUX_REG",,[[,,,,0,"File2:gpio/socfpga_gpio.h:PINMUX_REG"]]]]);

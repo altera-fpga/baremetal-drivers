@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("inl",["Function"],[["inline_ecc_bist_mem_init",,[[,,,,0,"File2:ddr/socfpga_ddr_mailbox.c:inline_ecc_bist_mem_init"]]]]);

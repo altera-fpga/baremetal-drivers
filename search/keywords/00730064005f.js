@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("sd_",["Function"],[["sd_get_card_type",,[[,,,,0,"File2:sdmmc/socfpga_sdmmc_ll.h:sd_get_card_type"]]],["sd_read_response_rel_addr",,[[,,,,0,"File2:sdmmc/socfpga_sdmmc_ll.h:sd_read_response_rel_addr"]]]]);

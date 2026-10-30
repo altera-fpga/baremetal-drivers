@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:timer/socfpga_timer.c","socfpga_timer.c");NDSummary.OnSummaryLoaded("File2:timer/socfpga_timer.c",[["C/C++","C"]],[["Files","File"]],[[1011,0,0,"socfpga_timer.c","socfpga_timer.c"]]);

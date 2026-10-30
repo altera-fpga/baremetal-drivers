@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("typ",["Constant"],[["type",,[[,"Clock type identifiers",,,0,"File2:clk_mngr/socfpga_clk_mngr_ll.h:Clock_type_identifiers"]]],["types",,[[,"Command types and sentinels",,,0,"File2:iossm/socfpga_iossm_ll.h:Command_types_and_sentinels"]]]]);

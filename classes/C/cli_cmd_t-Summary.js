@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:cli_cmd_t","cli_cmd_t");NDSummary.OnSummaryLoaded("CClass:cli_cmd_t",[["C/C++","C"]],[["Structs","Struct"]],[[1476,0,0,"cli_cmd_t"]]);

@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:cmd_parameters_t","cmd_parameters_t");NDSummary.OnSummaryLoaded("CClass:cmd_parameters_t",[["C/C++","C"]],[["Structs","Struct"]],[[850,0,0,"cmd_parameters_t"]]);

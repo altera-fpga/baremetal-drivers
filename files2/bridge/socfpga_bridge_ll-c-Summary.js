@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:bridge/socfpga_bridge_ll.c","socfpga_bridge_ll.c");NDSummary.OnSummaryLoaded("File2:bridge/socfpga_bridge_ll.c",[["C/C++","C"]],[["Files","File"]],[[31,0,0,"socfpga_bridge_ll.c","socfpga_bridge_ll.c"]]);

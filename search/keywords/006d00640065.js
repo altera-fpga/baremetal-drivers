@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("mde",["Function"],[["mdelay",,[[,,,,0,"File2:ddr/ddr_platform_compat.h:mdelay"]]]]);

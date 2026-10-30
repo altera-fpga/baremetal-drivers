@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:ddr_info","ddr_info");NDSummary.OnSummaryLoaded("CClass:ddr_info",[["C/C++","C"]],[["Structs","Struct"]],[[132,0,0,"ddr_info"]]);

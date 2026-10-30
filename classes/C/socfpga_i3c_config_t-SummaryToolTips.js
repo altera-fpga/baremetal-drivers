@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:socfpga_i3c_config_t",{767:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Initialization parameters for the I3C controller. This dictates the IP\'s behavior regarding legacy protocols and bus-management features.</div></div>"});

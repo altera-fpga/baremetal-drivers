@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("pos",["Section"],[["Positions",,[[,"Register Bit Masks and Positions",,,0,"File2:uart/socfpga_uart_reg.h:Register_Bit_Masks_and_Positions"]]]]);

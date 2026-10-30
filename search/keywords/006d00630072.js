@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("mcr",["Constant"],[["MCR",,[[,"MCR - modem control register",,"mcr-modem control register",0,"File2:uart/socfpga_uart_reg.h:MCR-modem_control_register"]]]]);

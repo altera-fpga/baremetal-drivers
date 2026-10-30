@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:gic/socfpga_interrupt_priority.h","socfpga_interrupt_priority.h");NDSummary.OnSummaryLoaded("File2:gic/socfpga_interrupt_priority.h",[["C/C++","C"]],[["Files","File"]],[[389,0,0,"socfpga_interrupt_priority.h","socfpga_interrupt_priority.h"]]);

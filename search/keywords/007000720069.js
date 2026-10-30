@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("pri",["Function","Constant"],[["printf",,[[,,,,0,"File:uart/uart_api.h:printf"]]],["priority",,[[,"Interrupt priority mapping",,,1,"File2:uart/socfpga_uart_ll.h:Interrupt_priority_mapping"]]]]);

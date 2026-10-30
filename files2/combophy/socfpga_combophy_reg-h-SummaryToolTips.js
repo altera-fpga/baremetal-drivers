@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:combophy/socfpga_combophy_reg.h",{99:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">Combo PHY register definition header for the SoCFPGA bare-metal software stack.</div></div>"});

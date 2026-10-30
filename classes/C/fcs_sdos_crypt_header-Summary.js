@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:fcs_sdos_crypt_header","fcs_sdos_crypt_header");NDSummary.OnSummaryLoaded("CClass:fcs_sdos_crypt_header",[["C/C++","C"]],[["Structs","Struct"]],[[469,0,0,"fcs_sdos_crypt_header"]]);

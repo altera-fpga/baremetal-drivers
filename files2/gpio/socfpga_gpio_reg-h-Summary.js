@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:gpio/socfpga_gpio_reg.h","socfpga_gpio_reg.h");NDSummary.OnSummaryLoaded("File2:gpio/socfpga_gpio_reg.h",[["C/C++","C"]],[["Files","File"]],[[511,0,0,"socfpga_gpio_reg.h","socfpga_gpio_reg.h"]]);

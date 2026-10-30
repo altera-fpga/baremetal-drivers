@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:read_err_data_t",{883:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Describes SEU configuration, state, or transfer information.</div></div>"});

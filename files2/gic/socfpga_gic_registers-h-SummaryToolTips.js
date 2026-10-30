@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:gic/socfpga_gic_registers.h",{502:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">GIC hardware abstraction driver interface for the SoCFPGA bare-metal software stack.</div></div>"});

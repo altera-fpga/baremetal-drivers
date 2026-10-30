@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:bridge_api_route_t",{1091:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Route record stored by bridge_api_set_route().</div></div>",1093:"<div class=\"NDToolTip TEnumeration LC\"><div class=\"TTSummary\">Flow-control value stored by bridge_api_set_flow_ctrl(). Not programmed into a flow-control register.</div></div>"});

@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("tx_",["Constant"],[["TX_EMPTY",,[[,,,,0,"File2:spi/socfpga_spi_ll.h:TX_EMPTY"]]]]);

@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:dma_descriptor_t","dma_descriptor_t");NDSummary.OnSummaryLoaded("CClass:dma_descriptor_t",[["C/C++","C"]],[["Structs","Struct"]],[[852,0,0,"dma_descriptor_t"]]);

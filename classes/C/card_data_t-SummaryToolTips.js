@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:card_data_t",{851:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Describes SDMMC configuration, state, or transfer information.</div></div>"});

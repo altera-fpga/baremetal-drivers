@@ -1,0 +1,1 @@
+﻿NDContentPage.OnToolTipsLoaded({1034:"<div class=\"NDToolTip TEnumeration LC\"><div class=\"TTSummary\">Maps hardware-specific interrupt events to categorical identifiers used throughout the software stack.</div></div>"});

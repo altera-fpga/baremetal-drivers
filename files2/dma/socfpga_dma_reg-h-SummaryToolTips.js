@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:dma/socfpga_dma_reg.h",{220:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">DMA register definition header for the SoCFPGA bare-metal software stack.</div></div>"});

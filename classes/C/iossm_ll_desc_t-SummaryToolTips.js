@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:iossm_ll_desc_t",{704:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Software descriptor anchoring the context for a specific IOSSM hardware block.&nbsp; This caches the resolved MMIO base address alongside hardware-queried ID values to minimize redundant bus reads during high-frequency ECC polling.</div></div>"});

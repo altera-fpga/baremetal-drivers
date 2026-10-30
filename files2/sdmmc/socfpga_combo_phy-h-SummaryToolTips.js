@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:sdmmc/socfpga_combo_phy.h",{868:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">SDMMC hardware abstraction driver interface for the SoCFPGA bare-metal software stack.</div></div>"});

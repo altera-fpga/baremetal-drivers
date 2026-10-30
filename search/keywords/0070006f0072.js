@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("por",["Constant"],[["POR_RESET",,[[,,,,0,"File2:ddr/socfpga_ddr.c:POR_RESET"]]]]);

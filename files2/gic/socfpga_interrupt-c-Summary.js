@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:gic/socfpga_interrupt.c","socfpga_interrupt.c");NDSummary.OnSummaryLoaded("File2:gic/socfpga_interrupt.c",[["C/C++","C"]],[["Files","File"]],[[503,0,0,"socfpga_interrupt.c","socfpga_interrupt.c"]]);

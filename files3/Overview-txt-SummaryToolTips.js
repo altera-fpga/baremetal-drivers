@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File3:Overview.txt",{1:"<div class=\"NDToolTip TFile LTextFile\"><div class=\"TTSummary\">Use this reference to look up public API declarations, parameter descriptions, types and low-level driver details. For application call order, prerequisites and worked examples, use the linked README for each module in the API Guide Index.</div></div>"});

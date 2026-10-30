@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:i2c/socfpga_i2c.c","socfpga_i2c.c");NDSummary.OnSummaryLoaded("File2:i2c/socfpga_i2c.c",[["C/C++","C"]],[["Files","File"]],[[587,0,0,"socfpga_i2c.c","socfpga_i2c.c"]]);

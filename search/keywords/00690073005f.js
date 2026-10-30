@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("is_",["Function"],[["is_ddr_init_hang",,[[,,,,0,"File2:ddr/socfpga_ddr.c:is_ddr_init_hang"]]],["is_double_bit_error",,[[,,,,0,"File2:ddr/socfpga_ddr_mailbox.c:is_double_bit_error"]]],["is_pin_gpio",,[[,,,,0,"File2:gpio/socfpga_gpio.h:is_pin_gpio"]]]]);

@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:i2c/socfpga_i2c_reg.h",{550:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">I2C register definition header for the SoCFPGA bare-metal software stack.</div></div>"});

@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:handoff",{170:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">The only handoff data this DDR driver reads.&nbsp; Bit 0 of ddr_config is dual-port. Bit 1 is dual-EMIF.</div></div>"});

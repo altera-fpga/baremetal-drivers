@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("hps",["File","Function","Information"],[["HPS",,[[,"HPS Bare-Metal Reference",,,0,"File3:Overview.txt:HPS_Bare-Metal_Reference"]]],["hps_ocram_dbe_status",,[[,,,,1,"File2:ddr/socfpga_ddr.c:hps_ocram_dbe_status"]]],["HPS-to-FPGA",,[[,"HPS-to-FPGA Bridge",,,2,"File3:APIGuideIndex.txt:HPS-to-FPGA_Bridge"]]]]);

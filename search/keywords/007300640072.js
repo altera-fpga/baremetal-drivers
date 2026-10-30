@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("sdr",["Function"],[["sdram_set_firewall",,[[,,,,0,"File2:ddr/socfpga_ddr.c:sdram_set_firewall"]]],["sdram_set_firewall_f2sdram",,[[,,,,0,"File2:ddr/socfpga_ddr.c:sdram_set_firewall_f2sdram"]]],["sdram_set_firewall_non_f2sdram",,[[,,,,0,"File2:ddr/socfpga_ddr.c:sdram_set_firewall_non_f2sdram"]]]]);

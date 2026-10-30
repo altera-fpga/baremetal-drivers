@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:smmu/socfpga_smmu_reg.h",{914:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">SMMU register definition header for the SoCFPGA bare-metal software stack.</div></div>"});

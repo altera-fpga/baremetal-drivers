@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:seu_err_params_t","seu_err_params_t");NDSummary.OnSummaryLoaded("CClass:seu_err_params_t",[["C/C++","C"]],[["Structs","Struct"]],[[884,0,0,"seu_err_params_t"]]);

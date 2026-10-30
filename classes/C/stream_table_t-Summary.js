@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:stream_table_t","stream_table_t");NDSummary.OnSummaryLoaded("CClass:stream_table_t",[["C/C++","C"]],[["Structs","Struct"]],[[908,0,0,"stream_table_t"]]);

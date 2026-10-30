@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("war",["Constant"],[["WARM_RESET",,[[,,,,0,"File2:ddr/socfpga_ddr.c:WARM_RESET"]]],["WARN",,[[,,,,0,"File2:ddr/ddr_platform_compat.h:WARN"]]]]);

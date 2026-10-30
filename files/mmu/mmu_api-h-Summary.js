@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File:mmu/mmu_api.h","mmu_api.h");NDSummary.OnSummaryLoaded("File:mmu/mmu_api.h",[["C/C++","C"]],[["Files","File"],["Functions","Function"]],[[1684,0,0,"mmu_api.h","mmu_api.h"],[1685,0,1,"mmu_api_is_enabled","mmu_api_is_enabled"],[1686,0,1,"mmu_api_make_block_descriptor","mmu_api_make_block_descriptor"]]);

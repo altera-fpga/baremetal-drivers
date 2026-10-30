@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("fcr",["Constant"],[["FCR",,[[,"FCR - FIFO control register",,"fcr-fifo control register",0,"File2:uart/socfpga_uart_reg.h:FCR-FIFO_control_register"]]]]);

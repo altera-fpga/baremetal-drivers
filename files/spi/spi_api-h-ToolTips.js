@@ -1,0 +1,1 @@
+﻿NDContentPage.OnToolTipsLoaded({1800:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Configuration passed to spi_api_open().</div></div>"});

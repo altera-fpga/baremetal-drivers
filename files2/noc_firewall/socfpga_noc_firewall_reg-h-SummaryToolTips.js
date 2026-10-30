@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:noc_firewall/socfpga_noc_firewall_reg.h",{712:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">NoC Firewall register definition header for the SoCFPGA bare-metal software stack.</div></div>"});

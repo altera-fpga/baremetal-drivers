@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("par",["Constant"],[["parameter",,[[,"CPR - component parameter register",,"cpr-component parameter register",0,"File2:uart/socfpga_uart_reg.h:CPR-component_parameter_register"]]]]);

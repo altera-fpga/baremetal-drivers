@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("def",["Constant"],[["definitions",,[[,"Interrupt masking definitions",,,0,"File2:spi/socfpga_spi_ll.h:Interrupt_masking_definitions"]]]]);

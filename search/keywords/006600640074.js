@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("fdt",["Type"],[["fdt_addr_t",,[[,,,,0,"File2:ddr/socfpga_ddr.h:fdt_addr_t"]]]]);

@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:card_data_t","card_data_t");NDSummary.OnSummaryLoaded("CClass:card_data_t",[["C/C++","C"]],[["Structs","Struct"]],[[851,0,0,"card_data_t"]]);

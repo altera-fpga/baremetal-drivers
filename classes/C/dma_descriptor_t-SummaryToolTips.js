@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:dma_descriptor_t",{852:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Describes SDMMC configuration, state, or transfer information.</div></div>"});

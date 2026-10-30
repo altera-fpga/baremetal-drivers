@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:iossm/socfpga_iossm_ll.c",{663:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">IOSSM source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

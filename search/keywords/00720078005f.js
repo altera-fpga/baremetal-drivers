@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("rx_",["Constant"],[["RX_DATA_RDY",,[[,,,,0,"File2:uart/socfpga_uart_ll.h:RX_DATA_RDY"]]],["RX_FULL",,[[,,,,0,"File2:spi/socfpga_spi_ll.h:RX_FULL"]]],["RX_LINE_STATUS",,[[,,,,0,"File2:uart/socfpga_uart_ll.h:RX_LINE_STATUS"]]]]);

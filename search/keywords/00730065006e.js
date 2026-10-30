@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("sen",["Constant"],[["sentinels",,[[,"Command types and sentinels",,,0,"File2:iossm/socfpga_iossm_ll.h:Command_types_and_sentinels"]]]]);

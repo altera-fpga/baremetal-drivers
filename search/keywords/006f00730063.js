@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("osc",["Constant"],[["OSC1_CLK_SRC",,[[,,,,0,"File2:clk_mngr/socfpga_clk_mngr_ll.h:OSC1_CLK_SRC"]]]]);

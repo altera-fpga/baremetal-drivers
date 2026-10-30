@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("srr",["Constant"],[["SRR",,[[,"SRR - software reset register",,"srr-software reset register",0,"File2:uart/socfpga_uart_reg.h:SRR-software_reset_register"]]]]);

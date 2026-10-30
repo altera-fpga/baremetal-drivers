@@ -1,0 +1,1 @@
+﻿NDContentPage.OnToolTipsLoaded({872:"<div class=\"NDToolTip TType LC\"><div class=\"TTSummary\">Callback signature used by the SDMMC module.</div></div>"});

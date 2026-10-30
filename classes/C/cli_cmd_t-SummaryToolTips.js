@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:cli_cmd_t",{1476:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">One dynamically registered command.</div></div>"});

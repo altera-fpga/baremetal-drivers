@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("rat",["Constant"],[["rate",,[[,"Clock rate constants",,,0,"File2:clk_mngr/socfpga_clk_mngr_ll.h:Clock_rate_constants"]]]]);

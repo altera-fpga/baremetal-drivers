@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:socfpga_noc_probe_error_log_t","socfpga_noc_probe_error_log_t");NDSummary.OnSummaryLoaded("CClass:socfpga_noc_probe_error_log_t",[["C/C++","C"]],[["Structs","Struct"]],[[792,0,0,"socfpga_noc_probe_error_log_t"]]);

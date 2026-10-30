@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:gpio/socfpga_gpio.c",{551:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">GPIO source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

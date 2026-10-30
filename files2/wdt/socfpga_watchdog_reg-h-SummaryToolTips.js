@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:wdt/socfpga_watchdog_reg.h",{1013:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">Watchdog register definition header for the SoCFPGA bare-metal software stack.</div></div>"});

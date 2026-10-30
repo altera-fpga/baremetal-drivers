@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:i3c/socfpga_i3c_ll.c",{588:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">I3C source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

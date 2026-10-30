@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:sdm_mailbox/socfpga_sip_handler.h","socfpga_sip_handler.h");NDSummary.OnSummaryLoaded("File2:sdm_mailbox/socfpga_sip_handler.h",[["C/C++","C"]],[["Files","File"],["Functions","Function"]],[[825,0,0,"socfpga_sip_handler.h","socfpga_sip_handler.h"],[826,0,1,"smc_call","smc_call"]]);

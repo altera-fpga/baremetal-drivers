@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:smmu/socfpga_smmu_config.h","socfpga_smmu_config.h");NDSummary.OnSummaryLoaded("File2:smmu/socfpga_smmu_config.h",[["C/C++","C"]],[["Files","File"]],[[896,0,0,"socfpga_smmu_config.h","socfpga_smmu_config.h"]]);

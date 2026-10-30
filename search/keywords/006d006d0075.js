@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("mmu",["Information","File","Function"],[["MMU",,[[,,,,0,"File3:APIGuideIndex.txt:MMU"]]],["mmu_api",,[[,"mmu_api.h",,,1,"File:mmu/mmu_api.h:mmu_api.h"]]],["mmu_api_is_enabled",,[[,,,,2,"File:mmu/mmu_api.h:mmu_api_is_enabled"]]],["mmu_api_make_block_descriptor",,[[,,,,2,"File:mmu/mmu_api.h:mmu_api_make_block_descriptor"]]]]);

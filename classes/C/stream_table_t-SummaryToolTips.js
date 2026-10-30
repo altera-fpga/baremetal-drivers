@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:stream_table_t",{908:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Represents an ARM SMMUv3 Stream Table Entry (STE).</div></div>"});

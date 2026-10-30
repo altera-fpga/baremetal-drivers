@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:iossm_ll_response_t",{703:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Container for the three-word response payload returned by the IOSSM hardware upon completion of a command execution.</div></div>"});

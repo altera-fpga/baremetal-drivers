@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:seu_err_params_t",{884:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Describes SEU configuration, state, or transfer information.</div></div>"});

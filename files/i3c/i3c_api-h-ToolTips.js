@@ -1,0 +1,1 @@
+﻿NDContentPage.OnToolTipsLoaded({768:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">A raw hardware transfer descriptor. This structure maps directly to the physical Command, TX, and RX queues of the I3C controller.</div></div>"});

@@ -1,0 +1,1 @@
+﻿NDContentPage.OnToolTipsLoaded({1622:"<div class=\"NDToolTip TType LC\"><div class=\"TTSummary\">Opaque IOSSM handle type used to preserve module state between calls.</div></div>"});

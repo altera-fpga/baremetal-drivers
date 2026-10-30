@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:crc/socfpga_crc.c",{110:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">CRC source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

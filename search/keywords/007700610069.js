@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("wai",["Function"],[["wait_for_bit",,[[,,,,0,"File2:ddr/socfpga_ddr_mailbox.c:wait_for_bit"]]]]);

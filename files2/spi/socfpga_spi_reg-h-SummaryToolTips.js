@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:spi/socfpga_spi_reg.h",{915:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">SPI register definition header for the SoCFPGA bare-metal software stack.</div></div>"});

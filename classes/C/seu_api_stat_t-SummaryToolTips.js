@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:seu_api_stat_t",{1777:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">SEU timing statistics returned by seu_api_read_stat(). Values are Secure Device Manager clock ticks; 0xFFFFFFFF means the corresponding event has not occurred.</div></div>"});

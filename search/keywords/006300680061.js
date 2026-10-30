@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("cha",["Constant"],[["CHAR_TIMEOUT",,[[,,,,0,"File2:uart/socfpga_uart_ll.h:CHAR_TIMEOUT"]]]]);

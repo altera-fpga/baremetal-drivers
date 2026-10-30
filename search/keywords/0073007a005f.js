@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("sz_",["Constant"],[["SZ_1G",,[[,,,,0,"File2:ddr/ddr_platform_compat.h:SZ_1G"]]],["SZ_1M",,[[,,,,0,"File2:ddr/ddr_platform_compat.h:SZ_1M"]]],["SZ_8",,[[,,,,0,"File2:ddr/socfpga_ddr_mailbox.h:SZ_8"]]]]);

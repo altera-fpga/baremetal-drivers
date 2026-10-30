@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("lev",["Constant"],[["level",,[[,"FIFO level masks",,,0,"File2:uart/socfpga_uart_reg.h:FIFO_level_masks"]]]]);

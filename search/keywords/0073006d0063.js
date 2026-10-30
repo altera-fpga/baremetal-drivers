@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("smc",["Function"],[["smc_call",,[[,,,,0,"File2:sdm_mailbox/socfpga_sip_handler.h:smc_call"]]]]);

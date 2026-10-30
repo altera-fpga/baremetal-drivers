@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("bus",["Constant"],[["BUSY_DETECT",,[[,,,,0,"File2:uart/socfpga_uart_ll.h:BUSY_DETECT"]]]]);

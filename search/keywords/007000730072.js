@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("psr",["Constant"],[["PSRC_CBINTOSC_CLK",,[[,,,,0,"File2:clk_mngr/socfpga_clk_mngr_ll.h:PSRC_CBINTOSC_CLK"]]],["PSRC_EOSC1_CLK",,[[,,,,0,"File2:clk_mngr/socfpga_clk_mngr_ll.h:PSRC_EOSC1_CLK"]]],["PSRC_F2S_FREE_CLK",,[[,,,,0,"File2:clk_mngr/socfpga_clk_mngr_ll.h:PSRC_F2S_FREE_CLK"]]]]);

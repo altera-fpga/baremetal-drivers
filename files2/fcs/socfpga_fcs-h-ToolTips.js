@@ -1,0 +1,1 @@
+﻿NDContentPage.OnToolTipsLoaded({434:"<div class=\"NDToolTip TConstant LC\"><div class=\"TTSummary\">SHA-2 hash mode (1).</div></div>",435:"<div class=\"NDToolTip TConstant LC\"><div class=\"TTSummary\">HMAC mode (2).</div></div>"});

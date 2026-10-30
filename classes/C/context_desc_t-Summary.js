@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:context_desc_t","context_desc_t");NDSummary.OnSummaryLoaded("CClass:context_desc_t",[["C/C++","C"]],[["Structs","Struct"]],[[907,0,0,"context_desc_t"]]);

@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:spi_api_config_t","spi_api_config_t");NDSummary.OnSummaryLoaded("CClass:spi_api_config_t",[["C/C++","C"]],[["Structs","Struct"]],[[1800,0,0,"spi_api_config_t"]]);

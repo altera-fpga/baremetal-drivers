@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:i3c/socfpga_i3c_reg.h",{586:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">I3C register definition header for the SoCFPGA bare-metal software stack.</div></div>"});

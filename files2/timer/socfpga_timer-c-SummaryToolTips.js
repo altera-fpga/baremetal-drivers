@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:timer/socfpga_timer.c",{1011:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">Timer source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

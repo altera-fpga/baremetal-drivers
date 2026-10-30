@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("spe",["Constant"],[["speed",,[[,"I2C speed modes",,,0,"File2:i2c/socfpga_i2c_ll.h:I2C_speed_modes"]]]]);

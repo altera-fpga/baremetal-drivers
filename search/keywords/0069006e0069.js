@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("ini",["Constant","Function","Section"],[["init",,[[,"Memory init status",,,0,"File2:ddr/socfpga_ddr_mailbox.h:Memory_init_status"]]],["init_mem_cal",,[[,,,,1,"File2:ddr/socfpga_ddr_mailbox.h:init_mem_cal"]]],["Initialization",,[[,"Initialization and Teardown",,,2,"File2:sdm_mailbox/socfpga_mbox_client.h:Initialization_and_Teardown"]]]]);

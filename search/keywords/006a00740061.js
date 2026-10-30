@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("jta",["Constant"],[["JTAG_CONFIG",,[[,,,,0,"File2:ddr/socfpga_ddr.c:JTAG_CONFIG"]]]]);

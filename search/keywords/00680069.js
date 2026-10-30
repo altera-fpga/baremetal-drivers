@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("hi",["Constant"],[["HI",,[[,,,,0,"File2:ddr/ddr_platform_compat.h:HI"]]]]);

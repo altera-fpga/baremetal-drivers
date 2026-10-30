@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("pll",["Constant"],[["PLL",,[[,"PLL clock sources",,,0,"File2:clk_mngr/socfpga_clk_mngr_ll.h:PLL_clock_sources"],[,"Clock Manager peripheral PLL",,,0,"File2:uart/socfpga_uart_reg.h:Clock_Manager_peripheral_PLL"]]]]);

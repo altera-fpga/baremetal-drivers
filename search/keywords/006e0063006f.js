@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("nco",["Constant"],[["NCONFIG",,[[,,,,0,"File2:ddr/socfpga_ddr.c:NCONFIG"]]]]);

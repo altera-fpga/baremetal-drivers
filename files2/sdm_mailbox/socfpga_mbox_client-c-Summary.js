@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:sdm_mailbox/socfpga_mbox_client.c","socfpga_mbox_client.c");NDSummary.OnSummaryLoaded("File2:sdm_mailbox/socfpga_mbox_client.c",[["C/C++","C"]],[["Files","File"]],[[827,0,0,"socfpga_mbox_client.c","socfpga_mbox_client.c"]]);

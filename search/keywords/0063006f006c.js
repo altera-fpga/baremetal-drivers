@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("col",["Constant"],[["COLD_RESET",,[[,,,,0,"File2:ddr/socfpga_ddr.c:COLD_RESET"]]]]);

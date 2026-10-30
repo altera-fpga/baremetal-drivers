@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:seu_api_inj_params_t","seu_api_inj_params_t");NDSummary.OnSummaryLoaded("CClass:seu_api_inj_params_t",[["C/C++","C"]],[["Structs","Struct"]],[[1776,0,0,"seu_api_inj_params_t"]]);

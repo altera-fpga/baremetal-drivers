@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:clk_mngr/socfpga_clk_mngr_ll.c",{173:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">Clock Manager source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

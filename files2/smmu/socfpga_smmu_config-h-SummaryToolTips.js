@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:smmu/socfpga_smmu_config.h",{896:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">SMMU hardware abstraction driver interface for the SoCFPGA bare-metal software stack.</div></div>"});

@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("car",["Struct"],[["card_data_t",,[[,,,,0,"File2:sdmmc/socfpga_sdmmc_ll.h:card_data_t","CClass:card_data_t"]]]]);

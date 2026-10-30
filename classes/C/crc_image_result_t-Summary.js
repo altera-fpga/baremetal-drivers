@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:crc_image_result_t","crc_image_result_t");NDSummary.OnSummaryLoaded("CClass:crc_image_result_t",[["C/C++","C"]],[["Structs","Struct"]],[[1518,0,0,"crc_image_result_t"]]);

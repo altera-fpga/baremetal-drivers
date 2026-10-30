@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:iossm_ll_req_payload_t",{702:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">An intermediate software descriptor used to format the raw bitfields of an outgoing IOSSM command before it is committed to the hardware mailbox registers.</div></div>"});

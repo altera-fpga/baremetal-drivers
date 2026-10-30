@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("sof",["Constant"],[["SOFT_PHY_DIV",,[[,,,,0,"File2:clk_mngr/socfpga_clk_mngr_ll.h:SOFT_PHY_DIV"]]],["software",,[[,"SRR - software reset register",,"srr-software reset register",0,"File2:uart/socfpga_uart_reg.h:SRR-software_reset_register"]]]]);

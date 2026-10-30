@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:ccu/socfpga_ccu_ll.h","socfpga_ccu_ll.h");NDSummary.OnSummaryLoaded("File2:ccu/socfpga_ccu_ll.h",[["C/C++","C"]],[["Files","File"],["Functions","Function"]],[[43,0,0,"socfpga_ccu_ll.h","socfpga_ccu_ll.h"],[44,0,1,"socfpga_ccu_ll_read","socfpga_ccu_ll_read"],[45,0,1,"socfpga_ccu_ll_write","socfpga_ccu_ll_write"]]);

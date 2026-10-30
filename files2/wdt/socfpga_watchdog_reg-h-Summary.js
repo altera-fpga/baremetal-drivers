@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:wdt/socfpga_watchdog_reg.h","socfpga_watchdog_reg.h");NDSummary.OnSummaryLoaded("File2:wdt/socfpga_watchdog_reg.h",[["C/C++","C"]],[["Files","File"]],[[1013,0,0,"socfpga_watchdog_reg.h","socfpga_watchdog_reg.h"]]);

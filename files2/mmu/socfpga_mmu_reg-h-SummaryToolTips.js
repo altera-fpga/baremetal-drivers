@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:mmu/socfpga_mmu_reg.h",{664:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">MMU register definition header for the SoCFPGA bare-metal software stack.</div></div>"});

@@ -1,0 +1,1 @@
+﻿NDContentPage.OnToolTipsLoaded({594:"<div class=\"NDToolTip TConstant LC\"><div class=\"TTSummary\">Standard mode, 100 kbit/s. Chosen when the bus rate is at most 100000 Hz.</div></div>"});

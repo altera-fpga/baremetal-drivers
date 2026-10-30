@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("buf",["Constant"],[["Buffer",,[[,"Buffer and key sizes",,,0,"File2:fcs/socfpga_fcs.h:Buffer_and_key_sizes"],[,"Buffer and latch masks",,,0,"File2:uart/socfpga_uart_reg.h:Buffer_and_latch_masks"],[,"ECC error buffer",,,0,"File2:ddr/socfpga_ddr_mailbox.h:ECC_error_buffer"]]]]);

@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:wdt/socfpga_watchdog.c",{1014:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">Watchdog source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

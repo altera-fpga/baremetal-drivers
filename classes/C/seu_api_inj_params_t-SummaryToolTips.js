@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:seu_api_inj_params_t",{1776:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Parameters for a safe configuration-RAM error injection.</div></div>"});

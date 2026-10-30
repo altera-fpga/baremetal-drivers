@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:iossm_ll_desc_t","iossm_ll_desc_t");NDSummary.OnSummaryLoaded("CClass:iossm_ll_desc_t",[["C/C++","C"]],[["Structs","Struct"]],[[704,0,0,"iossm_ll_desc_t"]]);

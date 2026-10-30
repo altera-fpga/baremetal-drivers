@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File:combophy/combophy_api.h","combophy_api.h");NDSummary.OnSummaryLoaded("File:combophy/combophy_api.h",[["C/C++","C"]],[["Files","File"],["Functions","Function"]],[[1483,0,0,"combophy_api.h","combophy_api.h"],[1484,0,1,"combophy_api_get_version","combophy_api_get_version"],[1485,0,1,"combophy_api_get_features","combophy_api_get_features"]]);

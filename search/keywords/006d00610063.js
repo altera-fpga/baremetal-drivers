@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("mac",["Constant"],[["macros",,[[,"Logging macros",,,0,"File2:ddr/ddr_platform_compat.h:Logging_macros"]]]]);

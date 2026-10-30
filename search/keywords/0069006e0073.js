@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("ins",["Constant"],[["Instance",,[[,"Instance configuration",,,0,"File2:gpio/socfpga_gpio.h:Instance_configuration"]]]]);

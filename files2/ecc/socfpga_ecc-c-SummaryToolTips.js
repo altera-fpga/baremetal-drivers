@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:ecc/socfpga_ecc.c",{501:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">ECC source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

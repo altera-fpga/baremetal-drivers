@@ -1,0 +1,1 @@
+﻿NDContentPage.OnToolTipsLoaded({94:"<div class=\"NDToolTip TEnumeration LC\"><div class=\"TTSummary\">Enumerates the supported peripheral hardware blocks managed by the Clock Manager.</div></div>"});

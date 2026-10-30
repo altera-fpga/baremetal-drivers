@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:seu_api_err_data_t","seu_api_err_data_t");NDSummary.OnSummaryLoaded("CClass:seu_api_err_data_t",[["C/C++","C"]],[["Structs","Struct"]],[[1778,0,0,"seu_api_err_data_t"]]);

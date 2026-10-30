@@ -1,0 +1,1 @@
+﻿NDContentPage.OnToolTipsLoaded({2:"<div class=\"NDToolTip TFile LTextFile\"><div class=\"TTSummary\">Choose a module below, then follow its symbol links into the public header reference. Each module has a README under api/ in the repository with prerequisites, call order, examples, return values and troubleshooting.</div></div>"});

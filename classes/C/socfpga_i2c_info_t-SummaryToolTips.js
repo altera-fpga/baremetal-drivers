@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:socfpga_i2c_info_t",{639:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Reports what the driver established about a controller during initialization.</div></div>"});

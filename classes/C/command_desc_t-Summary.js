@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:command_desc_t","command_desc_t");NDSummary.OnSummaryLoaded("CClass:command_desc_t",[["C/C++","C"]],[["Structs","Struct"]],[[909,0,0,"command_desc_t"]]);

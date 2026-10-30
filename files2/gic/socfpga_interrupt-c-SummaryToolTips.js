@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:gic/socfpga_interrupt.c",{503:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">GIC source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

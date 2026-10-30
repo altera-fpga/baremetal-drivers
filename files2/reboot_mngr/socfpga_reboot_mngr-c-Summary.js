@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:reboot_mngr/socfpga_reboot_mngr.c","socfpga_reboot_mngr.c");NDSummary.OnSummaryLoaded("File2:reboot_mngr/socfpga_reboot_mngr.c",[["C/C++","C"]],[["Files","File"]],[[801,0,0,"socfpga_reboot_mngr.c","socfpga_reboot_mngr.c"]]);

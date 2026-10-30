@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("han",["Struct"],[["handoff",,[[,,,,0,"File2:ddr/ddr_platform_compat.h:handoff","CClass:handoff"]]]]);

@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:spi/socfpga_spi.c",{917:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">SPI source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

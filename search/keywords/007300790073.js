@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("sys",["Section","Constant"],[["System",,[[,"System and Clock Registers",,,0,"File2:uart/socfpga_uart_reg.h:System_and_Clock_Registers"],[,"System manager registers",,,1,"File2:ddr/ddr_platform_compat.h:System_manager_registers"]]]]);

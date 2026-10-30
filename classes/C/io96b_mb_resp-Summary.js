@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:io96b_mb_resp","io96b_mb_resp");NDSummary.OnSummaryLoaded("CClass:io96b_mb_resp",[["C/C++","C"]],[["Structs","Struct"]],[[375,0,0,"io96b_mb_resp"]]);

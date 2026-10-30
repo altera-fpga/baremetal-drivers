@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("ext",["Constant","Section"],[["Extension",,[[,"Extension configuration masks",,,0,"File2:uart/socfpga_uart_reg.h:Extension_configuration_masks"]]],["Extensions",,[[,"DesignWare Extensions and Shadow Registers",,,1,"File2:uart/socfpga_uart_reg.h:DesignWare_Extensions_and_Shadow_Registers"]]]]);

@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("mmi",["Function"],[["mmio_clrbits_32",,[[,,,,0,"File2:ddr/ddr_platform_compat.h:mmio_clrbits_32"]]],["mmio_read_32",,[[,,,,0,"File2:ddr/ddr_platform_compat.h:mmio_read_32"]]],["mmio_setbits_32",,[[,,,,0,"File2:ddr/ddr_platform_compat.h:mmio_setbits_32"]]],["mmio_write_32",,[[,,,,0,"File2:ddr/ddr_platform_compat.h:mmio_write_32"]]]]);

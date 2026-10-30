@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:spi_cfg_t","spi_cfg_t");NDSummary.OnSummaryLoaded("CClass:spi_cfg_t",[["C/C++","C"]],[["Groups","Group"],["Structs","Struct"],["Types","Type"]],[[977,0,1,"spi_cfg_t"],[978,0,0,"Types","Types"],[979,0,2,"spi_handle_t","spi_handle_t"],[980,0,2,"spi_callback_t","spi_callback_t"]]);

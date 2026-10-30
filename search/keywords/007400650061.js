@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("tea",["Section"],[["Teardown",,[[,"Initialization and Teardown",,,0,"File2:sdm_mailbox/socfpga_mbox_client.h:Initialization_and_Teardown"]]]]);

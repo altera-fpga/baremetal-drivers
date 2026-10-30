@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("inf",["Constant"],[["info",,[[,"INFO",,,0,"File2:ddr/ddr_platform_compat.h:INFO"],[,"Memory interface info",,,0,"File2:ddr/socfpga_ddr_mailbox.h:Memory_interface_info"]]]]);

@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:combophy/socfpga_combophy_ll.c","socfpga_combophy_ll.c");NDSummary.OnSummaryLoaded("File2:combophy/socfpga_combophy_ll.c",[["C/C++","C"]],[["Files","File"]],[[100,0,0,"socfpga_combophy_ll.c","socfpga_combophy_ll.c"]]);

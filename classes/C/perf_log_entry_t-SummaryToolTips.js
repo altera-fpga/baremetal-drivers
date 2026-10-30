@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:perf_log_entry_t",{1729:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">One record in the in-memory performance log. Throughput fields are populated for PERF_LOG_TYPE_THROUGHPUT; latency fields are populated for PERF_LOG_TYPE_LATENCY.</div></div>"});

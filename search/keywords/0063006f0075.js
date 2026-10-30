@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("cou",["Constant"],[["count",,[[,"DRAM bank count",,,0,"File2:ddr/socfpga_ddr.h:DRAM_bank_count"]]],["counts",,[[,"Interface counts and size",,,0,"File2:ddr/socfpga_ddr_mailbox.h:Interface_counts_and_size"]]]]);

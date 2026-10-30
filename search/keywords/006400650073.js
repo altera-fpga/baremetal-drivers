@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("des",["Section","Constant"],[["DesignWare",,[[,"DesignWare Extensions and Shadow Registers",,,0,"File2:uart/socfpga_uart_reg.h:DesignWare_Extensions_and_Shadow_Registers"],[,"DesignWare transfer modes",,,1,"File2:spi/socfpga_spi_ll.h:DesignWare_transfer_modes"]]]]);

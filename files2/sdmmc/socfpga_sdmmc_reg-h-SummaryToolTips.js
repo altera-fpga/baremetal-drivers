@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:sdmmc/socfpga_sdmmc_reg.h",{848:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">SDMMC register definition header for the SoCFPGA bare-metal software stack.</div></div>"});

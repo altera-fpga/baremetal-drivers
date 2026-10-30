@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:gpio_descriptor","gpio_descriptor");NDSummary.OnSummaryLoaded("CClass:gpio_descriptor",[["C/C++","C"]],[["Groups","Group"],["Structs","Struct"],["Types","Type"]],[[574,0,1,"gpio_descriptor"],[575,0,0,"Types","Types"],[576,0,2,"gpio_handle_t","gpio_handle_t"]]);

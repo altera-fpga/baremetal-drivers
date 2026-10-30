@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File2:reboot_mngr/socfpga_reboot_mngr.c",{801:"<div class=\"NDToolTip TFile LC\"><div class=\"TTSummary\">Reboot Manager source implementation for the SoCFPGA bare-metal software stack.</div></div>"});

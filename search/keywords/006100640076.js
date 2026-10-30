@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("adv",["Constant"],[["Advanced",,[[,"Advanced FIFO and status control",,,0,"File2:uart/socfpga_uart_reg.h:Advanced_FIFO_and_status_control"],[,"Advanced shadow configuration masks",,,0,"File2:uart/socfpga_uart_reg.h:Advanced_shadow_configuration_masks"]]]]);

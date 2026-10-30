@@ -1,0 +1,1 @@
+﻿NDContentPage.OnToolTipsLoaded({1714:"<div class=\"NDToolTip TEnumeration LC\"><div class=\"TTSummary\">Peripherals this API can reset.</div></div>"});

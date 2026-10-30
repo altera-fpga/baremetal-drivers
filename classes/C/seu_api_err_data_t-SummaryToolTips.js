@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:seu_api_err_data_t",{1778:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">One SEU error-queue entry returned by seu_api_read_err(). The fields are meaningful when that call succeeds and err_cnt is greater than zero.</div></div>"});

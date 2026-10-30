@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File2:spi/socfpga_spi.c","socfpga_spi.c");NDSummary.OnSummaryLoaded("File2:spi/socfpga_spi.c",[["C/C++","C"]],[["Files","File"]],[[917,0,0,"socfpga_spi.c","socfpga_spi.c"]]);

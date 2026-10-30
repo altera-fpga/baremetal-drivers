@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("CClass:handoff","handoff");NDSummary.OnSummaryLoaded("CClass:handoff",[["C/C++","C"]],[["Structs","Struct"]],[[170,0,0,"handoff"]]);

@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:command_desc_t",{909:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Represents an ARM SMMUv3 Command Queue entry.</div></div>"});

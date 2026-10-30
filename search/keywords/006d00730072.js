@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("msr",["Constant"],[["MSR",,[[,"MSR - modem status register",,"msr-modem status register",0,"File2:uart/socfpga_uart_reg.h:MSR-modem_status_register"]]]]);

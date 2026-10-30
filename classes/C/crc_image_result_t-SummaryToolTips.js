@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("CClass:crc_image_result_t",{1518:"<div class=\"NDToolTip TStruct LC\"><div class=\"TTSummary\">Validation result filled by crc_api_validate(). The structure is cleared on entry, and fields written before a failed check remain available to the caller.</div></div>"});
